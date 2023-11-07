@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://dwcrlgrxpc5qs"]
+
+[ext_resource type="Texture2D" uid="uid://7jxpgws33mca" path="res://bigbox.png" id="1_hv1jt"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6ibon"]
+size = Vector2(32, 32)
+
+[node name="BigBox" type="RigidBody2D" groups=["shrinkable"]]
+collision_layer = 5
+mass = 100.0
+continuous_cd = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_hv1jt")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_6ibon")

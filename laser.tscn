@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://i3iplus3me85"]
+
+[ext_resource type="Script" path="res://laser.gd" id="1_p5p1b"]
+
+[sub_resource type="Curve" id="Curve_vg41a"]
+_data = [Vector2(0, 0.451957), 0.0, 0.0, 0, 0, Vector2(1, 0.772242), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_pcot3"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 0.844, 0.22, 1)
+
+[node name="Laser" type="Line2D"]
+points = PackedVector2Array(0, 0, 10, 0)
+width = 4.0
+width_curve = SubResource("Curve_vg41a")
+gradient = SubResource("Gradient_pcot3")
+script = ExtResource("1_p5p1b")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(1, 0)
+collision_mask = 5

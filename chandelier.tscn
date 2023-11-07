@@ -1,0 +1,29 @@
+[gd_scene load_steps=6 format=3 uid="uid://cdnnquef6uae7"]
+
+[ext_resource type="Texture2D" uid="uid://dvdwpdhl32sat" path="res://chandelier.png" id="1_o2m57"]
+[ext_resource type="Script" path="res://scalable-object.gd" id="1_odl6o"]
+[ext_resource type="Shader" path="res://outline.gdshader" id="2_4ex2g"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5xbrx"]
+shader = ExtResource("2_4ex2g")
+shader_parameter/is_active = false
+shader_parameter/outline_color = Color(1, 1, 1, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cxj0w"]
+size = Vector2(28, 11)
+
+[node name="Chandelier" type="Node2D"]
+script = ExtResource("1_odl6o")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_5xbrx")
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_o2m57")
+
+[node name="MouseArea2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MouseArea2D"]
+shape = SubResource("RectangleShape2D_cxj0w")
+
+[node name="RestTimer" type="Timer" parent="."]
+one_shot = true
