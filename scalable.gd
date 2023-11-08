@@ -14,11 +14,9 @@ func _ready():
 
 func on_mouse_enter():
 	sprite.visible = true
-	print("entered")
 
 func on_mouse_exit():
 	sprite.visible = false
-	print("exited")
 
 func set_size():
 	if parent.size == ScalableObject.Size.Small:
