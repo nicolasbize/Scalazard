@@ -1,0 +1,92 @@
+[gd_scene load_steps=7 format=3 uid="uid://dwcrlgrxpc5qs"]
+
+[ext_resource type="Script" path="res://Entities/ResizableBox/big_box.gd" id="1_dh5yu"]
+[ext_resource type="Texture2D" uid="uid://7jxpgws33mca" path="res://Entities/ResizableBox/bigbox.png" id="1_nrwon"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6ibon"]
+size = Vector2(32, 32)
+
+[sub_resource type="Animation" id="Animation_a7a8y"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CollisionShape2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05)]
+}
+
+[sub_resource type="Animation" id="Animation_urcwu"]
+resource_name = "start"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CollisionShape2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05), Vector2(1, 1)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.3),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"on_finish_growth"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_moels"]
+_data = {
+"RESET": SubResource("Animation_a7a8y"),
+"start": SubResource("Animation_urcwu")
+}
+
+[node name="BigBox" type="RigidBody2D" groups=["shrinkable"]]
+position = Vector2(0, -16)
+collision_layer = 4
+collision_mask = 7
+mass = 100.0
+continuous_cd = 2
+lock_rotation = true
+script = ExtResource("1_dh5yu")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_nrwon")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(1e-05, 1e-05)
+shape = SubResource("RectangleShape2D_6ibon")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "start"
+libraries = {
+"": SubResource("AnimationLibrary_moels")
+}
+
+[node name="RaycastUp" type="RayCast2D" parent="."]
+target_position = Vector2(0, -16)
+
+[node name="RaycastDown" type="RayCast2D" parent="."]
+target_position = Vector2(0, 16)
+
+[node name="RaycastLeft" type="RayCast2D" parent="."]
+target_position = Vector2(-16, 0)
+
+[node name="RaycastRight" type="RayCast2D" parent="."]
+target_position = Vector2(16, 0)

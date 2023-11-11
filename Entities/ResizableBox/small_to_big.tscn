@@ -1,0 +1,88 @@
+[gd_scene load_steps=6 format=3 uid="uid://dbstxn7trxobd"]
+
+[ext_resource type="Texture2D" uid="uid://ccoc6d5cms2ee" path="res://Entities/ResizableBox/bigtosmall.png" id="1_ba56t"]
+[ext_resource type="Script" path="res://Entities/ResizableBox/small_to_big.gd" id="2_w3lv6"]
+
+[sub_resource type="Animation" id="Animation_6kw5l"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [7]
+}
+
+[sub_resource type="Animation" id="Animation_fs0xy"]
+resource_name = "start"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [7, 6, 5, 4, 3, 2, 1, 0]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.8),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"on_complete"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0necl"]
+_data = {
+"RESET": SubResource("Animation_6kw5l"),
+"start": SubResource("Animation_fs0xy")
+}
+
+[node name="SmallToBig" type="Sprite2D"]
+texture = ExtResource("1_ba56t")
+offset = Vector2(0, -24)
+hframes = 8
+frame = 7
+script = ExtResource("2_w3lv6")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "start"
+libraries = {
+"": SubResource("AnimationLibrary_0necl")
+}
+
+[node name="RaycastUp" type="RayCast2D" parent="."]
+position = Vector2(0, -4)
+target_position = Vector2(0, -16)
+collision_mask = 5
+
+[node name="RaycastDown" type="RayCast2D" parent="."]
+position = Vector2(0, -4)
+target_position = Vector2(0, 16)
+collision_mask = 5
+
+[node name="RaycastLeft" type="RayCast2D" parent="."]
+position = Vector2(0, -4)
+target_position = Vector2(-16, 0)
+collision_mask = 5
+
+[node name="RaycastRight" type="RayCast2D" parent="."]
+position = Vector2(0, -4)
+target_position = Vector2(16, 0)
+collision_mask = 5

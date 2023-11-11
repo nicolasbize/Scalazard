@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://bghj8ckgg3qp8"]
+
+[ext_resource type="Texture2D" uid="uid://bbakhh4m242w6" path="res://UI/heart-full.png" id="1_07jc7"]
+[ext_resource type="Script" path="res://UI/ui.gd" id="1_hpx26"]
+[ext_resource type="PackedScene" uid="uid://bts8movh5pt4p" path="res://UI/full_heart.tscn" id="2_dn7ha"]
+[ext_resource type="PackedScene" uid="uid://c6t06mort2fxl" path="res://UI/empty_heart.tscn" id="3_jlcge"]
+
+[node name="UI" type="CanvasLayer"]
+script = ExtResource("1_hpx26")
+
+[node name="Container" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Container"]
+layout_mode = 2
+
+[node name="LifeContainer" type="HBoxContainer" parent="Container/VBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" parent="Container/VBoxContainer/LifeContainer" instance=ExtResource("2_dn7ha")]
+layout_mode = 2
+
+[node name="TextureRect2" parent="Container/VBoxContainer/LifeContainer" instance=ExtResource("3_jlcge")]
+layout_mode = 2
+
+[node name="TextureRect3" type="TextureRect" parent="Container/VBoxContainer/LifeContainer"]
+layout_mode = 2
+texture = ExtResource("1_07jc7")
+
+[node name="Container" type="Control" parent="Container/VBoxContainer"]
+layout_mode = 2
