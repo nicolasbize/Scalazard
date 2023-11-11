@@ -62,6 +62,7 @@ var knockback_start := Time.get_ticks_msec()
 func _ready():
 	pickup_area.connect("area_entered", on_player_enter_pickable.bind())
 	pickup_area.connect("area_exited", on_player_exit_pickable.bind())
+	damage_receiver_area.connect("hit", on_player_hit.bind())
 
 func _physics_process(delta):
 	if box_detector.is_colliding():
@@ -235,10 +236,8 @@ func jump_check():
 		if Input.is_action_just_released("jump") and velocity.y < -jump_force / 2:
 			velocity.y = -jump_force / 2
 
-func get_hurt(dmg, direction_knockback):
+func on_player_hit(dmg:int, direction_knockback: float):
 	GameState.deal_hero_damage(dmg)
-	knockback = Vector2(direction_knockback * knockback_intensity, 0)
-	knockback_start = Time.get_ticks_msec()	
 	if GameState.current_life > 0:
 		state = State.Hurting
 	else:
@@ -246,6 +245,11 @@ func get_hurt(dmg, direction_knockback):
 		velocity.x = 0
 		damage_receiver_area.set_deferred("monitorable", false)
 		damage_dealer_area.set_deferred("monitoring", false)
+	create_wound_fx(direction_knockback)
+
+func create_wound_fx(direction_knockback: float):
+	knockback = Vector2(direction_knockback * knockback_intensity, 0)
+	knockback_start = Time.get_ticks_msec()
 	var hero_spark = HeroSpark.instantiate()
 	add_child(hero_spark)
 	hero_spark.position = Vector2.UP * 16

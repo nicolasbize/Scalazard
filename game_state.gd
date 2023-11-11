@@ -14,8 +14,6 @@ func deal_hero_damage(dmg:int) -> void:
 		current_life = 0
 	emit_signal("life_change", current_life, max_life)
 
-func add_max_life() -> void:
-	max_life += 1
+func new_life() -> void:
 	current_life = max_life
 	emit_signal("life_change", current_life, max_life)
-

@@ -31,7 +31,6 @@ var ticks_since_last_hit := Time.get_ticks_msec()
 var knockback := Vector2.ZERO
 var knockback_start := Time.get_ticks_msec()
 
-
 enum State {Idle, Walking, Attacking, Hurt, Dying, Dead}
 
 const anim_states = {
@@ -48,6 +47,7 @@ var player = null
 func _ready():
 	player_detection_area.connect("body_entered", on_player_enter.bind())
 	player_detection_area.connect("body_exited", on_player_exit.bind())
+	damage_receiver_area.connect("hit", on_enemy_hit.bind())
 	timer.connect("timeout", on_timer_timeout.bind())
 	timer.start(3)
 
@@ -65,7 +65,7 @@ func on_timer_timeout():
 func is_player_within_reach() -> bool:
 	return player_in_reach_area.has_overlapping_bodies()
 
-func get_hurt(dmg:int, direction_knockback:float) -> void:
+func on_enemy_hit(dmg:int, direction_knockback:float) -> void:
 	current_life -= dmg
 	knockback = Vector2(direction_knockback * knockback_intensity, 0)
 	knockback_start = Time.get_ticks_msec()	

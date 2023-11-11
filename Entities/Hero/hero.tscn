@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://b5mhaodm6g8i5" path="res://Entities/HitBox/damage_dealer_area.tscn" id="5_etfw3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b5gn1"]
-size = Vector2(10, 20)
+size = Vector2(10, 25)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_bdqlh"]
 radius = 12.0
@@ -483,7 +483,7 @@ hframes = 10
 vframes = 15
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -10)
+position = Vector2(0, -12.5)
 shape = SubResource("RectangleShape2D_b5gn1")
 
 [node name="BoxDetector" type="RayCast2D" parent="."]
@@ -526,6 +526,7 @@ shape = SubResource("RectangleShape2D_fb7eb")
 
 [node name="DamageDealerArea" parent="." instance=ExtResource("5_etfw3")]
 monitoring = false
+monitorable = false
 damage = 1
 
 [node name="CollisionShape2D" parent="DamageDealerArea" index="0"]

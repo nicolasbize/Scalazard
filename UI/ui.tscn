@@ -1,14 +1,171 @@
-[gd_scene load_steps=5 format=3 uid="uid://bghj8ckgg3qp8"]
+[gd_scene load_steps=16 format=3 uid="uid://bghj8ckgg3qp8"]
 
 [ext_resource type="Texture2D" uid="uid://bbakhh4m242w6" path="res://UI/heart-full.png" id="1_07jc7"]
 [ext_resource type="Script" path="res://UI/ui.gd" id="1_hpx26"]
 [ext_resource type="PackedScene" uid="uid://bts8movh5pt4p" path="res://UI/full_heart.tscn" id="2_dn7ha"]
 [ext_resource type="PackedScene" uid="uid://c6t06mort2fxl" path="res://UI/empty_heart.tscn" id="3_jlcge"]
+[ext_resource type="Texture2D" uid="uid://8gwd2d3y715d" path="res://UI/black-strip.png" id="5_wun5f"]
+[ext_resource type="FontFile" uid="uid://bumvrs8w2btcl" path="res://Assets/runescape_uf.ttf" id="6_54w6s"]
+[ext_resource type="FontFile" uid="uid://dwjsu8m55nl55" path="res://Assets/04B_03__.TTF" id="7_3s712"]
+[ext_resource type="Texture2D" uid="uid://crroq1ob1exgx" path="res://UI/screen-transition.png" id="8_dukjs"]
+
+[sub_resource type="Animation" id="Animation_c3c4w"]
+resource_name = "death"
+length = 0.7
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RedBackground:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.458824, 0, 0, 0), Color(0.458824, 0, 0, 0.603922)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BlackStrip:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(-616, 120), Vector2(-616, 120), Vector2(-104, 120)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("RespawnLabel:theme_override_colors/font_color")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(0.831373, 0.831373, 0.831373, 0), Color(0.831373, 0.831373, 0.831373, 0), Color(0.831373, 0.831373, 0.831373, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_l5sne"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RedBackground:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.458824, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BlackStrip:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-616, 120)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("RespawnLabel:theme_override_colors/font_color")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.831373, 0.831373, 0.831373, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tftep"]
+_data = {
+"RESET": SubResource("Animation_l5sne"),
+"death": SubResource("Animation_c3c4w")
+}
+
+[sub_resource type="Animation" id="Animation_vws1y"]
+resource_name = "in"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextureRect:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-928, 0), Vector2(-256, 0)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.3),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"on_black_screen"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_m1eq2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextureRect:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-928, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_gvt8v"]
+resource_name = "out"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextureRect:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-256, 0), Vector2(416, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_f4upg"]
+_data = {
+"RESET": SubResource("Animation_m1eq2"),
+"in": SubResource("Animation_vws1y"),
+"out": SubResource("Animation_gvt8v")
+}
 
 [node name="UI" type="CanvasLayer"]
 script = ExtResource("1_hpx26")
 
-[node name="Container" type="MarginContainer" parent="."]
+[node name="GameUI" type="MarginContainer" parent="."]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -17,21 +174,89 @@ grow_vertical = 2
 theme_override_constants/margin_left = 8
 theme_override_constants/margin_top = 8
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Container"]
+[node name="VBoxContainer" type="VBoxContainer" parent="GameUI"]
 layout_mode = 2
 
-[node name="LifeContainer" type="HBoxContainer" parent="Container/VBoxContainer"]
+[node name="LifeContainer" type="HBoxContainer" parent="GameUI/VBoxContainer"]
 layout_mode = 2
 
-[node name="TextureRect" parent="Container/VBoxContainer/LifeContainer" instance=ExtResource("2_dn7ha")]
+[node name="TextureRect" parent="GameUI/VBoxContainer/LifeContainer" instance=ExtResource("2_dn7ha")]
 layout_mode = 2
 
-[node name="TextureRect2" parent="Container/VBoxContainer/LifeContainer" instance=ExtResource("3_jlcge")]
+[node name="TextureRect2" parent="GameUI/VBoxContainer/LifeContainer" instance=ExtResource("3_jlcge")]
 layout_mode = 2
 
-[node name="TextureRect3" type="TextureRect" parent="Container/VBoxContainer/LifeContainer"]
+[node name="TextureRect3" type="TextureRect" parent="GameUI/VBoxContainer/LifeContainer"]
 layout_mode = 2
 texture = ExtResource("1_07jc7")
 
-[node name="Container" type="Control" parent="Container/VBoxContainer"]
+[node name="Container" type="Control" parent="GameUI/VBoxContainer"]
 layout_mode = 2
+
+[node name="DeathScreen" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RedBackground" type="ColorRect" parent="DeathScreen"]
+layout_mode = 2
+offset_right = 416.0
+offset_bottom = 256.0
+color = Color(0.458824, 0, 0, 0)
+
+[node name="BlackStrip" type="TextureRect" parent="DeathScreen"]
+layout_mode = 0
+offset_left = -616.0
+offset_top = 120.0
+offset_bottom = 176.0
+texture = ExtResource("5_wun5f")
+
+[node name="DiedLabel" type="Label" parent="DeathScreen/BlackStrip"]
+layout_mode = 0
+offset_left = 96.0
+offset_top = 10.0
+offset_right = 512.0
+offset_bottom = 53.0
+theme_override_fonts/font = ExtResource("6_54w6s")
+theme_override_font_sizes/font_size = 32
+text = "YOU DIED"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RespawnLabel" type="Label" parent="DeathScreen"]
+layout_mode = 0
+offset_top = 184.0
+offset_right = 416.0
+offset_bottom = 207.0
+theme_override_colors/font_color = Color(0.831373, 0.831373, 0.831373, 0)
+theme_override_fonts/font = ExtResource("7_3s712")
+text = "(R) to respawn"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="DeathScreen"]
+libraries = {
+"": SubResource("AnimationLibrary_tftep")
+}
+
+[node name="TransitionScreen" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="TransitionScreen"]
+libraries = {
+"": SubResource("AnimationLibrary_f4upg")
+}
+
+[node name="TextureRect" type="TextureRect" parent="TransitionScreen"]
+layout_mode = 0
+offset_left = -928.0
+offset_bottom = 256.0
+texture = ExtResource("8_dukjs")

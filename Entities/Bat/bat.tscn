@@ -1,0 +1,243 @@
+[gd_scene load_steps=19 format=3 uid="uid://bfem6jove134i"]
+
+[ext_resource type="Texture2D" uid="uid://bnagmtmicdmag" path="res://Entities/Bat/bat.png" id="1_fls3j"]
+[ext_resource type="Script" path="res://Entities/Bat/bat.gd" id="1_xwb35"]
+[ext_resource type="PackedScene" uid="uid://b5mhaodm6g8i5" path="res://Entities/HitBox/damage_dealer_area.tscn" id="3_3vqtu"]
+[ext_resource type="PackedScene" uid="uid://2nfy1ysxtck8" path="res://Entities/HitBox/damage_receiver_area.tscn" id="4_bv6fu"]
+
+[sub_resource type="Animation" id="Animation_68atf"]
+resource_name = "idle"
+length = 0.1
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Animal/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_pd3tp"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Animal/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [10]
+}
+
+[sub_resource type="Animation" id="Animation_rqb76"]
+resource_name = "start_fly"
+length = 0.2
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"on_end_start_fly"
+}]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Animal/Sprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [1, 2]
+}
+
+[sub_resource type="Animation" id="Animation_wdv76"]
+resource_name = "fly"
+length = 0.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Animal/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [3, 4]
+}
+
+[sub_resource type="Animation" id="Animation_dxlyx"]
+resource_name = "die"
+length = 0.5
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Animal/Sprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [10, 11, 12, 13, 14]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vhir8"]
+_data = {
+"RESET": SubResource("Animation_pd3tp"),
+"die": SubResource("Animation_dxlyx"),
+"fly": SubResource("Animation_wdv76"),
+"idle": SubResource("Animation_68atf"),
+"start_fly": SubResource("Animation_rqb76")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lk3cu"]
+size = Vector2(8, 6)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wv1ig"]
+size = Vector2(16, 15)
+
+[sub_resource type="Curve2D" id="Curve2D_flx6e"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 1, 0, 79.37, -0.529134, -79.37, 0.529134, -89, 68, 0, 0, 0, 0, -172, 0)
+}
+point_count = 3
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ow5hs"]
+size = Vector2(92, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7u8cd"]
+size = Vector2(179, 83)
+
+[sub_resource type="Curve2D" id="Curve2D_ixcry"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 1, 0, -72.832, -0.235702, 72.832, 0.235702, 85, 65, 0, 0, 0, 0, 167, 0)
+}
+point_count = 3
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0mj83"]
+size = Vector2(101, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n3xy6"]
+size = Vector2(172, 83)
+
+[node name="Bat" type="Node2D"]
+script = ExtResource("1_xwb35")
+
+[node name="Animal" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Animal"]
+texture = ExtResource("1_fls3j")
+offset = Vector2(0, 16)
+hframes = 5
+vframes = 3
+frame = 10
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Animal"]
+root_node = NodePath("../..")
+autoplay = "idle"
+libraries = {
+"": SubResource("AnimationLibrary_vhir8")
+}
+
+[node name="DamageDealerArea" parent="Animal" instance=ExtResource("3_3vqtu")]
+damage = 1
+
+[node name="CollisionShape2D" parent="Animal/DamageDealerArea" index="0"]
+position = Vector2(0, 17)
+shape = SubResource("RectangleShape2D_lk3cu")
+
+[node name="DamageReceiverArea" parent="Animal" instance=ExtResource("4_bv6fu")]
+
+[node name="CollisionShape2D" parent="Animal/DamageReceiverArea" index="0"]
+position = Vector2(0, 16)
+shape = SubResource("RectangleShape2D_wv1ig")
+
+[node name="PathLeft" type="Node2D" parent="."]
+
+[node name="Path2D" type="Path2D" parent="PathLeft"]
+curve = SubResource("Curve2D_flx6e")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="PathLeft/Path2D"]
+position = Vector2(1, 0)
+rotation = 2.49455
+
+[node name="Node2D" type="Node2D" parent="PathLeft/Path2D/PathFollow2D"]
+position = Vector2(0.715281, 0.698837)
+rotation = -2.36782
+
+[node name="PlayerDetectionArea" type="Area2D" parent="PathLeft"]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PathLeft/PlayerDetectionArea"]
+position = Vector2(-89, 84)
+shape = SubResource("RectangleShape2D_ow5hs")
+
+[node name="WallDetectionArea" type="Area2D" parent="PathLeft"]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PathLeft/WallDetectionArea"]
+position = Vector2(-85.5, 43.5)
+shape = SubResource("RectangleShape2D_7u8cd")
+
+[node name="PathRight" type="Node2D" parent="."]
+
+[node name="Path2D" type="Path2D" parent="PathRight"]
+curve = SubResource("Curve2D_ixcry")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="PathRight/Path2D"]
+position = Vector2(1, 0)
+rotation = 0.658566
+
+[node name="Node2D" type="Node2D" parent="PathRight/Path2D/PathFollow2D"]
+
+[node name="PlayerDetectionArea" type="Area2D" parent="PathRight"]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PathRight/PlayerDetectionArea"]
+position = Vector2(82.5, 82)
+shape = SubResource("RectangleShape2D_0mj83")
+
+[node name="WallDetectionArea" type="Area2D" parent="PathRight"]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PathRight/WallDetectionArea"]
+position = Vector2(84, 43.5)
+shape = SubResource("RectangleShape2D_n3xy6")
+
+[editable path="Animal/DamageDealerArea"]
+[editable path="Animal/DamageReceiverArea"]

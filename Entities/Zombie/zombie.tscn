@@ -275,6 +275,7 @@ shape = SubResource("RectangleShape2D_kw1be")
 
 [node name="DamageDealerArea" parent="." instance=ExtResource("3_ohxbt")]
 monitoring = false
+monitorable = false
 damage = 1
 
 [node name="CollisionShape2D" parent="DamageDealerArea" index="0"]
