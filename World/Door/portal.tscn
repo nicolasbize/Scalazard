@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://hkwu5mgomxyh"]
+
+[ext_resource type="Texture2D" uid="uid://dq7vkpl8xxrfn" path="res://World/Door/doorway.png" id="1_fh8v3"]
+[ext_resource type="Script" path="res://World/Door/portal.gd" id="1_u12a3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vnsxx"]
+size = Vector2(10, 20)
+
+[node name="Portal" type="Area2D" groups=["portal"]]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_u12a3")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_fh8v3")
+offset = Vector2(0, -16)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -13)
+shape = SubResource("RectangleShape2D_vnsxx")

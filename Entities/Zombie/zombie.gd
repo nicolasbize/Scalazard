@@ -12,6 +12,7 @@ extends Node2D
 @onready var damage_dealer_area := $DamageDealerArea
 @onready var damage_receiver_area := $DamageReceiverArea
 @onready var body_collider := $StaticBody2D/CollisionShape2D
+@onready var sfx_hit := $SFXHit
 
 @export var speed_walk := 40.0
 @export var speed_run := 60.0
@@ -75,6 +76,7 @@ func on_enemy_hit(dmg:int, direction_knockback:float) -> void:
 	hit_spark.global_position = global_position + Vector2.UP * 32 + Vector2.RIGHT * direction_knockback * 16
 	hit_spark.scale.x = direction_knockback
 	GameState.emit_signal("hit_received")
+	sfx_hit.play_sound()
 	play_animation()
 
 func turn_around():
@@ -88,6 +90,7 @@ func turn_around():
 			timer.start(2)
 
 func _physics_process(delta):
+	damage_dealer_area.monitoring = current_life > 0
 	if can_act():
 		if is_player_a_target():
 			if is_player_within_reach():

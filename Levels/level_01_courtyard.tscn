@@ -1,0 +1,134 @@
+[gd_scene load_steps=14 format=3 uid="uid://3dhu2nnn1p5h"]
+
+[ext_resource type="TileSet" uid="uid://ckdj8m24olhk1" path="res://Assets/tilemap.tres" id="1_hlawe"]
+[ext_resource type="PackedScene" uid="uid://b5heeqig4y3my" path="res://Entities/Hero/hero.tscn" id="2_v5ua7"]
+[ext_resource type="PackedScene" uid="uid://dwcrlgrxpc5qs" path="res://Entities/ResizableBox/big_box.tscn" id="3_xin6b"]
+[ext_resource type="Texture2D" uid="uid://bexkd6f1sdjjj" path="res://FX/Rain/rain-drop.png" id="4_2a6eb"]
+[ext_resource type="PackedScene" uid="uid://ducb4gqo6upt" path="res://FX/Rain/rain_generator.tscn" id="5_u1uvj"]
+[ext_resource type="PackedScene" uid="uid://crfcy1ol7wgog" path="res://World/Sign/sign.tscn" id="6_kgitc"]
+[ext_resource type="PackedScene" uid="uid://dphoko7nd83e6" path="res://World/ThornWall/thorn_wall.tscn" id="7_uo0t5"]
+[ext_resource type="PackedScene" uid="uid://hkwu5mgomxyh" path="res://World/Door/portal.tscn" id="8_eyuda"]
+
+[sub_resource type="Gradient" id="Gradient_jhf00"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.160784)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_dpde4"]
+gradient = SubResource("Gradient_jhf00")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_biknf"]
+emission_shape = 3
+emission_box_extents = Vector3(420, 1, 1)
+particle_flag_disable_z = true
+direction = Vector3(1, 1, 0)
+flatness = 0.18
+gravity = Vector3(-98, 98, 0)
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+color = Color(0.517647, 0.627451, 0.627451, 1)
+color_ramp = SubResource("GradientTexture1D_dpde4")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fpy8c"]
+size = Vector2(512, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gm683"]
+size = Vector2(58, 122)
+
+[node name="Level-01-Courtyard" type="Node2D"]
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource("1_hlawe")
+format = 2
+layer_0/tile_data = PackedInt32Array(4, 131072, 1, 5, 131072, 1, 6, 131072, 1, 7, 131072, 1, 13, 131072, 1, 14, 131072, 1, 15, 131072, 1, 16, 131072, 1, 11, 131072, 1, 12, 131072, 1, 17, 131072, 1, 18, 131072, 1, 19, 131072, 1, 20, 131072, 1, 21, 131072, 1, 22, 131072, 1, 23, 131072, 1, 24, 131072, 1, 25, 131072, 1, 26, 131072, 1, 27, 131072, 1, 28, 131072, 1, 29, 131072, 1, 30, 131072, 1, 31, 131072, 1, -196590, 196608, 15, -196589, 65536, 15, -196588, 131072, 15, -131053, 65536, 16, -65517, 65536, 17, -196581, 327680, 17, -131045, 327680, 17, -65509, 327680, 17, -65506, 65536, 2, -131042, 65536, 2, -196578, 65536, 2, -262114, 65536, 2, -327650, 65536, 2, -327653, 327680, 15, -262117, 327680, 16, -327652, 393216, 15, -327656, 196608, 15, -327655, 196608, 15, -327654, 262144, 15, -262116, 393216, 16, -327651, 196608, 15, -327649, 196608, 2, -327648, 65536, 10, -65505, 196608, 2, -131041, 196608, 2, -196577, 196608, 2, -262113, 196608, 2, -327647, 131072, 10, -327646, 196608, 10, -327645, 65536, 2, -262109, 65536, 2, -196573, 131072, 3, -327644, 196608, 2, -262108, 196608, 2, -196572, 131072, 3, -393181, 65536, 2, -458717, 65536, 2, -524253, 65536, 2, -589789, 65536, 2, -393180, 196608, 2, -458716, 196608, 2, -524252, 196608, 2, -589788, 196608, 2, -655324, 196608, 2, 65567, 196608, 2, 131104, 131072, 1, 131105, 131072, 1, 131106, 131072, 1, 131107, 131072, 1, 131108, 131072, 1, 131109, 131072, 1, 8, 131072, 1, 9, 131072, 1, 10, 131072, 1, 131110, 131072, 1, 131111, 131072, 1, 131112, 131072, 1, 131113, 131072, 1, 131114, 131072, 1, 131115, 131072, 1, 131116, 131072, 1, 131117, 131072, 1, 131118, 131072, 1, -196571, 65536, 15, -131036, 196608, 15, -131037, 196608, 15, -131035, 65536, 16, 131119, 131072, 1, 131120, 131072, 1, 131121, 131072, 1, 65585, 65536, 1, -196570, 131072, 15, -196569, 196608, 15, -65499, 65536, 17, 37, 65536, 17, 65573, 65536, 17, -196568, 196608, 15, -327657, 131072, 11, -196591, 131072, 11, -196587, 65536, 11, 65586, 131072, 1, 65587, 131072, 1, 65588, 327680, 2, 52, 65536, 2, -65484, 65536, 2, -131020, 65536, 2, -196556, 65536, 2, -262092, 65536, 2, -327628, 131072, 1, -589772, 393216, 2, -655308, 65536, 2, -327631, 327680, 15, -327630, 393216, 15, -327629, 196608, 15, -327632, 262144, 15, -262095, 327680, 16, -262094, 393216, 16, -196559, 327680, 17, -131023, 327680, 17, -65487, 327680, 17, 49, 327680, 17, -327633, 196608, 15, -327634, 196608, 15, -327635, 196608, 15, -327636, 131072, 11, -196567, 65536, 11, -327627, 131072, 1, -327626, 131072, 1, -589771, 131072, 3, -589770, 131072, 3, -655307, 327680, 3, -720844, 65536, 2, -786380, 65536, 2, 131122, 327680, 2, 131103, 393216, 2, 65566, 393216, 2, -327625, 131072, 1, -327624, 131072, 1, -327623, 131072, 1, -327622, 131072, 1, -327621, 131072, 1, -327620, 131072, 1, -327619, 131072, 1, -327618, 131072, 1, -327617, 131072, 1, -589769, 131072, 3, -589768, 131072, 3, -589767, 131072, 3, -589766, 131072, 3, -589765, 131072, 3, -589764, 131072, 3, -589763, 131072, 3, -589762, 131072, 3, -589761, 327680, 2, -393156, 131072, 1, -262081, 131072, 1, -262080, 131072, 1, -262079, 131072, 1, -262078, 131072, 1, -262077, 131072, 1, -655297, 196608, 2, -720833, 196608, 2, -786369, 196608, 2, -262076, 131072, 1, -262075, 131072, 1, -327610, 65536, 2, -393146, 65536, 2, -458682, 65536, 2, -524218, 65536, 2, -262091, 327680, 2, -262082, 393216, 2, -262074, 65536, 2, -65536, 131072, 1, -65533, 131072, 1, -65534, 131072, 1, -65535, 131072, 1, -1, 131072, 1, -2, 131072, 1, -3, 131072, 1, -4, 131072, 1, -5, 131072, 1, -6, 131072, 1, -65543, 131072, 1, -65544, 131072, 1, -65545, 131072, 1, -65546, 131072, 1, -65547, 131072, 1, -65548, 131072, 1, -65549, 131072, 1, -65550, 131072, 1, -65551, 131072, 1, -65552, 131072, 1, -65553, 131072, 1, -65554, 131072, 1, -65555, 131072, 1, -65507, 655360, 12, 51, 655360, 12, -65485, 655360, 12, -393214, 65536, 15, -327678, 65536, 16, -262142, 65536, 17, -393213, 131072, 15, -393212, 196608, 15, -393215, 196608, 15, -196606, 65536, 17, -131070, 65536, 17, -393216, 131072, 11, -655325, 393216, 3, -196601, 327680, 17, -131065, 327680, 17, -65529, 327680, 17, -327673, 327680, 15, -262137, 327680, 16, -327672, 393216, 15, -327674, 262144, 15, -262136, 393216, 16, -327671, 65536, 11, -327675, 131072, 11, -393211, 65536, 11, -458750, 65536, 17, -589760, 65536, 10, -589759, 131072, 10, -589758, 196608, 10, -589754, 65536, 2, -655290, 65536, 2, -720826, 65536, 2, -851905, 196608, 2, -917441, 196608, 2, -982977, 196608, 2, -1048513, 196608, 1, -1048514, 131072, 1, -1048515, 131072, 1, -982978, 393216, 2, -786379, 327680, 2, -786364, 262144, 15, -786363, 327680, 15, -720827, 327680, 16, -655291, 327680, 17, -982976, 65536, 10, -982975, 131072, 10, -982974, 196608, 10, -786362, 65536, 2, -851898, 65536, 2, -917433, 131072, 1, -917432, 131072, 1, -982968, 65536, 2, -1048504, 65536, 2, -1114040, 65536, 2, -1179575, 131072, 1, -1179574, 131072, 1, -1179573, 131072, 1, -1179572, 131072, 1, -1179571, 131072, 1, -1179576, 65536, 1, -1048516, 131072, 1, -917451, 65536, 2, -851916, 65536, 2, -982986, 131072, 1, -851915, 327680, 2, -655298, 393216, 3, -851897, 327680, 2, -1114039, 327680, 2, -1048517, 131072, 1, -982983, 131072, 1, -982982, 131072, 1, -982984, 131072, 1, -982985, 131072, 1, -982987, 65536, 1, -1179570, 131072, 1, -1179569, 131072, 1, -1179568, 131072, 1, -1179567, 131072, 1, -1179566, 131072, 1, -1179565, 131072, 1, -1179564, 131072, 1, -1376172, 131072, 3, -1376171, 131072, 3, -1179563, 131072, 1, -1376173, 393216, 2, -1441709, 65536, 2, -1507245, 65536, 2, -1507246, 393216, 2, -1572783, 393216, 2, -1638319, 65536, 2, -1703855, 65536, 2, -1114042, 262144, 15, -1114041, 327680, 15, -1048505, 327680, 16, -982969, 327680, 17, -1310634, 65536, 2, -1245098, 65536, 2, -1179562, 327680, 2, -1376170, 327680, 3)
+
+[node name="Hero" parent="." instance=ExtResource("2_v5ua7")]
+position = Vector2(-280, -32)
+
+[node name="BigBox" parent="." instance=ExtResource("3_xin6b")]
+position = Vector2(768, 16)
+
+[node name="BigBox2" parent="." instance=ExtResource("3_xin6b")]
+position = Vector2(944, -96)
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+visible = false
+position = Vector2(200, -192)
+amount = 200
+process_material = SubResource("ParticleProcessMaterial_biknf")
+texture = ExtResource("4_2a6eb")
+lifetime = 10.0
+trail_enabled = true
+trail_lifetime = 0.05
+
+[node name="RainGenerator" parent="." node_paths=PackedStringArray("player") instance=ExtResource("5_u1uvj")]
+position = Vector2(0, -232)
+intensity = 30.0
+player = NodePath("../Hero")
+
+[node name="CollisionShape2D" parent="RainGenerator" index="0"]
+position = Vector2(256, 0)
+shape = SubResource("RectangleShape2D_fpy8c")
+
+[node name="Sign" parent="." instance=ExtResource("6_kgitc")]
+position = Vector2(216, 0)
+text = "press space to jump"
+
+[node name="Sign5" parent="." instance=ExtResource("6_kgitc")]
+position = Vector2(-176, -32)
+text = "press z to attack"
+
+[node name="Sign2" parent="." instance=ExtResource("6_kgitc")]
+position = Vector2(496, -80)
+text = "you can also jump down from platforms"
+
+[node name="Sign3" parent="." instance=ExtResource("6_kgitc")]
+position = Vector2(640, 32)
+text = "you can push certain boxes"
+
+[node name="Sign4" parent="." instance=ExtResource("6_kgitc")]
+position = Vector2(888, -80)
+text = "some elements can be rescaled with SHIFT"
+
+[node name="Sign6" parent="." instance=ExtResource("6_kgitc")]
+position = Vector2(1008, -80)
+text = "carry objects with DOWN"
+
+[node name="Sign7" parent="." instance=ExtResource("6_kgitc")]
+position = Vector2(1048, -64)
+text = "throw and rescale with SHIFT"
+
+[node name="Sign8" parent="." instance=ExtResource("6_kgitc")]
+position = Vector2(1280, -288)
+text = "we're finally here, good luck my friend"
+
+[node name="ThornWall" parent="." instance=ExtResource("7_uo0t5")]
+position = Vector2(-104, -32)
+
+[node name="ThornWall2" parent="." instance=ExtResource("7_uo0t5")]
+position = Vector2(128, 0)
+
+[node name="ThornWall3" parent="." instance=ExtResource("7_uo0t5")]
+position = Vector2(472, -16)
+
+[node name="ThornWall5" parent="." instance=ExtResource("7_uo0t5")]
+position = Vector2(840, -112)
+
+[node name="ThornWall6" parent="." instance=ExtResource("7_uo0t5")]
+position = Vector2(840, -80)
+
+[node name="ThornWall7" parent="." instance=ExtResource("7_uo0t5")]
+position = Vector2(1208, -288)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(-352, -24)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(19, -51)
+shape = SubResource("RectangleShape2D_gm683")
+
+[node name="Portal" parent="." instance=ExtResource("8_eyuda")]
+position = Vector2(1368, -288)
+address_in_level = 1
+destination_level = 1
+destination_address = 3
+
+[editable path="RainGenerator"]

@@ -1,10 +1,18 @@
-[gd_scene load_steps=29 format=3 uid="uid://b5heeqig4y3my"]
+[gd_scene load_steps=37 format=3 uid="uid://b5heeqig4y3my"]
 
 [ext_resource type="Script" path="res://Entities/Hero/hero.gd" id="1_xysyd"]
 [ext_resource type="Texture2D" uid="uid://colcyx28mfryy" path="res://Entities/Hero/merlin.png" id="2_2rxwt"]
 [ext_resource type="Texture2D" uid="uid://gjwjvped5yjf" path="res://Entities/ResizableBox/smallbox.png" id="3_8xbnf"]
 [ext_resource type="PackedScene" uid="uid://2nfy1ysxtck8" path="res://Entities/HitBox/damage_receiver_area.tscn" id="4_hm5gm"]
 [ext_resource type="PackedScene" uid="uid://b5mhaodm6g8i5" path="res://Entities/HitBox/damage_dealer_area.tscn" id="5_etfw3"]
+[ext_resource type="PackedScene" uid="uid://dsmce0h5or2e6" path="res://Audio/sound_queue.tscn" id="6_a41yi"]
+[ext_resource type="PackedScene" uid="uid://d24jch2ldp18e" path="res://Audio/sound_pool.tscn" id="6_k1wn5"]
+[ext_resource type="AudioStream" uid="uid://bewryrp714glq" path="res://Assets/SFX/swing.wav" id="8_mfdrk"]
+[ext_resource type="AudioStream" uid="uid://clsnugr1mcdby" path="res://Assets/SFX/swing2.wav" id="9_x8l5f"]
+[ext_resource type="AudioStream" uid="uid://bnumxf7wnvtcb" path="res://Assets/SFX/jump.wav" id="10_6adsn"]
+[ext_resource type="AudioStream" uid="uid://c3vrhvfmxua8g" path="res://Assets/SFX/footstep-2.wav" id="10_55lh7"]
+[ext_resource type="AudioStream" uid="uid://40bythfk0lmn" path="res://Assets/SFX/hit.wav" id="11_pxmkg"]
+[ext_resource type="AudioStream" uid="uid://dfef4kjdq88y0" path="res://Assets/SFX/footstep-1.wav" id="11_q06cg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b5gn1"]
 size = Vector2(10, 25)
@@ -534,6 +542,46 @@ position = Vector2(14.25, -11)
 shape = SubResource("RectangleShape2D_ey04b")
 
 [node name="CameraTarget" type="Node2D" parent="."]
+
+[node name="SFXSwing" parent="." instance=ExtResource("6_k1wn5")]
+
+[node name="SFXSwing1" parent="SFXSwing" instance=ExtResource("6_a41yi")]
+count = 2
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="SFXSwing/SFXSwing1"]
+stream = ExtResource("8_mfdrk")
+
+[node name="SFXSwing2" parent="SFXSwing" instance=ExtResource("6_a41yi")]
+count = 2
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="SFXSwing/SFXSwing2"]
+stream = ExtResource("9_x8l5f")
+
+[node name="SFXWalk" parent="." instance=ExtResource("6_k1wn5")]
+
+[node name="SFXWalk2" parent="SFXWalk" instance=ExtResource("6_a41yi")]
+count = 2
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="SFXWalk/SFXWalk2"]
+stream = ExtResource("10_55lh7")
+
+[node name="SFXWalk1" parent="SFXWalk" instance=ExtResource("6_a41yi")]
+count = 2
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="SFXWalk/SFXWalk1"]
+stream = ExtResource("11_q06cg")
+
+[node name="SFXJump" parent="." instance=ExtResource("6_a41yi")]
+count = 2
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="SFXJump"]
+stream = ExtResource("10_6adsn")
+
+[node name="SFXHit" parent="." instance=ExtResource("6_a41yi")]
+count = 2
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="SFXHit"]
+stream = ExtResource("11_pxmkg")
 
 [editable path="DamageReceiverArea"]
 [editable path="DamageDealerArea"]

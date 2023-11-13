@@ -13,11 +13,13 @@ func _ready():
 	GameState.hit_received.connect(screen_shake.bind())
 
 func reset(hero, map):
+	position_smoothing_enabled = false
 	player = hero
 	tilemap = map
 	set_limits()
 	calculate_target_destination()
 	global_position = target_destination
+	position_smoothing_enabled = true
 
 func set_limits():
 	var used = tilemap.get_used_rect()

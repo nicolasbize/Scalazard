@@ -1,0 +1,33 @@
+[gd_scene load_steps=6 format=3 uid="uid://dphoko7nd83e6"]
+
+[ext_resource type="Script" path="res://World/ThornWall/thorn_wall.gd" id="1_d5pqt"]
+[ext_resource type="Texture2D" uid="uid://biobnn6lse75d" path="res://World/ThornWall/wall-thorns.png" id="1_ewiol"]
+[ext_resource type="PackedScene" uid="uid://2nfy1ysxtck8" path="res://Entities/HitBox/damage_receiver_area.tscn" id="3_g527n"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1xh1p"]
+size = Vector2(11, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yv4wb"]
+size = Vector2(11, 32)
+
+[node name="ThornWall" type="Node2D"]
+script = ExtResource("1_d5pqt")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_ewiol")
+offset = Vector2(0, -16)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(0, -16)
+shape = SubResource("RectangleShape2D_1xh1p")
+
+[node name="DamageReceiverArea" parent="." instance=ExtResource("3_g527n")]
+
+[node name="CollisionShape2D" parent="DamageReceiverArea" index="0"]
+position = Vector2(-0.5, -16)
+shape = SubResource("RectangleShape2D_yv4wb")
+
+[editable path="DamageReceiverArea"]

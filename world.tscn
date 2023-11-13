@@ -1,8 +1,22 @@
-[gd_scene load_steps=4 format=3 uid="uid://vk7lxsi71b5x"]
+[gd_scene load_steps=7 format=3 uid="uid://vk7lxsi71b5x"]
 
 [ext_resource type="Script" path="res://world.gd" id="1_kk187"]
+[ext_resource type="AudioStream" uid="uid://cx55seu42klsa" path="res://Assets/torn-of-hope_Intro.mp3" id="4_1j8vo"]
+[ext_resource type="AudioStream" uid="uid://w8v1o3fnpdh5" path="res://Assets/Music/torn-of-hope.mp3" id="5_emaur"]
 [ext_resource type="PackedScene" uid="uid://dq5uvyfidrv20" path="res://camera.tscn" id="5_spp4s"]
 [ext_resource type="PackedScene" uid="uid://bghj8ckgg3qp8" path="res://UI/ui.tscn" id="7_kc6g8"]
+
+[sub_resource type="Environment" id="Environment_efmn2"]
+background_mode = 3
+glow_enabled = true
+glow_levels/7 = 1.0
+glow_strength = 1.2
+glow_blend_mode = 1
+glow_hdr_threshold = 0.1
+adjustment_enabled = true
+adjustment_brightness = 0.9
+adjustment_contrast = 1.1
+adjustment_saturation = 1.8
 
 [node name="World" type="Node2D"]
 script = ExtResource("1_kk187")
@@ -12,3 +26,12 @@ drag_horizontal_enabled = true
 editor_draw_drag_margin = true
 
 [node name="UI" parent="." instance=ExtResource("7_kc6g8")]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_efmn2")
+
+[node name="MusicIntro" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_1j8vo")
+
+[node name="MusicTheme" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_emaur")

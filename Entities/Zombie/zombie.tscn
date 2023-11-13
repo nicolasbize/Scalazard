@@ -1,9 +1,11 @@
-[gd_scene load_steps=18 format=3 uid="uid://dma87nqv5u6l"]
+[gd_scene load_steps=20 format=3 uid="uid://dma87nqv5u6l"]
 
 [ext_resource type="Texture2D" uid="uid://iqlie3740ikl" path="res://Entities/Zombie/zombie.png" id="1_gnirk"]
 [ext_resource type="Script" path="res://Entities/Zombie/zombie.gd" id="1_iajjo"]
 [ext_resource type="PackedScene" uid="uid://b5mhaodm6g8i5" path="res://Entities/HitBox/damage_dealer_area.tscn" id="3_ohxbt"]
 [ext_resource type="PackedScene" uid="uid://2nfy1ysxtck8" path="res://Entities/HitBox/damage_receiver_area.tscn" id="4_itt0m"]
+[ext_resource type="PackedScene" uid="uid://dsmce0h5or2e6" path="res://Audio/sound_queue.tscn" id="5_l5n41"]
+[ext_resource type="AudioStream" uid="uid://40bythfk0lmn" path="res://Assets/SFX/hit.wav" id="6_cqo0g"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s08ai"]
 size = Vector2(10, 14.5)
@@ -200,7 +202,7 @@ _data = {
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tms75"]
-size = Vector2(240, 51)
+size = Vector2(133, 51)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kw1be"]
 size = Vector2(21, 20)
@@ -244,7 +246,7 @@ collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetectionArea"]
-position = Vector2(91, -32.5)
+position = Vector2(37.5, -32.5)
 shape = SubResource("RectangleShape2D_tms75")
 
 [node name="RightLegRaycast" type="RayCast2D" parent="."]
@@ -287,6 +289,11 @@ shape = SubResource("RectangleShape2D_tiddi")
 [node name="CollisionShape2D" parent="DamageReceiverArea" index="0"]
 position = Vector2(0, -13)
 shape = SubResource("RectangleShape2D_65nic")
+
+[node name="SFXHit" parent="." instance=ExtResource("5_l5n41")]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="SFXHit"]
+stream = ExtResource("6_cqo0g")
 
 [editable path="DamageDealerArea"]
 [editable path="DamageReceiverArea"]

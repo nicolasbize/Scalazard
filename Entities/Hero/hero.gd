@@ -11,6 +11,9 @@ extends CharacterBody2D
 @onready var damage_receiver_area := $DamageReceiverArea
 @onready var damage_dealer_area := $DamageDealerArea
 @onready var camera_target := $CameraTarget
+@onready var sfx_swing := $SFXSwing
+@onready var sfx_jump := $SFXJump
+@onready var sfx_hit := $SFXHit
 
 @export var gravity := 850.0
 @export var max_fall_velocity := 400.0
@@ -165,9 +168,11 @@ func attack_check():
 		state = State.Attacking
 		if Time.get_ticks_msec() - time_since_last_attack < 500:
 			attack_anim = "slash_2"
+			sfx_swing.get_child(0).play_sound()
 		else:
 			attack_anim = "slash_1"
 			time_since_last_attack = Time.get_ticks_msec()
+			sfx_swing.get_child(1).play_sound()
 
 func get_direction() -> float:
 	return sprite.scale.x
@@ -269,6 +274,7 @@ func throw_box():
 func jump(force, create_effect = true):
 	velocity.y = -force
 	state = State.Jumping
+	sfx_jump.play_sound()
 
 func on_start_falling():
 	state = State.Falling

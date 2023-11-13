@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://yihlblm061l0"]
+
+[ext_resource type="Texture2D" uid="uid://vmila68lv304" path="res://World/Chandelier/chandelier.png" id="1_gc3en"]
+[ext_resource type="Texture2D" uid="uid://bencagowpxan8" path="res://World/Chandelier/light-texture.png" id="2_7eiue"]
+
+[node name="Chandelier" type="Sprite2D"]
+texture = ExtResource("1_gc3en")
+offset = Vector2(0, 16)
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(0, 24)
+color = Color(0.388235, 0.388235, 0, 1)
+texture = ExtResource("2_7eiue")

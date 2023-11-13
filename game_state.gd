@@ -3,6 +3,14 @@ extends Node
 signal life_change(current_life:int, max_life:int)
 signal hit_received()
 
+enum Level {Courtyard, Entrance}
+var Levels = {
+	Level.Courtyard: preload("res://Levels/level_01_courtyard.tscn"),
+	Level.Entrance: preload("res://Levels/level-prototype.tscn"),
+}
+
+var current_level := Level.Courtyard
+
 var max_life := 3
 var current_life := 3
 

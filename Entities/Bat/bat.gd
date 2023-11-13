@@ -10,7 +10,9 @@ extends Node2D
 @onready var animal := $Animal
 @onready var sprite := $Animal/Sprite2D
 @onready var damage_receiver_area := $Animal/DamageReceiverArea
+@onready var damage_dealer_area := $Animal/DamageDealerArea
 @onready var animation_player := $Animal/AnimationPlayer
+@onready var sfx_hit := $SFXHit
 
 const HitSpark = preload("res://FX/HitSpark/hit_spark.tscn")
 
@@ -30,6 +32,7 @@ func _ready():
 	damage_receiver_area.connect("hit", on_enemy_hit.bind())
 
 func _physics_process(delta):
+	damage_dealer_area.monitoring = current_life > 0
 	if state == State.Idle:
 		if GameState.current_life > 0:
 			var index_valid_path = get_valid_path()
@@ -70,7 +73,8 @@ func on_enemy_hit(dmg:int, direction_knockback:float) -> void:
 	hit_spark.global_position = sprite.global_position + Vector2.RIGHT * direction_knockback * 16
 	hit_spark.scale.x = direction_knockback
 	GameState.emit_signal("hit_received")
-
+	sfx_hit.play_sound()
+	
 func get_valid_path() -> int:
 	for i in range(0, player_detection_areas.size()):
 		var player_detection_area : Area2D = player_detection_areas[i]
