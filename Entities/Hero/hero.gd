@@ -30,9 +30,8 @@ extends CharacterBody2D
 const BeamSpell = preload("res://FX/BeamSpell/beam_spell.tscn")
 const SmallBox = preload("res://Entities/ResizableBox/small_box.tscn")
 const BigBox = preload("res://Entities/ResizableBox/big_box.tscn")
-const BigToSmall = preload("res://Entities/ResizableBox/big_to_small.tscn")
-const SmallToBig = preload("res://Entities/ResizableBox/small_to_big.tscn")
 const HeroSpark = preload("res://FX/HitSpark/hero_spark.tscn")
+const BoxResize = preload("res://Entities/ResizableBox/box_resize.tscn")
 
 enum State {Idle, Running, Jumping, StartFalling, Falling, Casting, Attacking, Pushing, Carrying, CarryingIdle, Hurting, Dying, Dead, Resting, Healing}
 var anim_states = {
@@ -179,23 +178,21 @@ func get_direction() -> float:
 
 func find_cast_target():
 	if casting_ray.is_colliding():
-		var collision_point : Vector2 = to_local(casting_ray.get_collision_point())
+		var collision_point : Vector2 = to_local(casting_ray.get_collider().global_position)
 		var beam_spell = BeamSpell.instantiate()
 		laser_start.add_child(beam_spell)
 #		beam_spell.rotation_degrees = 0 if (sprite.scale.x > 0) else 180
 		collision_point.x -= laser_start.position.x
 		collision_point.y = 0
 		beam_spell.cast(collision_point)
+		var box_resize : BoxResize = BoxResize.instantiate()
 		if casting_ray.get_collider().is_in_group("shrinkable"):
-			var big_to_small = BigToSmall.instantiate()
-			get_parent().add_child(big_to_small)
-			big_to_small.global_position = casting_ray.get_collider().global_position
-			casting_ray.get_collider().queue_free()
+			box_resize.size_mode = 1
 		elif casting_ray.get_collider().is_in_group("expandable"):
-			var small_to_big = SmallToBig.instantiate()
-			get_parent().add_child(small_to_big)
-			small_to_big.global_position = casting_ray.get_collider().global_position
-			casting_ray.get_collider().queue_free()
+			box_resize.size_mode = 0
+		get_parent().add_child(box_resize)
+		box_resize.global_position = casting_ray.get_collider().global_position
+		casting_ray.get_collider().queue_free()
 	else:
 		pass
 		# todo play fizz sound

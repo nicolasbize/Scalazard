@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ccoc6d5cms2ee"
-path="res://.godot/imported/bigtosmall.png-a229eebd0ef44a91ed396aa7087be4cc.ctex"
+uid="uid://jj8hy36t7r3v"
+path="res://.godot/imported/32x32-white.png-b09560e4eb5ba7beccf09c2057ca0230.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Entities/ResizableBox/bigtosmall.png"
-dest_files=["res://.godot/imported/bigtosmall.png-a229eebd0ef44a91ed396aa7087be4cc.ctex"]
+source_file="res://Entities/ResizableBox/32x32-white.png"
+dest_files=["res://.godot/imported/32x32-white.png-b09560e4eb5ba7beccf09c2057ca0230.ctex"]
 
 [params]
 

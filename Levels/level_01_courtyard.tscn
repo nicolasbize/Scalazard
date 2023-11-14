@@ -46,6 +46,9 @@ position = Vector2(-280, -32)
 [node name="BigBox" parent="." instance=ExtResource("3_xin6b")]
 position = Vector2(768, 16)
 
+[node name="BigBox3" parent="." instance=ExtResource("3_xin6b")]
+position = Vector2(-216, -48)
+
 [node name="BigBox2" parent="." instance=ExtResource("3_xin6b")]
 position = Vector2(944, -96)
 

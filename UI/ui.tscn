@@ -9,6 +9,45 @@
 [ext_resource type="FontFile" uid="uid://dwjsu8m55nl55" path="res://Assets/04B_03__.TTF" id="7_3s712"]
 [ext_resource type="Texture2D" uid="uid://crroq1ob1exgx" path="res://UI/screen-transition.png" id="8_dukjs"]
 
+[sub_resource type="Animation" id="Animation_l5sne"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RedBackground:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.458824, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BlackStrip:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-616, 120)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("RespawnLabel:theme_override_colors/font_color")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.831373, 0.831373, 0.831373, 0)]
+}
+
 [sub_resource type="Animation" id="Animation_c3c4w"]
 resource_name = "death"
 length = 0.7
@@ -49,49 +88,25 @@ tracks/2/keys = {
 "values": [Color(0.831373, 0.831373, 0.831373, 0), Color(0.831373, 0.831373, 0.831373, 0), Color(0.831373, 0.831373, 0.831373, 1)]
 }
 
-[sub_resource type="Animation" id="Animation_l5sne"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tftep"]
+_data = {
+"RESET": SubResource("Animation_l5sne"),
+"death": SubResource("Animation_c3c4w")
+}
+
+[sub_resource type="Animation" id="Animation_m1eq2"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("RedBackground:color")
+tracks/0/path = NodePath("TextureRect:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(0.458824, 0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("BlackStrip:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(-616, 120)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("RespawnLabel:theme_override_colors/font_color")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(0.831373, 0.831373, 0.831373, 0)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_tftep"]
-_data = {
-"RESET": SubResource("Animation_l5sne"),
-"death": SubResource("Animation_c3c4w")
+"values": [Vector2(-928, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_vws1y"]
@@ -122,21 +137,6 @@ tracks/1/keys = {
 "args": [],
 "method": &"on_black_screen"
 }]
-}
-
-[sub_resource type="Animation" id="Animation_m1eq2"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("TextureRect:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(-928, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_gvt8v"]
