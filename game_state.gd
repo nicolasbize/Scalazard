@@ -13,6 +13,7 @@ var current_level := Level.Courtyard
 
 var max_life := 3
 var current_life := 3
+var is_music_on := false
 
 var screen_shake := true
 

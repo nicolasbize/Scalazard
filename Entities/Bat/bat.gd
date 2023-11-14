@@ -65,6 +65,8 @@ func on_end_start_fly():
 	fly_speed = randf_range(fly_speed_min, fly_speed_max)
 
 func on_enemy_hit(dmg:int, direction_knockback:float) -> void:
+	damage_dealer_area.set_deferred("monitoring", false)
+	damage_receiver_area.set_deferred("monitorable", false)
 	current_life -= dmg
 	state = State.Dying
 	current_path_index = -1

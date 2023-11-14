@@ -22,7 +22,7 @@ func _ready():
 func load_level(level:GameState.Level):
 	if music_theme.is_playing():
 		music_theme.stop()
-	if level != GameState.Level.Courtyard:
+	if level != GameState.Level.Courtyard and GameState.is_music_on:
 		music_intro.play()
 	upcoming_level = level
 	ui.start_transition()

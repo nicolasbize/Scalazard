@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://c1w02vv8m87jg"]
+[gd_scene load_steps=10 format=3 uid="uid://c1w02vv8m87jg"]
 
 [ext_resource type="TileSet" uid="uid://ckdj8m24olhk1" path="res://Assets/tilemap.tres" id="1_5bfgj"]
 [ext_resource type="PackedScene" uid="uid://b5heeqig4y3my" path="res://Entities/Hero/hero.tscn" id="2_njqj2"]
@@ -8,8 +8,10 @@
 [ext_resource type="PackedScene" uid="uid://dma87nqv5u6l" path="res://Entities/Zombie/zombie.tscn" id="6_0sx2i"]
 [ext_resource type="PackedScene" uid="uid://bfem6jove134i" path="res://Entities/Bat/bat.tscn" id="7_64k4k"]
 [ext_resource type="PackedScene" uid="uid://yihlblm061l0" path="res://World/Chandelier/chandelier.tscn" id="8_arouj"]
+[ext_resource type="PackedScene" uid="uid://b345y5ybsmuar" path="res://Entities/Ghoul/ghoul.tscn" id="9_wcadw"]
 
 [node name="Level" type="Node2D"]
+position = Vector2(8, -4)
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = ExtResource("1_5bfgj")
@@ -26,17 +28,6 @@ layer_1/tile_data = PackedInt32Array(1179601, 65536, 14, 1179602, 196608, 14, 11
 
 [node name="Hero" parent="." instance=ExtResource("2_njqj2")]
 position = Vector2(-1072, 240)
-gravity = 850.0
-max_fall_velocity = 400.0
-acceleration = 500.0
-max_velocity = 120.0
-max_run_velocity = 180.0
-friction = 700.0
-air_friction = 20.0
-jump_force = 280.0
-knockback_duration = 100.0
-knockback_intensity = 20.0
-push_strength = 30.0
 
 [node name="BigBox" parent="." instance=ExtResource("3_tdndb")]
 position = Vector2(104, 224)
@@ -74,20 +65,6 @@ text = "use shift to rescale elements"
 [node name="Zombie" parent="." instance=ExtResource("6_0sx2i")]
 position = Vector2(-599, 240)
 
-[node name="Zombie2" parent="." instance=ExtResource("6_0sx2i")]
-position = Vector2(-955, 240)
-
-[node name="Bat" parent="." instance=ExtResource("7_64k4k")]
-position = Vector2(-903, 144)
-
-[node name="_Timer_206663" type="Timer" parent="Bat/PathLeft/Path2D/PathFollow2D" index="1"]
-wait_time = 0.2
-one_shot = true
-
-[node name="_Timer_206664" type="Timer" parent="Bat/PathRight/Path2D/PathFollow2D" index="1"]
-wait_time = 0.2
-one_shot = true
-
 [node name="Bat2" parent="." instance=ExtResource("7_64k4k")]
 position = Vector2(-710, 144)
 
@@ -102,9 +79,9 @@ one_shot = true
 [node name="Chandelier" parent="." instance=ExtResource("8_arouj")]
 position = Vector2(-1008, 144)
 
-[editable path="Bat"]
-[editable path="Bat/Animal/DamageDealerArea"]
-[editable path="Bat/Animal/DamageReceiverArea"]
+[node name="Ghoul" parent="." instance=ExtResource("9_wcadw")]
+position = Vector2(-879, 241)
+
 [editable path="Bat2"]
 [editable path="Bat2/Animal/DamageDealerArea"]
 [editable path="Bat2/Animal/DamageReceiverArea"]

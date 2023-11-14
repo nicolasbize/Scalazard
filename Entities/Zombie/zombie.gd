@@ -102,7 +102,6 @@ func _physics_process(delta):
 					state = State.Idle
 					velocity.x = 0
 					player = null
-					print("set player to null")
 			elif state == State.Idle:
 				if sign(player.global_position.x - global_position.x) != direction:
 					state = State.Walking
@@ -162,7 +161,6 @@ func on_finish_action():
 		state = State.Dying
 		damage_receiver_area.set_deferred("monitorable", false)
 		player_detection_area.set_deferred("monitoring", false)
-#		body_collider.set_deferred("disabled", true)
 		player = null
 		velocity.x = 0
 
