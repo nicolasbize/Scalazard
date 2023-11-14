@@ -14,7 +14,7 @@ var current_level_scene = null
 var upcoming_level : GameState.Level
 
 func _ready():
-	load_level(GameState.Level.Courtyard)
+	load_level(GameState.Level.Entrance)
 	ui.connect("in_transit", repack_level.bind())
 	GameState.connect("life_change", on_player_life_change.bind())
 	music_intro.connect("finished", on_intro_music_finished.bind())

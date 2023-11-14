@@ -42,6 +42,17 @@ layer_0/tile_data = PackedInt32Array(4, 131072, 1, 5, 131072, 1, 6, 131072, 1, 7
 
 [node name="Hero" parent="." instance=ExtResource("2_v5ua7")]
 position = Vector2(-280, -32)
+gravity = 850.0
+max_fall_velocity = 400.0
+acceleration = 500.0
+max_velocity = 120.0
+max_run_velocity = 180.0
+friction = 700.0
+air_friction = 20.0
+jump_force = 280.0
+knockback_duration = 100.0
+knockback_intensity = 20.0
+push_strength = 30.0
 
 [node name="BigBox" parent="." instance=ExtResource("3_xin6b")]
 position = Vector2(768, 16)

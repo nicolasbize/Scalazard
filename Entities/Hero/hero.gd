@@ -26,6 +26,7 @@ extends CharacterBody2D
 @export var knockback_duration := 100.0
 @export var knockback_intensity := 20.0
 @export var push_strength := 30.0
+@export var min_time_between_hits := 1000.0 # 1sec
 
 const BeamSpell = preload("res://FX/BeamSpell/beam_spell.tscn")
 const SmallBox = preload("res://Entities/ResizableBox/small_box.tscn")
@@ -55,7 +56,8 @@ var target_box = null
 var laser = null
 var impulse = null
 var is_carrying := false
-var time_since_last_attack = Time.get_ticks_msec()
+var time_since_last_attack := Time.get_ticks_msec()
+var time_since_last_hit := Time.get_ticks_msec()
 var attack_anim := "slash_1"
 var pickable_target = null
 var knockback := Vector2.ZERO
@@ -239,15 +241,17 @@ func jump_check():
 			velocity.y = -jump_force / 2
 
 func on_player_hit(dmg:int, direction_knockback: float):
-	GameState.deal_hero_damage(dmg)
-	if GameState.current_life > 0:
-		state = State.Hurting
-	else:
-		state = State.Dying
-		velocity.x = 0
-		damage_receiver_area.set_deferred("monitorable", false)
-		damage_dealer_area.set_deferred("monitoring", false)
-	create_wound_fx(direction_knockback)
+	if (Time.get_ticks_msec() - time_since_last_hit) > min_time_between_hits:
+		time_since_last_hit = Time.get_ticks_msec()
+		GameState.deal_hero_damage(dmg)
+		if GameState.current_life > 0:
+			state = State.Hurting
+		else:
+			state = State.Dying
+			velocity.x = 0
+			damage_receiver_area.set_deferred("monitorable", false)
+			damage_dealer_area.set_deferred("monitoring", false)
+		create_wound_fx(direction_knockback)
 
 func create_wound_fx(direction_knockback: float):
 	knockback = Vector2(direction_knockback * knockback_intensity, 0)

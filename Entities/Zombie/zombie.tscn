@@ -8,7 +8,7 @@
 [ext_resource type="AudioStream" uid="uid://40bythfk0lmn" path="res://Assets/SFX/hit.wav" id="6_cqo0g"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s08ai"]
-size = Vector2(10, 14.5)
+size = Vector2(10, 15.25)
 
 [sub_resource type="Animation" id="Animation_sj5f0"]
 length = 0.001
@@ -202,18 +202,18 @@ _data = {
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tms75"]
-size = Vector2(133, 51)
+size = Vector2(113, 51)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kw1be"]
 size = Vector2(21, 20)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tiddi"]
-size = Vector2(21, 9)
+size = Vector2(16, 9)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_65nic"]
-size = Vector2(18, 25)
+size = Vector2(18, 24)
 
-[node name="Zombie" type="AnimatableBody2D"]
+[node name="Zombie" type="RigidBody2D"]
 collision_layer = 16
 collision_mask = 5
 script = ExtResource("1_iajjo")
@@ -224,12 +224,8 @@ offset = Vector2(0, -16)
 hframes = 10
 vframes = 5
 
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
-collision_layer = 16
-collision_mask = 21
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(0, -8)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -7.625)
 shape = SubResource("RectangleShape2D_s08ai")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -238,23 +234,20 @@ libraries = {
 "": SubResource("AnimationLibrary_6dd45")
 }
 
-[node name="Timer" type="Timer" parent="."]
-one_shot = true
-
 [node name="PlayerDetectionArea" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetectionArea"]
-position = Vector2(37.5, -32.5)
+position = Vector2(47.5, -32.5)
 shape = SubResource("RectangleShape2D_tms75")
 
 [node name="RightLegRaycast" type="RayCast2D" parent="."]
-position = Vector2(9, -1)
+position = Vector2(16, -3)
 target_position = Vector2(0, 8)
 
 [node name="LeftLegRaycast" type="RayCast2D" parent="."]
-position = Vector2(-10, -1)
+position = Vector2(-16, -3)
 target_position = Vector2(0, 8)
 
 [node name="RightArmRaycast" type="RayCast2D" parent="."]
@@ -276,15 +269,17 @@ position = Vector2(10.5, -15)
 shape = SubResource("RectangleShape2D_kw1be")
 
 [node name="DamageDealerArea" parent="." instance=ExtResource("3_ohxbt")]
+collision_layer = 128
 monitoring = false
 monitorable = false
 damage = 1
 
 [node name="CollisionShape2D" parent="DamageDealerArea" index="0"]
-position = Vector2(10.5, -15)
+position = Vector2(8, -15)
 shape = SubResource("RectangleShape2D_tiddi")
 
 [node name="DamageReceiverArea" parent="." instance=ExtResource("4_itt0m")]
+collision_layer = 256
 
 [node name="CollisionShape2D" parent="DamageReceiverArea" index="0"]
 position = Vector2(0, -13)

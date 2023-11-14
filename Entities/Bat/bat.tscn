@@ -175,6 +175,7 @@ libraries = {
 }
 
 [node name="DamageDealerArea" parent="Animal" instance=ExtResource("3_3vqtu")]
+collision_layer = 128
 damage = 1
 
 [node name="CollisionShape2D" parent="Animal/DamageDealerArea" index="0"]
@@ -182,6 +183,7 @@ position = Vector2(0, 17)
 shape = SubResource("RectangleShape2D_lk3cu")
 
 [node name="DamageReceiverArea" parent="Animal" instance=ExtResource("4_bv6fu")]
+collision_layer = 256
 
 [node name="CollisionShape2D" parent="Animal/DamageReceiverArea" index="0"]
 position = Vector2(0, 16)

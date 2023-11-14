@@ -1,8 +1,7 @@
-extends Node2D
+extends RigidBody2D
 
 @onready var sprite := $Sprite2D
 @onready var animation_player := $AnimationPlayer
-@onready var timer := $Timer
 @onready var player_detection_area := $PlayerDetectionArea
 @onready var right_leg_raycast := $RightLegRaycast
 @onready var left_leg_raycast := $LeftLegRaycast
@@ -11,18 +10,19 @@ extends Node2D
 @onready var player_in_reach_area := $PlayerInReachArea
 @onready var damage_dealer_area := $DamageDealerArea
 @onready var damage_receiver_area := $DamageReceiverArea
-@onready var body_collider := $StaticBody2D/CollisionShape2D
+@onready var body_collider := $CollisionShape2D
 @onready var sfx_hit := $SFXHit
 
 @export var speed_walk := 40.0
-@export var speed_run := 60.0
-@export var acceleration := 1000.0
-@export var friction := 500.0
+@export var speed_run := 70.0
+@export var acceleration := 800.0
+@export var friction := 100.0
 @export var ms_between_hits := 1000
-@export var max_life := 2
 @export var current_life := 2
 @export var knockback_duration := 200.0
-@export var knockback_intensity := 40.0
+@export var knockback_intensity := 30.0
+@export var duration_walk := 5000
+@export var duration_idle := 2000
 
 const HitSpark = preload("res://FX/HitSpark/hit_spark.tscn")
 
@@ -31,6 +31,7 @@ var velocity := Vector2.ZERO
 var ticks_since_last_hit := Time.get_ticks_msec()
 var knockback := Vector2.ZERO
 var knockback_start := Time.get_ticks_msec()
+var ticks_since_last_action := Time.get_ticks_msec()
 
 enum State {Idle, Walking, Attacking, Hurt, Dying, Dead}
 
@@ -49,19 +50,12 @@ func _ready():
 	player_detection_area.connect("body_entered", on_player_enter.bind())
 	player_detection_area.connect("body_exited", on_player_exit.bind())
 	damage_receiver_area.connect("hit", on_enemy_hit.bind())
-	timer.connect("timeout", on_timer_timeout.bind())
-	timer.start(3)
 
 func on_player_enter(body):
 	player = body
 
 func on_player_exit(body):
 	state = State.Walking
-	timer.start(2)
-
-func on_timer_timeout():
-	if current_life > 0:
-		turn_around()
 
 func is_player_within_reach() -> bool:
 	return player_in_reach_area.has_overlapping_bodies()
@@ -74,6 +68,7 @@ func on_enemy_hit(dmg:int, direction_knockback:float) -> void:
 	var hit_spark = HitSpark.instantiate()
 	get_parent().add_child(hit_spark)
 	hit_spark.global_position = global_position + Vector2.UP * 32 + Vector2.RIGHT * direction_knockback * 16
+	hit_spark.rotation_degrees = randf_range(-10.0, 10.0)
 	hit_spark.scale.x = direction_knockback
 	GameState.emit_signal("hit_received")
 	sfx_hit.play_sound()
@@ -81,44 +76,49 @@ func on_enemy_hit(dmg:int, direction_knockback:float) -> void:
 
 func turn_around():
 	if can_act() and not is_player_a_target():
+		ticks_since_last_action = Time.get_ticks_msec()
 		if state == State.Idle:
 			state = State.Walking
 			direction *= -1
-			timer.start(5)
 		elif state == State.Walking:
 			state = State.Idle
-			timer.start(2)
 
 func _physics_process(delta):
 	damage_dealer_area.monitoring = current_life > 0
 	if can_act():
 		if is_player_a_target():
 			if is_player_within_reach():
-				velocity.x = 0 
 				if (Time.get_ticks_msec() - ticks_since_last_hit) > ms_between_hits:
 					state = State.Attacking
 					ticks_since_last_hit = Time.get_ticks_msec()
 			elif state == State.Walking:
 				if can_keep_walking():
-					direction = sign(player.global_position.x - global_position.x)
-					velocity.x = move_toward(velocity.x, direction * speed_walk, acceleration * delta)
+					if (Time.get_ticks_msec() - ticks_since_last_hit) > ms_between_hits:
+						direction = sign(player.global_position.x - global_position.x)
+						velocity.x = move_toward(velocity.x, direction * speed_run, acceleration * delta)
+					else:
+						velocity.x = move_toward(velocity.x, 0, friction * delta)
 				else:
 					state = State.Idle
 					velocity.x = 0
+					player = null
+					print("set player to null")
 			elif state == State.Idle:
 				if sign(player.global_position.x - global_position.x) != direction:
 					state = State.Walking
 					direction = sign(player.global_position.x - global_position.x)
-					velocity.x = move_toward(velocity.x, direction * speed_walk, acceleration * delta)
+					velocity.x = move_toward(velocity.x, direction * speed_run, acceleration * delta)
 		else:
 			if state == State.Walking:
-				if can_keep_walking():
+				if can_keep_walking() and (Time.get_ticks_msec() - ticks_since_last_action) < duration_walk:
 					velocity.x = move_toward(velocity.x, direction * speed_walk, acceleration * delta)
 				else:
 					velocity.x = 0
 					turn_around()
 			elif state == State.Idle:
 				velocity.x = move_toward(velocity.x, 0, friction * delta)
+				if (Time.get_ticks_msec() - ticks_since_last_action) > duration_idle:
+					turn_around()
 	elif current_life <= 0:
 		velocity.x = move_toward(velocity.x, 0, friction * delta)
 		if state != State.Dying and state != State.Hurt:
@@ -162,7 +162,7 @@ func on_finish_action():
 		state = State.Dying
 		damage_receiver_area.set_deferred("monitorable", false)
 		player_detection_area.set_deferred("monitoring", false)
-		body_collider.set_deferred("disabled", true)
+#		body_collider.set_deferred("disabled", true)
 		player = null
 		velocity.x = 0
 

@@ -107,8 +107,10 @@ restart={
 2d_physics/layer_3="BigBox"
 2d_physics/layer_4="SmallBox"
 2d_physics/layer_5="Enemy"
-2d_physics/layer_6="DmgSender"
-2d_physics/layer_7="DmgReceiver"
+2d_physics/layer_6="HeroDmgSender"
+2d_physics/layer_7="HeroDmgReceiver"
+2d_physics/layer_8="EnemyDmgSender"
+2d_physics/layer_9="EnemyDmgReceiver"
 
 [rendering]
 

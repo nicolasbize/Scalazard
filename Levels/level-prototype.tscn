@@ -26,6 +26,17 @@ layer_1/tile_data = PackedInt32Array(1179601, 65536, 14, 1179602, 196608, 14, 11
 
 [node name="Hero" parent="." instance=ExtResource("2_njqj2")]
 position = Vector2(-1072, 240)
+gravity = 850.0
+max_fall_velocity = 400.0
+acceleration = 500.0
+max_velocity = 120.0
+max_run_velocity = 180.0
+friction = 700.0
+air_friction = 20.0
+jump_force = 280.0
+knockback_duration = 100.0
+knockback_intensity = 20.0
+push_strength = 30.0
 
 [node name="BigBox" parent="." instance=ExtResource("3_tdndb")]
 position = Vector2(104, 224)
@@ -62,6 +73,9 @@ text = "use shift to rescale elements"
 
 [node name="Zombie" parent="." instance=ExtResource("6_0sx2i")]
 position = Vector2(-599, 240)
+
+[node name="Zombie2" parent="." instance=ExtResource("6_0sx2i")]
+position = Vector2(-955, 240)
 
 [node name="Bat" parent="." instance=ExtResource("7_64k4k")]
 position = Vector2(-903, 144)

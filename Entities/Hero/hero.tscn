@@ -481,17 +481,6 @@ floor_stop_on_slope = false
 floor_block_on_wall = false
 safe_margin = 0.5
 script = ExtResource("1_xysyd")
-gravity = null
-max_fall_velocity = null
-acceleration = null
-max_velocity = null
-max_run_velocity = null
-friction = null
-air_friction = null
-jump_force = null
-knockback_duration = null
-knockback_intensity = null
-push_strength = null
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 z_index = 10
@@ -538,12 +527,14 @@ target_position = Vector2(160, 0)
 collision_mask = 13
 
 [node name="DamageReceiverArea" parent="." instance=ExtResource("4_hm5gm")]
+collision_mask = 128
 
 [node name="CollisionShape2D" parent="DamageReceiverArea" index="0"]
 position = Vector2(1, -12)
 shape = SubResource("RectangleShape2D_fb7eb")
 
 [node name="DamageDealerArea" parent="." instance=ExtResource("5_etfw3")]
+collision_mask = 256
 monitoring = false
 monitorable = false
 damage = 1
