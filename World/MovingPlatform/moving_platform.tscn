@@ -1,0 +1,39 @@
+[gd_scene load_steps=5 format=3 uid="uid://cjbmlpst1gi4x"]
+
+[ext_resource type="Script" path="res://World/MovingPlatform/moving_platform.gd" id="1_mlsbi"]
+[ext_resource type="Texture2D" uid="uid://dox8cp4hwndux" path="res://World/MovingPlatform/platform.png" id="1_riadb"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_oon8g"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_51f8l"]
+size = Vector2(50, 6)
+
+[node name="MovingPlatform" type="Path2D"]
+script = ExtResource("1_mlsbi")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="."]
+rotates = false
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="PathFollow2D"]
+remote_path = NodePath("../../AnimatableBody2D")
+
+[node name="Line2D" type="Line2D" parent="."]
+points = PackedVector2Array(0, 0, 67, 0)
+width = 1.0
+default_color = Color(0.0666667, 0.0666667, 0.0666667, 1)
+
+[node name="AnimatableBody2D" type="AnimatableBody2D" parent="."]
+collision_layer = 512
+collision_mask = 0
+physics_material_override = SubResource("PhysicsMaterial_oon8g")
+
+[node name="Sprite2D" type="Sprite2D" parent="AnimatableBody2D"]
+texture = ExtResource("1_riadb")
+centered = false
+offset = Vector2(-25, -3)
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatableBody2D"]
+shape = SubResource("RectangleShape2D_51f8l")
+one_way_collision = true
+metadata/_edit_lock_ = true

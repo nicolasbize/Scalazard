@@ -128,8 +128,8 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lk3cu"]
 size = Vector2(8, 6)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_wv1ig"]
-size = Vector2(16, 15)
+[sub_resource type="CircleShape2D" id="CircleShape2D_de6lt"]
+radius = 6.0
 
 [sub_resource type="Curve2D" id="Curve2D_flx6e"]
 _data = {
@@ -187,9 +187,10 @@ collision_layer = 256
 
 [node name="CollisionShape2D" parent="Animal/DamageReceiverArea" index="0"]
 position = Vector2(0, 16)
-shape = SubResource("RectangleShape2D_wv1ig")
+shape = SubResource("CircleShape2D_de6lt")
 
 [node name="PathLeft" type="Node2D" parent="."]
+visible = false
 
 [node name="Path2D" type="Path2D" parent="PathLeft"]
 curve = SubResource("Curve2D_flx6e")
@@ -218,6 +219,7 @@ position = Vector2(-85.5, 43.5)
 shape = SubResource("RectangleShape2D_7u8cd")
 
 [node name="PathRight" type="Node2D" parent="."]
+visible = false
 
 [node name="Path2D" type="Path2D" parent="PathRight"]
 curve = SubResource("Curve2D_ixcry")

@@ -21,5 +21,4 @@ func _physics_process(delta):
 		use_portal()
 
 func use_portal():
-	time_entered = Time.get_ticks_msec()
 	emit_signal("level_transition", destination_level, destination_address)

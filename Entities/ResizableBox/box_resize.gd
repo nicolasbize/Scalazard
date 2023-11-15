@@ -34,10 +34,10 @@ func _physics_process(delta):
 func on_complete():
 	if size_mode == SizeMode.Shrink:
 		var smallbox = SmallBox.instantiate()
-		get_parent().add_child(smallbox)
+		GameState.add_to_level(smallbox)
 		smallbox.global_position = global_position
 	else:
 		var bigbox = BigBox.instantiate()
-		get_parent().add_child(bigbox)
+		GameState.add_to_level(bigbox)
 		bigbox.global_position = global_position + Vector2.UP * 14
 	call_deferred("queue_free")

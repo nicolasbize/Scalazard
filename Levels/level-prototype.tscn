@@ -10,7 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://yihlblm061l0" path="res://World/Chandelier/chandelier.tscn" id="8_arouj"]
 [ext_resource type="PackedScene" uid="uid://b345y5ybsmuar" path="res://Entities/Ghoul/ghoul.tscn" id="9_wcadw"]
 
-[node name="Level" type="Node2D"]
+[node name="Level" type="Node2D" groups=["level"]]
 position = Vector2(8, -4)
 
 [node name="TileMap" type="TileMap" parent="."]
@@ -33,7 +33,7 @@ position = Vector2(-1072, 240)
 position = Vector2(104, 224)
 
 [node name="BigBox3" parent="." instance=ExtResource("3_tdndb")]
-position = Vector2(-560, 224)
+position = Vector2(-945, 224)
 
 [node name="BigBox4" parent="." instance=ExtResource("3_tdndb")]
 position = Vector2(-392, 224)

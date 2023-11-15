@@ -1,20 +1,105 @@
-[gd_scene load_steps=4 format=3 uid="uid://hkwu5mgomxyh"]
+[gd_scene load_steps=9 format=3 uid="uid://hkwu5mgomxyh"]
 
-[ext_resource type="Texture2D" uid="uid://dq7vkpl8xxrfn" path="res://World/Door/doorway.png" id="1_fh8v3"]
 [ext_resource type="Script" path="res://World/Door/portal.gd" id="1_u12a3"]
+[ext_resource type="Texture2D" uid="uid://cx7vlop8d2m7o" path="res://World/Door/wall-doorway.png" id="2_qaean"]
+[ext_resource type="Texture2D" uid="uid://kpdl23n4kfnb" path="res://World/Door/light.png" id="3_k3ufd"]
+[ext_resource type="Texture2D" uid="uid://b4n48jimydy3o" path="res://World/Door/light-doorway.png" id="4_es0s3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vnsxx"]
-size = Vector2(10, 20)
+size = Vector2(22, 20)
+
+[sub_resource type="Animation" id="Animation_dprwf"]
+resource_name = "idle"
+loop_mode = 1
+step = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PointLight2D:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 0.713726, 0.0941176, 1), Color(1, 0.941176, 0.0901961, 1), Color(1, 0.713726, 0.0941176, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PointLight2D:energy")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [2.43, 3.15, 2.43]
+}
+
+[sub_resource type="Animation" id="Animation_webj3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PointLight2D:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 0.713726, 0.0941176, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PointLight2D:energy")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [2.43]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_b36nt"]
+_data = {
+"RESET": SubResource("Animation_webj3"),
+"idle": SubResource("Animation_dprwf")
+}
 
 [node name="Portal" type="Area2D" groups=["portal"]]
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("1_u12a3")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_fh8v3")
-offset = Vector2(0, -16)
+[node name="WallSprite" type="Sprite2D" parent="."]
+light_mask = 0
+z_index = 100
+texture = ExtResource("2_qaean")
+centered = false
+offset = Vector2(16, -32)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -13)
+position = Vector2(16, -13)
 shape = SubResource("RectangleShape2D_vnsxx")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(22, -15.25)
+scale = Vector2(1, 1.14063)
+color = Color(1, 0.713726, 0.0941176, 1)
+energy = 2.43
+shadow_enabled = true
+texture = ExtResource("3_k3ufd")
+
+[node name="LightSprite" type="Sprite2D" parent="."]
+texture = ExtResource("4_es0s3")
+offset = Vector2(0, -16)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "idle"
+libraries = {
+"": SubResource("AnimationLibrary_b36nt")
+}

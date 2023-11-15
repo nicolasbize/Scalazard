@@ -1,28 +1,41 @@
-[gd_scene load_steps=5 format=3 uid="uid://dfl7ax8tner40"]
+[gd_scene load_steps=6 format=3 uid="uid://dfl7ax8tner40"]
 
 [ext_resource type="Script" path="res://FX/BeamSpell/beam_spell.gd" id="1_8yb6c"]
-[ext_resource type="Texture2D" uid="uid://xp63h8eiyhl1" path="res://FX/BeamSpell/beam.png" id="2_qxpx5"]
 [ext_resource type="Texture2D" uid="uid://c4rph3x5quy16" path="res://FX/BeamSpell/circle.png" id="3_0q55e"]
-[ext_resource type="Texture2D" uid="uid://dmk6whdau6lj1" path="res://FX/BeamSpell/end-beam.png" id="4_2rgy3"]
+[ext_resource type="Texture2D" uid="uid://cchfbkq8aorj5" path="res://FX/BeamSpell/white-beam.png" id="4_fllu1"]
+[ext_resource type="Shader" path="res://FX/BeamSpell/beam.gdshader" id="5_1ln6s"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_r1f4c"]
+shader = ExtResource("5_1ln6s")
+shader_parameter/beams = 2
+shader_parameter/energy = 4.0
+shader_parameter/roughness = 3
+shader_parameter/frequency = 5
+shader_parameter/speed = 1.0
+shader_parameter/thickness = 0.04
+shader_parameter/outline_thickness = 0.039
+shader_parameter/beam_difference = 0.0
+shader_parameter/glow = 0.429
+shader_parameter/outline_glow = 0.0
+shader_parameter/color = Color(0.91, 1, 1, 1)
+shader_parameter/outline_color = Color(0, 0.894118, 0.211765, 1)
+shader_parameter/progress = 1.0
+shader_parameter/y_offset = 0.0
+shader_parameter/fixed_edge_size = 0.05
+shader_parameter/noise_scale = Vector2(1, 1)
 
 [node name="BeamSpell" type="Node2D"]
 z_index = 10
 script = ExtResource("1_8yb6c")
 
-[node name="Line2D" type="Line2D" parent="."]
+[node name="Beam" type="Sprite2D" parent="."]
 z_index = 11
-points = PackedVector2Array(0, 0, 20, 0)
-width = 6.0
-default_color = Color(1, 1, 0.996078, 1)
-texture = ExtResource("2_qxpx5")
-texture_mode = 1
+material = SubResource("ShaderMaterial_r1f4c")
+scale = Vector2(1e-05, 8)
+texture = ExtResource("4_fllu1")
+centered = false
+offset = Vector2(0, -3)
 
 [node name="Circle" type="Sprite2D" parent="."]
 z_index = 10
 texture = ExtResource("3_0q55e")
-
-[node name="EndBeam" type="Sprite2D" parent="."]
-z_index = 10
-position = Vector2(22, 0)
-scale = Vector2(1e-05, 1)
-texture = ExtResource("4_2rgy3")

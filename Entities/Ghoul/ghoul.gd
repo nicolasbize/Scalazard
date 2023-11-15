@@ -18,8 +18,8 @@ extends CharacterBody2D
 @onready var sfx_hit := $SFXHit
 
 const SPEED = 300.0
-const jump_height := 130.0
-const jump_intensity := 220.0
+const jump_height := 110.0
+const jump_intensity := 240.0
 const speed_run := 80.0
 const speed_walk := 30.0
 const acceleration := 800.0

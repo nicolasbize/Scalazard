@@ -3,6 +3,7 @@ extends Node2D
 @export var fly_speed_min := 0.2
 @export var fly_speed_max := 0.3
 @export var current_life := 1
+@export var wait_before_flight := 300
 
 @onready var paths := [$PathLeft/Path2D/PathFollow2D, $PathRight/Path2D/PathFollow2D]
 @onready var player_detection_areas := [$PathLeft/PlayerDetectionArea, $PathRight/PlayerDetectionArea]
@@ -27,6 +28,7 @@ var anim_states = {
 }
 var current_path_index := -1
 var fly_speed := 0.0
+var time_since_arrived := Time.get_ticks_msec()
 
 func _ready():
 	damage_receiver_area.connect("hit", on_enemy_hit.bind())
@@ -59,6 +61,7 @@ func reset_at_current_position():
 	current_path_index = -1
 	global_position = animal.global_position
 	animal.position = Vector2.ZERO
+	time_since_arrived = Time.get_ticks_msec()
 
 func on_end_start_fly():
 	state = State.Fly
@@ -78,6 +81,8 @@ func on_enemy_hit(dmg:int, direction_knockback:float) -> void:
 	sfx_hit.play_sound()
 	
 func get_valid_path() -> int:
+	if (Time.get_ticks_msec() - time_since_arrived) < wait_before_flight:
+		return -1
 	for i in range(0, player_detection_areas.size()):
 		var player_detection_area : Area2D = player_detection_areas[i]
 		var wall_detection_area : Area2D = wall_detection_areas[i]

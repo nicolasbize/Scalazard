@@ -5,16 +5,13 @@ extends Node2D
 @onready var music_intro := $MusicIntro
 @onready var music_theme := $MusicTheme
 
-const Levels = [
-	preload("res://Levels/level_01_courtyard.tscn"),
-	preload("res://Levels/level-prototype.tscn"),
-]
-
 var current_level_scene = null
 var upcoming_level : GameState.Level
+var upcoming_destination_address : int
+var in_transition := false
 
 func _ready():
-	load_level(GameState.Level.Entrance)
+	load_level(GameState.current_level)
 	ui.connect("in_transit", repack_level.bind())
 	GameState.connect("life_change", on_player_life_change.bind())
 	music_intro.connect("finished", on_intro_music_finished.bind())
@@ -41,13 +38,18 @@ func repack_level():
 		for child in current_level_scene.get_children():
 			if not portal.is_connected("level_transition", on_level_transition_request.bind()):
 				portal.connect("level_transition", on_level_transition_request.bind())
+			if portal.address_in_level == upcoming_destination_address:
+				hero.global_position = portal.global_position
 	camera.reset(hero, tilemap)
 	ui.reset_death()
 	GameState.new_life()
 	ui.end_transition()
 	
-func on_level_transition_request(destination: GameState.Level, destination_address: Portal.DoorIndex):
-	load_level(destination)
+func on_level_transition_request(destination_level: GameState.Level, destination_address: Portal.DoorIndex):
+	if not in_transition:
+		in_transition = true
+		upcoming_destination_address = destination_address
+		load_level(destination_level)
 
 func on_player_life_change(current_life:int, max_life:int) -> void:
 	if current_life <= 0:

@@ -19,6 +19,7 @@ extends CharacterBody2D
 @export var max_fall_velocity := 400.0
 @export var acceleration := 500.0
 @export var max_velocity := 120.0
+@export var max_velocity_carrying := 90.0
 @export var max_run_velocity := 180.0
 @export var friction := 700.0
 @export var air_friction := 20.0
@@ -180,21 +181,14 @@ func get_direction() -> float:
 
 func find_cast_target():
 	if casting_ray.is_colliding():
-		var collision_point : Vector2 = to_local(casting_ray.get_collider().global_position)
-		var beam_spell = BeamSpell.instantiate()
-		laser_start.add_child(beam_spell)
-#		beam_spell.rotation_degrees = 0 if (sprite.scale.x > 0) else 180
-		collision_point.x -= laser_start.position.x
-		collision_point.y = 0
-		beam_spell.cast(collision_point)
-		var box_resize : BoxResize = BoxResize.instantiate()
-		if casting_ray.get_collider().is_in_group("shrinkable"):
-			box_resize.size_mode = 1
-		elif casting_ray.get_collider().is_in_group("expandable"):
-			box_resize.size_mode = 0
-		get_parent().add_child(box_resize)
-		box_resize.global_position = casting_ray.get_collider().global_position
-		casting_ray.get_collider().queue_free()
+		var collider = casting_ray.get_collider()
+		if collider.is_in_group("shrinkable") or collider.is_in_group("expandable"):	
+			var collision_point : Vector2 = to_local(casting_ray.get_collider().global_position)
+			var beam_spell = BeamSpell.instantiate()
+			laser_start.add_child(beam_spell)
+			collision_point.x -= laser_start.position.x
+			collision_point.y = 0
+			beam_spell.cast_to(casting_ray.get_collider())
 	else:
 		pass
 		# todo play fizz sound
@@ -218,7 +212,7 @@ func apply_acceleration(delta, input_axis):
 func get_max_velocity() -> float:
 	var max = max_velocity
 	if is_carrying:
-		max = max_velocity / 2
+		max = max_velocity_carrying
 	return max
 
 func apply_friction(delta):
@@ -232,7 +226,7 @@ func jump_check():
 	if is_carrying:
 		force = jump_force * 0.85
 	if is_on_floor() and Input.is_action_just_pressed("jump"):
-		if Input.is_action_pressed("crouch"):
+		if Input.is_action_pressed("crouch") and not state == State.Casting:
 			position.y += 1
 		else:
 			jump(force)

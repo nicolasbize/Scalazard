@@ -19,7 +19,6 @@ func reset(hero, map):
 	set_limits()
 	calculate_target_destination()
 	global_position = target_destination
-	position_smoothing_enabled = true
 
 func set_limits():
 	var used = tilemap.get_used_rect()
@@ -34,6 +33,8 @@ func _physics_process(delta):
 		global_position = target_destination
 		shake_strength = lerpf(shake_strength, 0.0, shake_decay_rate * delta)
 		offset = get_random_offset()
+		if not position_smoothing_enabled:
+			position_smoothing_enabled = true
 	
 func get_random_offset() -> Vector2:
 	return Vector2(
