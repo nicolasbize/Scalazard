@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://hkwu5mgomxyh"]
+[gd_scene load_steps=11 format=3 uid="uid://hkwu5mgomxyh"]
 
 [ext_resource type="Script" path="res://World/Door/portal.gd" id="1_u12a3"]
 [ext_resource type="Texture2D" uid="uid://cx7vlop8d2m7o" path="res://World/Door/wall-doorway.png" id="2_qaean"]
@@ -7,6 +7,33 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vnsxx"]
 size = Vector2(22, 20)
+
+[sub_resource type="Animation" id="Animation_webj3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PointLight2D:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 0.713726, 0.0941176, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PointLight2D:energy")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [2.43]
+}
 
 [sub_resource type="Animation" id="Animation_dprwf"]
 resource_name = "idle"
@@ -37,38 +64,17 @@ tracks/1/keys = {
 "values": [2.43, 3.15, 2.43]
 }
 
-[sub_resource type="Animation" id="Animation_webj3"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("PointLight2D:color")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 0.713726, 0.0941176, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("PointLight2D:energy")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [2.43]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_b36nt"]
 _data = {
 "RESET": SubResource("Animation_webj3"),
 "idle": SubResource("Animation_dprwf")
 }
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_odujo"]
+size = Vector2(11, 31)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gyb6x"]
+size = Vector2(32.5, 3.5)
 
 [node name="Portal" type="Area2D" groups=["portal"]]
 collision_layer = 0
@@ -103,3 +109,17 @@ autoplay = "idle"
 libraries = {
 "": SubResource("AnimationLibrary_b36nt")
 }
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_mask = 0
+
+[node name="Wall" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(42, -16.5)
+shape = SubResource("RectangleShape2D_odujo")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="."]
+collision_mask = 0
+
+[node name="Wall" type="CollisionShape2D" parent="StaticBody2D2"]
+position = Vector2(32.25, -30.25)
+shape = SubResource("RectangleShape2D_gyb6x")

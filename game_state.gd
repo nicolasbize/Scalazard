@@ -11,11 +11,11 @@ var Levels = {
 	Level.EastTower: preload("res://Levels/level_03_east_tower.tscn"),
 }
 
-var current_level := Level.Courtyard
+var current_level := Level.Entrance
 
 var max_life := 3
 var current_life := 3
-var is_music_on := false
+var is_music_on := true
 
 var screen_shake := true
 
@@ -23,6 +23,11 @@ func deal_hero_damage(dmg:int) -> void:
 	current_life -= dmg
 	if current_life < 0:
 		current_life = 0
+	emit_signal("life_change", current_life, max_life)
+
+func increase_life() -> void:
+	max_life += 1
+	current_life = max_life
 	emit_signal("life_change", current_life, max_life)
 
 func new_life() -> void:

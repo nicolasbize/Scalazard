@@ -10,6 +10,7 @@ extends CharacterBody2D
 @onready var casting_ray := $CastingRay
 @onready var damage_receiver_area := $DamageReceiverArea
 @onready var damage_dealer_area := $DamageDealerArea
+@onready var water_detection_area := $WaterDetectionArea
 @onready var camera_target := $CameraTarget
 @onready var sfx_swing := $SFXSwing
 @onready var sfx_jump := $SFXJump
@@ -20,20 +21,23 @@ extends CharacterBody2D
 @export var acceleration := 500.0
 @export var max_velocity := 120.0
 @export var max_velocity_carrying := 90.0
+@export var max_velocity_in_water := 60.0
 @export var max_run_velocity := 180.0
 @export var friction := 700.0
 @export var air_friction := 20.0
-@export var jump_force := 280.0
+@export var jump_force := 290.0
 @export var knockback_duration := 100.0
 @export var knockback_intensity := 20.0
 @export var push_strength := 30.0
 @export var min_time_between_hits := 1000.0 # 1sec
+@export var grace_period_jump := 200.0
 
 const BeamSpell = preload("res://FX/BeamSpell/beam_spell.tscn")
 const SmallBox = preload("res://Entities/ResizableBox/small_box.tscn")
 const BigBox = preload("res://Entities/ResizableBox/big_box.tscn")
 const HeroSpark = preload("res://FX/HitSpark/hero_spark.tscn")
 const BoxResize = preload("res://Entities/ResizableBox/box_resize.tscn")
+const WaterSplash = preload("res://FX/Splash/water_spash.tscn")
 
 enum State {Idle, Running, Jumping, StartFalling, Falling, Casting, Attacking, Pushing, Carrying, CarryingIdle, Hurting, Dying, Dead, Resting, Healing}
 var anim_states = {
@@ -63,6 +67,8 @@ var attack_anim := "slash_1"
 var pickable_target = null
 var knockback := Vector2.ZERO
 var knockback_start := Time.get_ticks_msec()
+var was_on_floor := false
+var last_time_on_floor := Time.get_ticks_msec()
 
 func _ready():
 	pickup_area.connect("area_entered", on_player_enter_pickable.bind())
@@ -93,6 +99,8 @@ func can_cast() -> bool:
 
 func move(delta):
 	carried_box.visible = is_carrying
+	if is_on_floor():
+		last_time_on_floor = Time.get_ticks_msec()
 	apply_gravity(delta)
 	if can_move():
 		var input_axis = Input.get_axis("move_left", "move_right")
@@ -136,13 +144,24 @@ func move(delta):
 	if state != State.Dead:
 		move_and_slide()
 	camera_target.position.x = lerpf(0.0, 20.0, velocity.x / get_max_velocity())
+	
+	check_poison()
+	
+	# land on water?
+	if not was_on_floor and is_on_floor():
+		check_splash()
+	was_on_floor = is_on_floor()
 
 func play_animations() -> void:
 	if state == State.Attacking: # multiple anims
 		animation_player.play(attack_anim)
 	else:
 		animation_player.play(anim_states[state])
-		
+
+func check_poison():
+	if in_water() and water_detection_area.get_overlapping_areas()[0].get_parent().liquid_type == WaterBody.LiquidType.Poison:
+		on_player_hit(1, 0.0)
+
 func can_pickup() -> bool:
 	return is_on_floor() and (state == State.Idle or state == State.Running)
 
@@ -213,6 +232,8 @@ func get_max_velocity() -> float:
 	var max = max_velocity
 	if is_carrying:
 		max = max_velocity_carrying
+	if in_water():
+		max = max_velocity_in_water
 	return max
 
 func apply_friction(delta):
@@ -225,14 +246,24 @@ func jump_check():
 	var force = jump_force
 	if is_carrying:
 		force = jump_force * 0.85
-	if is_on_floor() and Input.is_action_just_pressed("jump"):
+	var elapsed_since_on_floor = Time.get_ticks_msec() - last_time_on_floor
+	if (is_on_floor() or elapsed_since_on_floor < grace_period_jump) and Input.is_action_just_pressed("jump"):
 		if Input.is_action_pressed("crouch") and not state == State.Casting:
 			position.y += 1
 		else:
 			jump(force)
 	if not is_on_floor():
+		# limit down speed
 		if Input.is_action_just_released("jump") and velocity.y < -jump_force / 2:
 			velocity.y = -jump_force / 2
+
+func splash():
+	var liquid_color : Color = water_detection_area.get_overlapping_areas()[0].get_parent().get_color()
+	var splash = WaterSplash.instantiate()
+	GameState.add_to_level(splash)
+	splash.process_material.color_ramp.gradient.colors[0] = liquid_color
+	splash.process_material.color_ramp.gradient.colors[1] = liquid_color.lightened(0.4)
+	splash.global_position = global_position
 
 func on_player_hit(dmg:int, direction_knockback: float):
 	if (Time.get_ticks_msec() - time_since_last_hit) > min_time_between_hits:
@@ -270,6 +301,14 @@ func jump(force, create_effect = true):
 	velocity.y = -force
 	state = State.Jumping
 	sfx_jump.play_sound()
+	check_splash()
+
+func check_splash():
+	if in_water():
+		splash()
+
+func in_water() -> bool:
+	return water_detection_area.has_overlapping_areas()
 
 func on_start_falling():
 	state = State.Falling

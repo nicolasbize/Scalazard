@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://b5heeqig4y3my"]
+[gd_scene load_steps=38 format=3 uid="uid://b5heeqig4y3my"]
 
 [ext_resource type="Script" path="res://Entities/Hero/hero.gd" id="1_xysyd"]
 [ext_resource type="Texture2D" uid="uid://colcyx28mfryy" path="res://Entities/Hero/merlin.png" id="2_2rxwt"]
@@ -15,7 +15,7 @@
 [ext_resource type="AudioStream" uid="uid://dfef4kjdq88y0" path="res://Assets/SFX/footstep-1.wav" id="11_q06cg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b5gn1"]
-size = Vector2(10, 25)
+size = Vector2(10, 23)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_bdqlh"]
 radius = 12.0
@@ -473,6 +473,9 @@ size = Vector2(10, 14)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ey04b"]
 size = Vector2(27.5, 17)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_np757"]
+size = Vector2(15, 6)
+
 [node name="Hero" type="CharacterBody2D"]
 z_index = 5
 collision_layer = 2
@@ -491,7 +494,7 @@ hframes = 10
 vframes = 15
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -12.5)
+position = Vector2(0, -11.5)
 shape = SubResource("RectangleShape2D_b5gn1")
 
 [node name="BoxDetector" type="RayCast2D" parent="."]
@@ -584,6 +587,14 @@ count = 2
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="SFXHit"]
 stream = ExtResource("11_pxmkg")
+
+[node name="WaterDetectionArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 512
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WaterDetectionArea"]
+position = Vector2(-0.5, -3)
+shape = SubResource("RectangleShape2D_np757")
 
 [editable path="DamageReceiverArea"]
 [editable path="DamageDealerArea"]

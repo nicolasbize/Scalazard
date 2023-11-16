@@ -111,6 +111,7 @@ restart={
 2d_physics/layer_7="HeroDmgReceiver"
 2d_physics/layer_8="EnemyDmgSender"
 2d_physics/layer_9="EnemyDmgReceiver"
+2d_physics/layer_10="Water"
 
 [rendering]
 

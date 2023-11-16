@@ -17,10 +17,6 @@ func _ready():
 	music_intro.connect("finished", on_intro_music_finished.bind())
 
 func load_level(level:GameState.Level):
-	if music_theme.is_playing():
-		music_theme.stop()
-	if level != GameState.Level.Courtyard and GameState.is_music_on:
-		music_intro.play()
 	upcoming_level = level
 	ui.start_transition()
 
@@ -34,16 +30,19 @@ func repack_level():
 	add_child(current_level_scene)
 	var hero = current_level_scene.find_child("Hero", false)
 	var tilemap = current_level_scene.find_child("TileMap", false)
-	for portal in get_tree().get_nodes_in_group("portal"):
-		for child in current_level_scene.get_children():
-			if not portal.is_connected("level_transition", on_level_transition_request.bind()):
-				portal.connect("level_transition", on_level_transition_request.bind())
-			if portal.address_in_level == upcoming_destination_address:
-				hero.global_position = portal.global_position
+	for child in current_level_scene.get_children():
+		if child.is_in_group("portal"):
+			if not child.is_connected("level_transition", on_level_transition_request.bind()):
+				child.connect("level_transition", on_level_transition_request.bind())
+			if child.address_in_level == upcoming_destination_address:
+				hero.global_position = child.global_position
 	camera.reset(hero, tilemap)
 	ui.reset_death()
 	GameState.new_life()
 	ui.end_transition()
+	if upcoming_level != GameState.Level.Courtyard and not music_theme.is_playing() and GameState.is_music_on:
+		music_intro.play()
+	in_transition = false
 	
 func on_level_transition_request(destination_level: GameState.Level, destination_address: Portal.DoorIndex):
 	if not in_transition:

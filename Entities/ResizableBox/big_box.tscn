@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://dwcrlgrxpc5qs"]
+[gd_scene load_steps=9 format=3 uid="uid://dwcrlgrxpc5qs"]
 
 [ext_resource type="Script" path="res://Entities/ResizableBox/big_box.gd" id="1_dh5yu"]
 [ext_resource type="Texture2D" uid="uid://7jxpgws33mca" path="res://Entities/ResizableBox/bigbox.png" id="1_nrwon"]
+[ext_resource type="Script" path="res://Entities/HitBox/damage_dealer_area.gd" id="3_588i6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xy8vj"]
 size = Vector2(30, 30)
@@ -32,6 +33,9 @@ _data = {
 "RESET": SubResource("Animation_a7a8y"),
 "start": SubResource("Animation_urcwu")
 }
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p8yln"]
+size = Vector2(20, 5.5)
 
 [node name="BigBox" type="RigidBody2D" groups=["shrinkable"]]
 position = Vector2(0, -16)
@@ -65,3 +69,13 @@ target_position = Vector2(-16, 0)
 
 [node name="RaycastRight" type="RayCast2D" parent="."]
 target_position = Vector2(16, 0)
+
+[node name="DamageDealerArea" type="Area2D" parent="."]
+collision_layer = 320
+collision_mask = 320
+script = ExtResource("3_588i6")
+damage = 10
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageDealerArea"]
+position = Vector2(0, 14.75)
+shape = SubResource("RectangleShape2D_p8yln")

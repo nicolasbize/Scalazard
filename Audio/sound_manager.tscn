@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://dvmej0vp760ht"]
+
+[ext_resource type="Script" path="res://Audio/sound_manager.gd" id="1_bkkj1"]
+[ext_resource type="PackedScene" uid="uid://dsmce0h5or2e6" path="res://Audio/sound_queue.tscn" id="2_n67s5"]
+
+[node name="SoundManager" type="Node"]
+script = ExtResource("1_bkkj1")
+
+[node name="SoundQueue" parent="." instance=ExtResource("2_n67s5")]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="SoundQueue"]
