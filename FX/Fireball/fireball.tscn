@@ -1,10 +1,38 @@
-[gd_scene load_steps=4 format=3 uid="uid://bf2jcxis2m0n8"]
+[gd_scene load_steps=11 format=3 uid="uid://bf2jcxis2m0n8"]
 
 [ext_resource type="Script" path="res://FX/Fireball/fireball.gd" id="1_7eol3"]
 [ext_resource type="Texture2D" uid="uid://bmtyw2yewlnfw" path="res://FX/Fireball/fireball.png" id="1_iliji"]
+[ext_resource type="PackedScene" uid="uid://b5mhaodm6g8i5" path="res://Entities/HitBox/damage_dealer_area.tscn" id="3_a72cb"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_jqv1d"]
 radius = 3.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_68oue"]
+radius = 3.0
+
+[sub_resource type="Gradient" id="Gradient_tk0vc"]
+offsets = PackedFloat32Array(0, 0.226601, 0.482759, 0.70936)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 0, 1, 0.888445, 0.591366, 0.0478351, 1, 0.128338, 0.128338, 3.60981e-08, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_7hbax"]
+gradient = SubResource("Gradient_tk0vc")
+
+[sub_resource type="Curve" id="Curve_kqb5d"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.987854, 0.302491), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_c28w2"]
+curve = SubResource("Curve_kqb5d")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_blqyq"]
+resource_local_to_scene = true
+particle_flag_disable_z = true
+spread = 2.0
+gravity = Vector3(0, 0, 0)
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+scale_curve = SubResource("CurveTexture_c28w2")
+color_ramp = SubResource("GradientTexture1D_7hbax")
 
 [node name="Fireball" type="Node2D"]
 z_index = -1
@@ -16,7 +44,24 @@ texture = ExtResource("1_iliji")
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 0
-collision_mask = 7
+collision_mask = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_jqv1d")
+
+[node name="DamageDealerArea" parent="." instance=ExtResource("3_a72cb")]
+collision_layer = 160
+collision_mask = 320
+damage = 1
+
+[node name="CollisionShape2D" parent="DamageDealerArea" index="0"]
+shape = SubResource("CircleShape2D_68oue")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+scale = Vector2(1, -1e-05)
+amount = 10
+process_material = SubResource("ParticleProcessMaterial_blqyq")
+texture = ExtResource("1_iliji")
+lifetime = 0.2
+
+[editable path="DamageDealerArea"]

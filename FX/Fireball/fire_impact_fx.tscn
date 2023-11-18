@@ -1,0 +1,40 @@
+[gd_scene load_steps=7 format=3 uid="uid://dvpwxk6xexp8h"]
+
+[ext_resource type="Texture2D" uid="uid://b3akykxhaje0y" path="res://FX/Fireball/fire.png" id="1_5gw3s"]
+
+[sub_resource type="Gradient" id="Gradient_57n3e"]
+offsets = PackedFloat32Array(0, 0.216749, 0.517241, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.784314, 0.784314, 0, 1, 0.809389, 0.407364, 0, 0.733383, 0, 0, 0, 0.54902)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_yb33j"]
+gradient = SubResource("Gradient_57n3e")
+
+[sub_resource type="Curve" id="Curve_pfkn6"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.0960854), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_r7ybd"]
+curve = SubResource("Curve_pfkn6")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_63v0y"]
+lifetime_randomness = 0.6
+emission_shape = 3
+emission_box_extents = Vector3(1, 1, 1)
+particle_flag_disable_z = true
+gravity = Vector3(0, 10, 0)
+initial_velocity_min = 40.0
+initial_velocity_max = 50.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+scale_min = 0.8
+scale_curve = SubResource("CurveTexture_r7ybd")
+color_ramp = SubResource("GradientTexture1D_yb33j")
+
+[node name="FireImpactFX" type="GPUParticles2D"]
+emitting = false
+amount = 12
+process_material = SubResource("ParticleProcessMaterial_63v0y")
+texture = ExtResource("1_5gw3s")
+lifetime = 0.8
+one_shot = true
+explosiveness = 0.9

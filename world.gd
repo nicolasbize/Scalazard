@@ -7,14 +7,14 @@ extends Node2D
 
 var current_level_scene = null
 var upcoming_level : GameState.Level
-var upcoming_destination_address : int
+var upcoming_destination_address := -1
 var in_transition := false
 
 func _ready():
-	load_level(GameState.current_level)
 	ui.connect("in_transit", repack_level.bind())
 	GameState.connect("life_change", on_player_life_change.bind())
 	music_intro.connect("finished", on_intro_music_finished.bind())
+	load_level(GameState.current_level)
 
 func load_level(level:GameState.Level):
 	upcoming_level = level
@@ -35,10 +35,11 @@ func repack_level():
 			if not child.is_connected("level_transition", on_level_transition_request.bind()):
 				child.connect("level_transition", on_level_transition_request.bind())
 			if child.address_in_level == upcoming_destination_address:
-				hero.global_position = child.global_position
+				hero.global_position = child.get_spawn_location()
 	camera.reset(hero, tilemap)
-	ui.reset_death()
-	GameState.new_life()
+	if GameState.current_life <= 0:
+		ui.reset_death()
+		GameState.new_life()
 	ui.end_transition()
 	if upcoming_level != GameState.Level.Courtyard and not music_theme.is_playing() and GameState.is_music_on:
 		music_intro.play()

@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://dma87nqv5u6l" path="res://Entities/Zombie/zombie.tscn" id="6_0sx2i"]
 [ext_resource type="PackedScene" uid="uid://bfem6jove134i" path="res://Entities/Bat/bat.tscn" id="7_64k4k"]
 [ext_resource type="PackedScene" uid="uid://yihlblm061l0" path="res://World/Chandelier/chandelier.tscn" id="8_arouj"]
-[ext_resource type="PackedScene" uid="uid://b345y5ybsmuar" path="res://Entities/Ghoul/ghoul.tscn" id="9_wcadw"]
+[ext_resource type="PackedScene" uid="uid://duwpkeop6bhdk" path="res://World/Chest/treasure_chest.tscn" id="9_px6ye"]
 
 [node name="Level" type="Node2D" groups=["level"]]
 position = Vector2(8, -4)
@@ -31,9 +31,6 @@ position = Vector2(-1072, 240)
 
 [node name="BigBox" parent="." instance=ExtResource("3_tdndb")]
 position = Vector2(104, 224)
-
-[node name="BigBox3" parent="." instance=ExtResource("3_tdndb")]
-position = Vector2(-945, 224)
 
 [node name="BigBox4" parent="." instance=ExtResource("3_tdndb")]
 position = Vector2(-392, 224)
@@ -79,8 +76,9 @@ one_shot = true
 [node name="Chandelier" parent="." instance=ExtResource("8_arouj")]
 position = Vector2(-1008, 144)
 
-[node name="Ghoul" parent="." instance=ExtResource("9_wcadw")]
-position = Vector2(-879, 241)
+[node name="TreasureChest" parent="." instance=ExtResource("9_px6ye")]
+position = Vector2(-966, 240)
+content = 2
 
 [editable path="Bat2"]
 [editable path="Bat2/Animal/DamageDealerArea"]

@@ -6,19 +6,15 @@ enum DoorIndex {North, East, South, West}
 @export var address_in_level : DoorIndex
 @export var destination_level : GameState.Level
 @export var destination_address : DoorIndex
-@export var time_before_active_again := 5000
+@onready var spawn := $Spawn
 
 signal level_transition
 
-var time_entered := Time.get_ticks_msec()
-
 func _ready():
-	time_entered = Time.get_ticks_msec()
+	connect("body_entered", on_body_enter.bind())
 
-func _physics_process(delta):
-	var time_since_used = Time.get_ticks_msec() - time_entered
-	if time_since_used > time_before_active_again and has_overlapping_bodies():
-		use_portal()
-
-func use_portal():
+func on_body_enter(body):
 	emit_signal("level_transition", destination_level, destination_address)
+
+func get_spawn_location() -> Vector2:
+	return spawn.global_position

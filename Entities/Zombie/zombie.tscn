@@ -8,7 +8,7 @@
 [ext_resource type="AudioStream" uid="uid://40bythfk0lmn" path="res://Assets/SFX/hit.wav" id="6_cqo0g"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s08ai"]
-size = Vector2(10, 15.25)
+size = Vector2(14, 15.25)
 
 [sub_resource type="Animation" id="Animation_sj5f0"]
 length = 0.001
@@ -202,7 +202,7 @@ _data = {
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tms75"]
-size = Vector2(113, 51)
+size = Vector2(98, 31)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kw1be"]
 size = Vector2(21, 20)
@@ -216,6 +216,9 @@ size = Vector2(18, 24)
 [node name="Zombie" type="RigidBody2D"]
 collision_layer = 16
 collision_mask = 5
+mass = 20.0
+continuous_cd = 2
+lock_rotation = true
 script = ExtResource("1_iajjo")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -239,7 +242,7 @@ collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetectionArea"]
-position = Vector2(47.5, -32.5)
+position = Vector2(40, -22.5)
 shape = SubResource("RectangleShape2D_tms75")
 
 [node name="RightLegRaycast" type="RayCast2D" parent="."]

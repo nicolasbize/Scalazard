@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://b5heeqig4y3my"]
+[gd_scene load_steps=39 format=3 uid="uid://b5heeqig4y3my"]
 
 [ext_resource type="Script" path="res://Entities/Hero/hero.gd" id="1_xysyd"]
 [ext_resource type="Texture2D" uid="uid://colcyx28mfryy" path="res://Entities/Hero/merlin.png" id="2_2rxwt"]
@@ -264,6 +264,23 @@ tracks/0/keys = {
 "values": [20]
 }
 
+[sub_resource type="Animation" id="Animation_j43wf"]
+resource_name = "pickup"
+length = 0.1
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [140]
+}
+
 [sub_resource type="Animation" id="Animation_fluev"]
 resource_name = "push"
 loop_mode = 1
@@ -350,7 +367,7 @@ tracks/2/path = NodePath("DamageDealerArea:monitoring")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0.1, 0.2),
+"times": PackedFloat32Array(0, 0.3),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
@@ -392,7 +409,7 @@ tracks/2/path = NodePath("DamageDealerArea:monitoring")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0.2, 0.4),
+"times": PackedFloat32Array(0.1, 0.6),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
@@ -458,6 +475,7 @@ _data = {
 "hurt": SubResource("Animation_fto52"),
 "idle": SubResource("Animation_bd4et"),
 "jump": SubResource("Animation_4j1is"),
+"pickup": SubResource("Animation_j43wf"),
 "push": SubResource("Animation_fluev"),
 "rest": SubResource("Animation_tvsk4"),
 "run": SubResource("Animation_s2k4b"),

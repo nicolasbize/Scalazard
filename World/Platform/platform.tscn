@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://btampsatebgrn"]
+
+[ext_resource type="Script" path="res://World/Platform/platform.gd" id="1_2c12k"]
+[ext_resource type="Texture2D" uid="uid://ckmtwbbf8krrm" path="res://World/Platform/platform.png" id="1_o8gn0"]
+[ext_resource type="PackedScene" uid="uid://crfcy1ol7wgog" path="res://World/Sign/sign.tscn" id="2_dmeki"]
+
+[node name="Platform" type="Node2D"]
+script = ExtResource("1_2c12k")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_o8gn0")
+offset = Vector2(0, -1)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+polygon = PackedVector2Array(-17, 0, -11, -2, 11, -2, 18, 0)
+
+[node name="Sign" parent="." instance=ExtResource("2_dmeki")]
+text = "I see five sockets of different colors."
+
+[node name="Sprite2D" parent="Sign" index="0"]
+visible = false
+
+[node name="Label" parent="Sign" index="3"]
+text = ""
+
+[editable path="Sign"]

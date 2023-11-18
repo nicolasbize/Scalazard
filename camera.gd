@@ -8,17 +8,25 @@ extends Camera2D
 
 var target_destination := Vector2.ZERO
 var shake_strength := 0.0
+var locked_target := Vector2.ZERO
 
 func _ready():
 	GameState.hit_received.connect(screen_shake.bind())
 
 func reset(hero, map):
+	unlock()
 	position_smoothing_enabled = false
 	player = hero
 	tilemap = map
 	set_limits()
 	calculate_target_destination()
-	global_position = target_destination
+	global_position = player.global_position
+
+func lock_to_target(target:Vector2) -> void:
+	locked_target = target
+
+func unlock() -> void:
+	locked_target = Vector2.ZERO
 
 func set_limits():
 	var used = tilemap.get_used_rect()
@@ -28,7 +36,11 @@ func set_limits():
 	limit_top = min(used.position.y * 16, limit_top)
 	
 func _physics_process(delta):
-	if player != null:
+	if locked_target != Vector2.ZERO:
+		global_position = locked_target
+		shake_strength = lerpf(shake_strength, 0.0, shake_decay_rate * delta)
+		offset = get_random_offset()
+	elif player != null:
 		calculate_target_destination()
 		global_position = target_destination
 		shake_strength = lerpf(shake_strength, 0.0, shake_decay_rate * delta)

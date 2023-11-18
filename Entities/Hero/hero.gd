@@ -30,7 +30,7 @@ extends CharacterBody2D
 @export var knockback_intensity := 20.0
 @export var push_strength := 30.0
 @export var min_time_between_hits := 1000.0 # 1sec
-@export var grace_period_jump := 200.0
+@export var grace_period_jump := 150.0
 
 const BeamSpell = preload("res://FX/BeamSpell/beam_spell.tscn")
 const SmallBox = preload("res://Entities/ResizableBox/small_box.tscn")
@@ -38,8 +38,9 @@ const BigBox = preload("res://Entities/ResizableBox/big_box.tscn")
 const HeroSpark = preload("res://FX/HitSpark/hero_spark.tscn")
 const BoxResize = preload("res://Entities/ResizableBox/box_resize.tscn")
 const WaterSplash = preload("res://FX/Splash/water_spash.tscn")
+const Gem = preload("res://World/Gem/gem.tscn")
 
-enum State {Idle, Running, Jumping, StartFalling, Falling, Casting, Attacking, Pushing, Carrying, CarryingIdle, Hurting, Dying, Dead, Resting, Healing}
+enum State {Idle, Running, Jumping, StartFalling, Falling, Casting, Attacking, Pushing, Carrying, CarryingIdle, Hurting, Dying, Dead, Resting, Healing, Pickup}
 var anim_states = {
 	State.Idle: "idle",
 	State.Running: "run",
@@ -55,6 +56,7 @@ var anim_states = {
 	State.Dead: "dead",
 	State.Resting: "rest",
 	State.Healing: "heal",
+	State.Pickup: "pickup",
 }
 var state:State = State.Idle
 var target_box = null
@@ -69,6 +71,8 @@ var knockback := Vector2.ZERO
 var knockback_start := Time.get_ticks_msec()
 var was_on_floor := false
 var last_time_on_floor := Time.get_ticks_msec()
+var current_gem_reference = null
+var current_gem_index := -1
 
 func _ready():
 	pickup_area.connect("area_entered", on_player_enter_pickable.bind())
@@ -89,7 +93,7 @@ func on_player_exit_pickable(area:Area2D):
 	pickable_target = null
 
 func can_move() -> bool:
-	return ![State.Casting, State.Hurting, State.Dying, State.Dead, State.Resting, State.Attacking].has(state)
+	return ![State.Casting, State.Hurting, State.Dying, State.Dead, State.Resting, State.Attacking, State.Pickup].has(state)
 
 func can_run() -> bool:
 	return can_move() and is_on_floor() and [State.Running, State.Idle].has(state)
@@ -167,8 +171,29 @@ func can_pickup() -> bool:
 
 func pickup_check():
 	if can_pickup() and Input.is_action_just_pressed("crouch") and pickable_target != null:
+		velocity.x = 0
 		pickable_target.queue_free()
 		is_carrying = true
+
+func get_item(item):
+	state = State.Pickup
+	velocity = Vector2.ZERO
+	current_gem_reference = Gem.instantiate()
+	GameState.add_to_level(current_gem_reference)
+	current_gem_reference.set_color(item)
+	current_gem_reference.global_position = global_position + Vector2.UP * 16
+	current_gem_reference.connect("gain_gem", on_gain_gem.bind(item))
+	current_gem_index = item
+
+func on_system_message_callback():
+	state = State.Idle
+	GameState.gain_gem_power(current_gem_index)
+	if current_gem_reference != null:
+		current_gem_reference.queue_free()
+		current_gem_reference = null
+
+func on_gain_gem(item):
+	GameState.show_system_message(["You just found one of the crystals!", "You feel stronger!"], on_system_message_callback.bind())
 
 func cast_check():
 	if Input.is_action_just_pressed("cast"):
@@ -266,7 +291,7 @@ func splash():
 	splash.global_position = global_position
 
 func on_player_hit(dmg:int, direction_knockback: float):
-	if (Time.get_ticks_msec() - time_since_last_hit) > min_time_between_hits:
+	if GameState.current_life > 0 and (Time.get_ticks_msec() - time_since_last_hit) > min_time_between_hits:
 		time_since_last_hit = Time.get_ticks_msec()
 		GameState.deal_hero_damage(dmg)
 		if GameState.current_life > 0:

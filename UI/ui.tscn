@@ -1,13 +1,96 @@
-[gd_scene load_steps=16 format=3 uid="uid://bghj8ckgg3qp8"]
+[gd_scene load_steps=21 format=3 uid="uid://bghj8ckgg3qp8"]
 
 [ext_resource type="Texture2D" uid="uid://bbakhh4m242w6" path="res://UI/heart-full.png" id="1_07jc7"]
 [ext_resource type="Script" path="res://UI/ui.gd" id="1_hpx26"]
 [ext_resource type="PackedScene" uid="uid://bts8movh5pt4p" path="res://UI/full_heart.tscn" id="2_dn7ha"]
 [ext_resource type="PackedScene" uid="uid://c6t06mort2fxl" path="res://UI/empty_heart.tscn" id="3_jlcge"]
 [ext_resource type="Texture2D" uid="uid://8gwd2d3y715d" path="res://UI/black-strip.png" id="5_wun5f"]
+[ext_resource type="Texture2D" uid="uid://ui05kbutkhds" path="res://UI/panel-borders.png" id="5_xu4p7"]
 [ext_resource type="FontFile" uid="uid://bumvrs8w2btcl" path="res://Assets/runescape_uf.ttf" id="6_54w6s"]
 [ext_resource type="FontFile" uid="uid://dwjsu8m55nl55" path="res://Assets/04B_03__.TTF" id="7_3s712"]
 [ext_resource type="Texture2D" uid="uid://crroq1ob1exgx" path="res://UI/screen-transition.png" id="8_dukjs"]
+
+[sub_resource type="Animation" id="Animation_d4kmx"]
+resource_name = "text_appear"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextPanel:custom_minimum_size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 40)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TextPanel/SystemLabel:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../../..")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.3),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"on_ready_for_text"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_qafar"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextPanel:custom_minimum_size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TextPanel/SystemLabel:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ny56b"]
+_data = {
+"RESET": SubResource("Animation_qafar"),
+"text_appear": SubResource("Animation_d4kmx")
+}
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qd7gh"]
+texture = ExtResource("5_xu4p7")
+texture_margin_left = 2.0
+texture_margin_top = 2.0
+texture_margin_right = 2.0
+texture_margin_bottom = 2.0
 
 [sub_resource type="Animation" id="Animation_l5sne"]
 length = 0.001
@@ -163,6 +246,7 @@ _data = {
 }
 
 [node name="UI" type="CanvasLayer"]
+process_mode = 3
 script = ExtResource("1_hpx26")
 
 [node name="GameUI" type="MarginContainer" parent="."]
@@ -191,7 +275,37 @@ layout_mode = 2
 texture = ExtResource("1_07jc7")
 
 [node name="Container" type="Control" parent="GameUI/VBoxContainer"]
+custom_minimum_size = Vector2(0, 140)
 layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="GameUI/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 20
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="GameUI/VBoxContainer/MarginContainer"]
+libraries = {
+"": SubResource("AnimationLibrary_ny56b")
+}
+
+[node name="TextPanel" type="Panel" parent="GameUI/VBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_qd7gh")
+
+[node name="SystemLabel" type="Label" parent="GameUI/VBoxContainer/MarginContainer/TextPanel"]
+visible = false
+layout_mode = 2
+offset_left = 8.0
+offset_top = 12.0
+offset_right = 322.0
+offset_bottom = 31.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("7_3s712")
+theme_override_font_sizes/font_size = 16
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="DeathScreen" type="Control" parent="."]
 layout_mode = 3

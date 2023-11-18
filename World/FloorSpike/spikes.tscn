@@ -18,6 +18,7 @@ hframes = 6
 
 [node name="DamageDealerArea" parent="." instance=ExtResource("3_d4lwg")]
 collision_layer = 128
+collision_mask = 320
 damage = 1
 
 [node name="CollisionShape2D" parent="DamageDealerArea" index="0"]

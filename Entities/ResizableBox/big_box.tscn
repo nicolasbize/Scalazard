@@ -35,7 +35,7 @@ _data = {
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p8yln"]
-size = Vector2(20, 5.5)
+size = Vector2(18, 5.5)
 
 [node name="BigBox" type="RigidBody2D" groups=["shrinkable"]]
 position = Vector2(0, -16)

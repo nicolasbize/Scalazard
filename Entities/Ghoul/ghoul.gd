@@ -2,7 +2,8 @@ extends CharacterBody2D
 
 @export var current_life := 2
 @export var knockback_duration := 200.0
-@export var knockback_intensity := 40.0
+@export var knockback_intensity := 120.0
+@export var vulnerable_to_attacks := true
 
 @onready var player_detection_area := $PlayerDetectionArea
 @onready var player_in_reach_area := $PlayerInReachArea
@@ -52,29 +53,37 @@ var anim_states := {
 
 func _ready():
 	player_detection_area.connect("body_entered", on_player_enter.bind())
+	player_detection_area.connect("body_exited", on_player_exit.bind())
 	attack_area.connect("body_entered", on_player_hittable.bind())
 	damage_receiver_area.connect("hit", on_enemy_hit.bind())
 
 
 func on_enemy_hit(dmg:int, direction_knockback:float) -> void:
-	current_life -= dmg
-	knockback = Vector2(direction_knockback * knockback_intensity, 0)
+	var knock = knockback_intensity
+	if not vulnerable_to_attacks:
+		knock *= 1.5
 	if state == State.Jumping or state == State.Attacking:
-		velocity = Vector2(-velocity.x, velocity.y)
+		velocity = Vector2(-velocity.x / 2, velocity.y)
+	knockback = Vector2(direction_knockback * knock, 0)
 	knockback_start = Time.get_ticks_msec()
+	if vulnerable_to_attacks or dmg > 5:
+		current_life -= dmg
+		state = State.Hurt
+		var hit_spark = HitSpark.instantiate()
+		get_parent().add_child(hit_spark)
+		hit_spark.global_position = global_position + Vector2.UP * 32 + Vector2.RIGHT * direction_knockback * 16
+		hit_spark.rotation_degrees = randf_range(-10.0, 10.0)
+		hit_spark.scale.x = direction_knockback
+		GameState.emit_signal("hit_received")
 	time_since_landing = Time.get_ticks_msec()
-	state = State.Hurt
-	var hit_spark = HitSpark.instantiate()
-	get_parent().add_child(hit_spark)
-	hit_spark.global_position = global_position + Vector2.UP * 32 + Vector2.RIGHT * direction_knockback * 16
-	hit_spark.rotation_degrees = randf_range(-10.0, 10.0)
-	hit_spark.scale.x = direction_knockback
-	GameState.emit_signal("hit_received")
 	sfx_hit.play_sound()
 	play_animation()
 
 func on_player_hittable(body):
 	state = State.Attacking
+
+func on_player_exit(body):
+	player = null
 
 func on_player_enter(body):
 	player = body
@@ -83,8 +92,11 @@ func on_player_enter(body):
 func _physics_process(delta):
 	damage_dealer_area.monitoring = current_life > 0
 	damage_receiver_area.monitorable = current_life > 0
+	sprite.material.set_shader_parameter("is_active", !vulnerable_to_attacks)
 	if current_life <= 0:
-		velocity.x = move_toward(velocity.x, 0, friction * delta)
+		if abs(velocity.x) > 100:
+			velocity.x = sign(velocity.x) * 100
+		velocity.x = move_toward(velocity.x, 0, 2 * friction * delta)
 		if state != State.Dying and state != State.Hurt:
 			state = State.Dead
 		move_and_slide()
@@ -120,6 +132,7 @@ func _physics_process(delta):
 		velocity.y += gravity * delta
 	elif state == State.Dead:
 		velocity.x = move_toward(velocity.x, 0, friction * delta)
+	
 	sprite.scale.x = direction
 	player_in_reach_area.scale.x = direction
 	attack_area.scale.x = direction

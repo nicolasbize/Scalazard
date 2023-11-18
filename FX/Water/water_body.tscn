@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://7hpd42fr1nlw"]
+[gd_scene load_steps=10 format=3 uid="uid://7hpd42fr1nlw"]
 
 [ext_resource type="Script" path="res://FX/Water/water_body.gd" id="1_pe2ah"]
+[ext_resource type="Texture2D" uid="uid://d26hlccony38g" path="res://FX/Water/bubble.png" id="2_xtkoi"]
 
 [sub_resource type="Shader" id="Shader_i7bs5"]
 code = "shader_type canvas_item;
@@ -22,6 +23,32 @@ void fragment() {
 shader = SubResource("Shader_i7bs5")
 shader_parameter/tint = Color(0.211765, 0.419608, 0.298039, 1)
 
+[sub_resource type="Gradient" id="Gradient_dp4kr"]
+colors = PackedColorArray(0, 0.501961, 0, 1, 0.20526, 0.33, 0.0528, 0.427451)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ykb6c"]
+gradient = SubResource("Gradient_dp4kr")
+
+[sub_resource type="Curve" id="Curve_7nrxj"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.323843), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_j63s6"]
+curve = SubResource("Curve_7nrxj")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_owhvn"]
+lifetime_randomness = 0.16
+emission_shape = 3
+emission_box_extents = Vector3(40, 1, 1)
+particle_flag_disable_z = true
+gravity = Vector3(0, -50, 0)
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+scale_min = 0.5
+scale_max = 0.5
+scale_curve = SubResource("CurveTexture_j63s6")
+color_ramp = SubResource("GradientTexture1D_ykb6c")
+
 [node name="WaterBody" type="Node2D"]
 self_modulate = Color(1, 1, 1, 0)
 script = ExtResource("1_pe2ah")
@@ -34,3 +61,7 @@ collision_layer = 512
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetectionArea"]
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+process_material = SubResource("ParticleProcessMaterial_owhvn")
+texture = ExtResource("2_xtkoi")

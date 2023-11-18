@@ -43,6 +43,7 @@ libraries = {
 
 [node name="Label" type="Label" parent="."]
 visible = false
+z_index = 1000
 offset_left = -53.0
 offset_top = -55.0
 offset_right = 53.0
