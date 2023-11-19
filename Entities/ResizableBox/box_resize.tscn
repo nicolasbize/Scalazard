@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://bdmqawfyrxvh8"]
+[gd_scene load_steps=11 format=3 uid="uid://bdmqawfyrxvh8"]
 
 [ext_resource type="Script" path="res://Entities/ResizableBox/box_resize.gd" id="1_omm1s"]
 [ext_resource type="Texture2D" uid="uid://7jxpgws33mca" path="res://Entities/ResizableBox/bigbox.png" id="2_nry1k"]
 [ext_resource type="Texture2D" uid="uid://gjwjvped5yjf" path="res://Entities/ResizableBox/smallbox.png" id="3_p4qtp"]
 [ext_resource type="Texture2D" uid="uid://jj8hy36t7r3v" path="res://Entities/ResizableBox/32x32-white.png" id="4_avcff"]
+[ext_resource type="PackedScene" uid="uid://b5mhaodm6g8i5" path="res://Entities/HitBox/damage_dealer_area.tscn" id="5_d3ori"]
 
 [sub_resource type="Animation" id="Animation_pcw6n"]
 length = 0.001
@@ -98,6 +99,42 @@ tracks/7/path = NodePath("SmallBox:visible")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("DamageDealerArea/CollisionShape2D:position")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-0.5, -4.5)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("DamageDealerArea/CollisionShape2D:shape:size")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(5, 5)]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("DamageDealerArea/CollisionShape2D:disabled")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -218,6 +255,42 @@ tracks/8/keys = {
 "update": 0,
 "values": [0.0, 0.0, -0.174533, 0.174533, 0.0, 0.0]
 }
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("DamageDealerArea/CollisionShape2D:shape:size")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(5, 5), Vector2(28, 28)]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("DamageDealerArea/CollisionShape2D:position")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-0.5, -4.5), Vector2(0, -16)]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("DamageDealerArea/CollisionShape2D:disabled")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_221ty"]
 resource_name = "shrink"
@@ -333,6 +406,42 @@ tracks/8/keys = {
 "update": 0,
 "values": [0.0, 0.174533, -0.174533, 0.0]
 }
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("DamageDealerArea/CollisionShape2D:shape:size")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(28, 28)]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("DamageDealerArea/CollisionShape2D:position")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -16)]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("DamageDealerArea/CollisionShape2D:disabled")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_r0lw0"]
 _data = {
@@ -340,6 +449,9 @@ _data = {
 "expand": SubResource("Animation_6rq18"),
 "shrink": SubResource("Animation_221ty")
 }
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rkx1i"]
+size = Vector2(5, 5)
 
 [node name="BoxResize" type="Node2D"]
 script = ExtResource("1_omm1s")
@@ -386,3 +498,13 @@ collision_mask = 5
 position = Vector2(0, -4)
 target_position = Vector2(16, 0)
 collision_mask = 5
+
+[node name="DamageDealerArea" parent="." instance=ExtResource("5_d3ori")]
+damage = 10
+
+[node name="CollisionShape2D" parent="DamageDealerArea" index="0"]
+position = Vector2(-0.5, -4.5)
+shape = SubResource("RectangleShape2D_rkx1i")
+disabled = true
+
+[editable path="DamageDealerArea"]

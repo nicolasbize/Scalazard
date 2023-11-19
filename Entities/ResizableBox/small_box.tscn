@@ -2,8 +2,8 @@
 
 [ext_resource type="Texture2D" uid="uid://gjwjvped5yjf" path="res://Entities/ResizableBox/smallbox.png" id="2_ybjk0"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_3j15s"]
-size = Vector2(8, 8)
+[sub_resource type="CircleShape2D" id="CircleShape2D_r8h17"]
+radius = 4.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kcbfi"]
 size = Vector2(8, 8)
@@ -11,7 +11,7 @@ size = Vector2(8, 8)
 [node name="SmallBox" type="RigidBody2D" groups=["expandable"]]
 position = Vector2(0, -4)
 collision_layer = 8
-collision_mask = 525
+collision_mask = 13
 mass = 3.0
 gravity_scale = 0.2
 continuous_cd = 2
@@ -21,7 +21,7 @@ lock_rotation = true
 texture = ExtResource("2_ybjk0")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_3j15s")
+shape = SubResource("CircleShape2D_r8h17")
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 8

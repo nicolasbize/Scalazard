@@ -21,7 +21,7 @@ offset = Vector2(0, -16)
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 3.0
-autostart = true
+one_shot = true
 
 [node name="NoselPosition" type="Node2D" parent="."]
 position = Vector2(16, -8)

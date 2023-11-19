@@ -4,22 +4,27 @@ signal life_change(current_life:int, max_life:int)
 signal hit_received()
 signal system_message(text:String)
 
-enum Level {Prototype, Courtyard, Entrance, EastTower, SacrificeChamber}
+enum Level {Prototype, Courtyard, Entrance, EastTower, SacrificeChamber, CenterCourt, DoubleTrigger, SimpleCorridor, WaterCorridor, RaceCube}
 var Levels = {
 	Level.Prototype: preload("res://Levels/level-prototype.tscn"),
 	Level.Courtyard: preload("res://Levels/level_01_courtyard.tscn"),
 	Level.Entrance: preload("res://Levels/level_02_entrance.tscn"),
 	Level.EastTower: preload("res://Levels/level_03_east_tower.tscn"),
 	Level.SacrificeChamber: preload("res://Levels/level_04_sacrifice_chamber.tscn"),
+	Level.CenterCourt: preload("res://Levels/level_05_center_court.tscn"),
+	Level.DoubleTrigger: preload("res://Levels/level_06_double_trigger.tscn"),
+	Level.SimpleCorridor: preload("res://Levels/level_07_simple_corridor.tscn"),
+	Level.WaterCorridor: preload("res://Levels/level_08_water_corridor.tscn"),
+	Level.RaceCube: preload("res://Levels/level_09_race_cube.tscn"),
 }
 
-var current_level := Level.Entrance
-var is_music_on := true
+var current_level := Level.RaceCube
+var is_music_on := false
 
 var callback_after_pause : Callable
 var max_life := 3
 var current_life := 3
-var current_gems = [false, false, false, false, false]
+var current_gems = [false, true, false, false] # green: float, blue: swim, purple: shrink, yellow: shield
 
 var screen_shake := true
 
@@ -29,11 +34,14 @@ func deal_hero_damage(dmg:int) -> void:
 		current_life = 0
 	emit_signal("life_change", current_life, max_life)
 
-func gain_gem_power(gem_index:int) -> void:
-	current_gems[gem_index] = true
-	max_life += 1
-	current_life = max_life
-	emit_signal("life_change", current_life, max_life)
+func gain_treasure(treasure:TreasureChest.Content) -> void:
+	if treasure == TreasureChest.Content.LifePotion:
+		max_life += 1
+		current_life = max_life
+		emit_signal("life_change", current_life, max_life)
+	else:
+		current_gems[treasure] = true
+		
 
 func new_life() -> void:
 	current_life = max_life

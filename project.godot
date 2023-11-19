@@ -113,6 +113,7 @@ restart={
 2d_physics/layer_9="EnemyDmgReceiver"
 2d_physics/layer_10="Water"
 2d_physics/layer_11="SoftCollision"
+2d_physics/layer_12="MovingPlatform"
 
 [rendering]
 

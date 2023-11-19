@@ -6,7 +6,7 @@ extends Node2D
 
 signal gain_gem
 
-var color_map = ["83ff70", "70cfff", "ff7070", "fffa70", "ff70e5"]
+var color_map = ["83ff70", "70cfff", "ff70e5", "fffa70", "ff7070"]
 
 func set_color(gem_index:int) -> void:
 	gem_sprite.frame = gem_index

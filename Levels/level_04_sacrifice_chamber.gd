@@ -18,7 +18,7 @@ var ghouls = []
 var completed_level := false
 
 func _ready():
-	if GameState.current_gems[TreasureChest.Content.RedGem]:
+	if GameState.current_gems[TreasureChest.Content.BlueGem]:
 		remove_shield()
 	else:
 		player_detection_area.connect("body_entered", on_player_enter.bind())

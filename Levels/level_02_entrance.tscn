@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://c5wri0kqhdd6k"]
+[gd_scene load_steps=26 format=3 uid="uid://c5wri0kqhdd6k"]
 
 [ext_resource type="Script" path="res://Levels/level_02_entrance.gd" id="1_lq8s3"]
 [ext_resource type="TileSet" uid="uid://ckdj8m24olhk1" path="res://Assets/tilemap.tres" id="1_q0vdd"]
@@ -12,7 +12,6 @@
 [ext_resource type="PackedScene" uid="uid://7hpd42fr1nlw" path="res://FX/Water/water_body.tscn" id="9_ndqua"]
 [ext_resource type="PackedScene" uid="uid://doivhvt13lshc" path="res://World/FloorSpike/spikes.tscn" id="10_fy42q"]
 [ext_resource type="PackedScene" uid="uid://duwpkeop6bhdk" path="res://World/Chest/treasure_chest.tscn" id="11_av1fa"]
-[ext_resource type="PackedScene" uid="uid://btampsatebgrn" path="res://World/Platform/platform.tscn" id="13_6eane"]
 
 [sub_resource type="Curve2D" id="Curve2D_tqqt6"]
 _data = {
@@ -38,7 +37,7 @@ size = Vector2(82.5, 20)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jxivu"]
 size = Vector2(74, 70)
 
-[sub_resource type="Shader" id="Shader_jma2s"]
+[sub_resource type="Shader" id="Shader_jkruo"]
 code = "shader_type canvas_item;
 
 uniform vec4 tint : source_color = vec4(1.0);
@@ -55,7 +54,7 @@ void fragment() {
 "
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_l2iub"]
-shader = SubResource("Shader_jma2s")
+shader = SubResource("Shader_jkruo")
 shader_parameter/tint = Color(0.211765, 0.419608, 0.298039, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ftf53"]
@@ -64,8 +63,8 @@ size = Vector2(152, 7)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rpgby"]
 size = Vector2(104, 7)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_np41b"]
-size = Vector2(80, 7)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xgya3"]
+size = Vector2(96, 7)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x27yf"]
 size = Vector2(64, 7)
@@ -112,7 +111,7 @@ position = Vector2(840, -185)
 position = Vector2(104, -176)
 
 [node name="Chandelier5" parent="." instance=ExtResource("5_hjfsv")]
-position = Vector2(0, -176)
+position = Vector2(16, -176)
 
 [node name="Chandelier2" parent="." instance=ExtResource("5_hjfsv")]
 position = Vector2(192, -176)
@@ -125,14 +124,14 @@ position = Vector2(832, -304)
 
 [node name="Portal" parent="." instance=ExtResource("6_uiotp")]
 position = Vector2(1296, -240)
-address_in_level = 1
-destination_level = 3
-destination_address = 2
+address_in_level = 2
+destination_level = 5
+destination_address = 6
 
 [node name="Portal2" parent="." instance=ExtResource("6_uiotp")]
 position = Vector2(-112, -32)
 scale = Vector2(-1, 1)
-address_in_level = 3
+address_in_level = 6
 destination_level = 1
 destination_address = 1
 
@@ -223,20 +222,23 @@ shape = SubResource("RectangleShape2D_rpgby")
 position = Vector2(64, 0)
 emitting = false
 
-[node name="WaterBody2" parent="." instance=ExtResource("9_ndqua")]
+[node name="WaterBody6" parent="." instance=ExtResource("9_ndqua")]
 z_index = 50
-position = Vector2(856, -56)
-liquid_type = 1
+position = Vector2(848, -56)
 
-[node name="PlayerDetectionArea" parent="WaterBody2" index="1"]
+[node name="WaterPolygon" parent="WaterBody6" index="0"]
+material = SubResource("ShaderMaterial_l2iub")
+
+[node name="PlayerDetectionArea" parent="WaterBody6" index="1"]
 position = Vector2(1, 0)
 
-[node name="CollisionShape2D" parent="WaterBody2/PlayerDetectionArea" index="0"]
-position = Vector2(39, 3)
-shape = SubResource("RectangleShape2D_np41b")
+[node name="CollisionShape2D" parent="WaterBody6/PlayerDetectionArea" index="0"]
+position = Vector2(55, 3)
+shape = SubResource("RectangleShape2D_xgya3")
 
-[node name="GPUParticles2D" parent="WaterBody2" index="2"]
-position = Vector2(40, 0)
+[node name="GPUParticles2D" parent="WaterBody6" index="2"]
+position = Vector2(64, 0)
+emitting = false
 
 [node name="WaterBody3" parent="." instance=ExtResource("9_ndqua")]
 z_index = 50
@@ -279,9 +281,7 @@ position = Vector2(688, -48)
 
 [node name="TreasureChest" parent="." instance=ExtResource("11_av1fa")]
 position = Vector2(544, -240)
-
-[node name="Platform" parent="." instance=ExtResource("13_6eane")]
-position = Vector2(104, -48)
+content = 4
 
 [editable path="Bat3"]
 [editable path="Bat3/Animal/DamageDealerArea"]
@@ -303,6 +303,6 @@ position = Vector2(104, -48)
 [editable path="Bat8/Animal/DamageReceiverArea"]
 [editable path="WaterBody"]
 [editable path="WaterBody5"]
-[editable path="WaterBody2"]
+[editable path="WaterBody6"]
 [editable path="WaterBody3"]
 [editable path="WaterBody4"]

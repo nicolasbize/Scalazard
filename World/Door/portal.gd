@@ -1,7 +1,7 @@
 class_name Portal
 extends Area2D
 
-enum DoorIndex {North, East, South, West}
+enum DoorIndex {North, NorthEast, East, SouthEast, South, SouthWest, West, NorthWest}
 
 @export var address_in_level : DoorIndex
 @export var destination_level : GameState.Level

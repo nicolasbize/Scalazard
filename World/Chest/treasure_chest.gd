@@ -1,7 +1,7 @@
 class_name TreasureChest
 extends Node2D
 
-enum Content {GreenGem, BlueGem, RedGem, YellowGem, PurpleGem}
+enum Content {GreenGem, BlueGem, PurpleGem, YellowGem, LifePotion}
 
 @export var content : Content = Content.GreenGem
 
@@ -12,7 +12,7 @@ var player = null
 var is_opened := false
 
 func _ready():
-	if GameState.current_gems[content]:
+	if content != TreasureChest.Content.LifePotion and GameState.current_gems[content]:
 		is_opened = true
 	player_area.connect("body_entered", on_player_enter.bind())
 	player_area.connect("body_exited", on_player_exit.bind())

@@ -184,7 +184,7 @@ shape = SubResource("RectangleShape2D_nlvbu")
 
 [node name="TreasureChest" parent="." instance=ExtResource("7_5xjaw")]
 position = Vector2(872, 16)
-content = 2
+content = 1
 
 [node name="ShieldCollider" type="StaticBody2D" parent="."]
 visible = false
@@ -201,9 +201,9 @@ texture = ExtResource("8_jbwys")
 [node name="Portal" parent="." instance=ExtResource("9_4jp7o")]
 position = Vector2(48, 0)
 scale = Vector2(-1, 1)
-address_in_level = 3
-destination_level = 3
-destination_address = 1
+address_in_level = 6
+destination_level = 6
+destination_address = 2
 
 [editable path="WaterBody2"]
 [editable path="WaterBody3"]

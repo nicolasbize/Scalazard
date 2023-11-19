@@ -23,8 +23,8 @@ width = 1.0
 default_color = Color(0.0666667, 0.0666667, 0.0666667, 1)
 
 [node name="AnimatableBody2D" type="AnimatableBody2D" parent="."]
-collision_layer = 512
-collision_mask = 0
+collision_layer = 2048
+collision_mask = 6
 physics_material_override = SubResource("PhysicsMaterial_oon8g")
 
 [node name="Sprite2D" type="Sprite2D" parent="AnimatableBody2D"]

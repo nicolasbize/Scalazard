@@ -1,0 +1,3 @@
+[gd_scene format=3 uid="uid://cvr5gruwqguw3"]
+
+[node name="Level" type="Node2D" groups=["level"]]

@@ -31,6 +31,7 @@ extends CharacterBody2D
 @export var push_strength := 30.0
 @export var min_time_between_hits := 1000.0 # 1sec
 @export var grace_period_jump := 150.0
+@export var float_time := 2000
 
 const BeamSpell = preload("res://FX/BeamSpell/beam_spell.tscn")
 const SmallBox = preload("res://Entities/ResizableBox/small_box.tscn")
@@ -72,7 +73,9 @@ var knockback_start := Time.get_ticks_msec()
 var was_on_floor := false
 var last_time_on_floor := Time.get_ticks_msec()
 var current_gem_reference = null
-var current_gem_index := -1
+var current_treasure : TreasureChest.Content = TreasureChest.Content.LifePotion
+var is_floating := false
+var time_last_jump := Time.get_ticks_msec()
 
 func _ready():
 	pickup_area.connect("area_entered", on_player_enter_pickable.bind())
@@ -175,7 +178,7 @@ func pickup_check():
 		pickable_target.queue_free()
 		is_carrying = true
 
-func get_item(item):
+func get_item(item: TreasureChest.Content):
 	state = State.Pickup
 	velocity = Vector2.ZERO
 	current_gem_reference = Gem.instantiate()
@@ -183,17 +186,22 @@ func get_item(item):
 	current_gem_reference.set_color(item)
 	current_gem_reference.global_position = global_position + Vector2.UP * 16
 	current_gem_reference.connect("gain_gem", on_gain_gem.bind(item))
-	current_gem_index = item
+	current_treasure = item
 
 func on_system_message_callback():
 	state = State.Idle
-	GameState.gain_gem_power(current_gem_index)
+	GameState.gain_treasure(current_treasure)
 	if current_gem_reference != null:
 		current_gem_reference.queue_free()
 		current_gem_reference = null
 
 func on_gain_gem(item):
-	GameState.show_system_message(["You just found one of the crystals!", "You feel stronger!"], on_system_message_callback.bind())
+	if item == TreasureChest.Content.LifePotion:
+		GameState.show_system_message(["You found a life potion!", "You feel stronger!"], on_system_message_callback.bind())
+	elif item == TreasureChest.Content.GreenGem:
+		GameState.show_system_message(["You found the green crystal!", "Your body feels lighter!"], on_system_message_callback.bind())
+	elif item == TreasureChest.Content.BlueGem:
+		GameState.show_system_message(["You found the blue crystal!", "Your lungs feel powerful!"], on_system_message_callback.bind())
 
 func cast_check():
 	if Input.is_action_just_pressed("cast"):
@@ -245,8 +253,13 @@ func is_moving(input_axis):
 	return input_axis != 0
 
 func apply_gravity(delta):
+	if can_float() and is_floating:
+		if !Input.is_action_pressed("jump") or Time.get_ticks_msec() - time_last_jump > float_time:
+			is_floating = false
 	if not is_on_floor():
 		velocity.y = move_toward(velocity.y, max_fall_velocity, gravity * delta)
+		if velocity.y > 0 and is_floating:
+			velocity.y = 0
 
 func apply_acceleration(delta, input_axis):
 	var max = get_max_velocity()
@@ -327,6 +340,9 @@ func jump(force, create_effect = true):
 	state = State.Jumping
 	sfx_jump.play_sound()
 	check_splash()
+	if can_float():
+		time_last_jump = Time.get_ticks_msec()
+		is_floating = true
 
 func check_splash():
 	if in_water():
@@ -343,3 +359,9 @@ func on_finish_dying():
 
 func on_stop_action():
 	state = State.Idle
+
+func can_float():
+	return GameState.current_gems[TreasureChest.Content.GreenGem]
+
+func can_swim():
+	return GameState.current_gems[TreasureChest.Content.BlueGem]
