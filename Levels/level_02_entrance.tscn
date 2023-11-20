@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://c5wri0kqhdd6k"]
+[gd_scene load_steps=29 format=3 uid="uid://c5wri0kqhdd6k"]
 
 [ext_resource type="Script" path="res://Levels/level_02_entrance.gd" id="1_lq8s3"]
 [ext_resource type="TileSet" uid="uid://ckdj8m24olhk1" path="res://Assets/tilemap.tres" id="1_q0vdd"]
@@ -12,6 +12,8 @@
 [ext_resource type="PackedScene" uid="uid://7hpd42fr1nlw" path="res://FX/Water/water_body.tscn" id="9_ndqua"]
 [ext_resource type="PackedScene" uid="uid://doivhvt13lshc" path="res://World/FloorSpike/spikes.tscn" id="10_fy42q"]
 [ext_resource type="PackedScene" uid="uid://duwpkeop6bhdk" path="res://World/Chest/treasure_chest.tscn" id="11_av1fa"]
+[ext_resource type="PackedScene" uid="uid://48ldvq7nc3tr" path="res://Entities/Dracula/dracula.tscn" id="13_cjwhg"]
+[ext_resource type="PackedScene" uid="uid://dapdl7vybm6je" path="res://UI/speech_bubble.tscn" id="14_366bo"]
 
 [sub_resource type="Curve2D" id="Curve2D_tqqt6"]
 _data = {
@@ -71,6 +73,9 @@ size = Vector2(64, 7)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2ujb1"]
 size = Vector2(64, 7)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_si3an"]
+size = Vector2(20, 56)
 
 [node name="Level-02-Entrance" type="Node2D" groups=["level"]]
 script = ExtResource("1_lq8s3")
@@ -282,6 +287,29 @@ position = Vector2(688, -48)
 [node name="TreasureChest" parent="." instance=ExtResource("11_av1fa")]
 position = Vector2(544, -240)
 content = 4
+
+[node name="Dracula" parent="." instance=ExtResource("13_cjwhg")]
+position = Vector2(96, -80)
+
+[node name="CinematicPlayerDetectionArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CinematicPlayerDetectionArea"]
+position = Vector2(-16, -60)
+shape = SubResource("RectangleShape2D_si3an")
+
+[node name="DraculaSpeechBubble" parent="." instance=ExtResource("14_366bo")]
+visible = false
+visibility_layer = 2
+z_index = 3000
+position = Vector2(96, -106)
+
+[node name="PlayerSpeechBubble" parent="." instance=ExtResource("14_366bo")]
+visible = false
+visibility_layer = 2
+z_index = 3000
+position = Vector2(96, -106)
 
 [editable path="Bat3"]
 [editable path="Bat3/Animal/DamageDealerArea"]

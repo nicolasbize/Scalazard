@@ -18,14 +18,15 @@ var Levels = {
 	Level.RaceCube: preload("res://Levels/level_09_race_cube.tscn"),
 }
 
-var current_level := Level.RaceCube
+var current_level := Level.Entrance
 var is_music_on := false
 
 var callback_after_pause : Callable
 var max_life := 3
 var current_life := 3
-var current_gems = [false, true, false, false] # green: float, blue: swim, purple: shrink, yellow: shield
-
+var current_gems = [false, false, false, false] # green: float, blue: swim, purple: shrink, yellow: shield
+var gems_inserted = [false, false, false, false]
+var visited_dracula_entrance := false
 var screen_shake := true
 
 func deal_hero_damage(dmg:int) -> void:

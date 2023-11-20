@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=3 uid="uid://dapdl7vybm6je"]
+
+[ext_resource type="Texture2D" uid="uid://dqli0hrt3hk2t" path="res://UI/dark-panel-borders.png" id="1_1p1mq"]
+[ext_resource type="FontFile" uid="uid://dwjsu8m55nl55" path="res://Assets/04B_03__.TTF" id="2_w1fl6"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_f61k1"]
+texture = ExtResource("1_1p1mq")
+texture_margin_left = 2.0
+texture_margin_top = 2.0
+texture_margin_right = 2.0
+texture_margin_bottom = 2.0
+
+[node name="SpeechBubble" type="Node2D"]
+light_mask = 0
+
+[node name="Panel" type="Panel" parent="."]
+light_mask = 0
+visibility_layer = 2
+offset_left = -48.0
+offset_top = -28.0
+offset_right = 47.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_f61k1")
+
+[node name="Label" type="Label" parent="Panel"]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 4.0
+offset_right = 92.0
+offset_bottom = 28.0
+theme_override_fonts/font = ExtResource("2_w1fl6")
+theme_override_font_sizes/font_size = 8
+text = "Do you really think you can stop me?"
+autowrap_mode = 2

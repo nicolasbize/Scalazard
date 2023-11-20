@@ -19,6 +19,11 @@ config/icon="res://icon.svg"
 
 GameState="*res://game_state.gd"
 
+[debug]
+
+gdscript/warnings/unused_variable=0
+gdscript/warnings/unused_parameter=0
+
 [display]
 
 window/size/viewport_width=416

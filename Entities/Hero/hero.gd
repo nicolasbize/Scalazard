@@ -76,6 +76,7 @@ var current_gem_reference = null
 var current_treasure : TreasureChest.Content = TreasureChest.Content.LifePotion
 var is_floating := false
 var time_last_jump := Time.get_ticks_msec()
+var frozen := false
 
 func _ready():
 	pickup_area.connect("area_entered", on_player_enter_pickable.bind())
@@ -111,6 +112,8 @@ func move(delta):
 	apply_gravity(delta)
 	if can_move():
 		var input_axis = Input.get_axis("move_left", "move_right")
+		if frozen:
+			input_axis = 0
 		if is_moving(input_axis):
 			apply_acceleration(delta, input_axis)
 			sprite.scale.x = sign(input_axis)
@@ -215,6 +218,8 @@ func cast():
 	state = State.Casting
 
 func can_attack() -> bool:
+	if frozen:
+		return false
 	return [State.Idle, State.Running, State.Jumping, State.StartFalling, State.Falling].has(state)
 
 func attack_check():
@@ -281,6 +286,8 @@ func apply_friction(delta):
 		velocity.x = move_toward(velocity.x, 0, air_friction * delta)
 
 func jump_check():
+	if frozen:
+		return
 	var force = jump_force
 	if is_carrying:
 		force = jump_force * 0.85
