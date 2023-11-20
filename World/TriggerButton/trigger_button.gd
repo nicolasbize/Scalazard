@@ -8,6 +8,7 @@ signal press
 
 @onready var sprite := $Sprite2D
 @onready var detection_area := $Area2D
+@onready var collider := $StaticBody2D
 
 func _ready():
 	detection_area.connect("body_entered", on_body_enter.bind())
@@ -27,6 +28,8 @@ func on_body_exit(body):
 	
 func trigger_press_event():
 	emit_signal("press")
+	if one_way:
+		collider.queue_free()
 	if door != null:
 		door.open()
 	

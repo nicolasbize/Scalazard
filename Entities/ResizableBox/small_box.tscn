@@ -1,5 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://co7b6j3lnptxt"]
+[gd_scene load_steps=9 format=3 uid="uid://co7b6j3lnptxt"]
 
+[ext_resource type="Script" path="res://Entities/ResizableBox/small_box.gd" id="1_tgw74"]
+[ext_resource type="Texture2D" uid="uid://sk2fm427lbje" path="res://Entities/ResizableBox/arrow.png" id="2_nw8i2"]
 [ext_resource type="Texture2D" uid="uid://gjwjvped5yjf" path="res://Entities/ResizableBox/smallbox.png" id="2_ybjk0"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_r8h17"]
@@ -8,14 +10,77 @@ radius = 4.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kcbfi"]
 size = Vector2(8, 8)
 
+[sub_resource type="Animation" id="Animation_adhut"]
+resource_name = "targeted"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ArrowSprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [Vector2(0, -11), Vector2(0, -13), Vector2(0, -11)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ArrowSprite:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_wo82q"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ArrowSprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -12)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ArrowSprite:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tjwqv"]
+_data = {
+"RESET": SubResource("Animation_wo82q"),
+"targeted": SubResource("Animation_adhut")
+}
+
 [node name="SmallBox" type="RigidBody2D" groups=["expandable"]]
 position = Vector2(0, -4)
 collision_layer = 8
 collision_mask = 13
-mass = 3.0
-gravity_scale = 0.2
+mass = 2.0
+gravity_scale = 0.4
 continuous_cd = 2
 lock_rotation = true
+script = ExtResource("1_tgw74")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_ybjk0")
@@ -34,3 +99,14 @@ shape = SubResource("RectangleShape2D_kcbfi")
 wait_time = 0.2
 one_shot = true
 autostart = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_tjwqv")
+}
+
+[node name="ArrowSprite" type="Sprite2D" parent="."]
+visible = false
+modulate = Color(1, 1, 1, 0.8)
+position = Vector2(0, -12)
+texture = ExtResource("2_nw8i2")

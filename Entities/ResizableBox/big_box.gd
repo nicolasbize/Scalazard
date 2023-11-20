@@ -4,8 +4,9 @@ extends RigidBody2D
 @onready var raycast_right := $RaycastRight
 @onready var raycast_up := $RaycastUp
 @onready var raycast_down := $RaycastDown
+@onready var animation_player := $AnimationPlayer
 
-var is_growing := true
+var is_growing := false
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
@@ -21,3 +22,9 @@ func _physics_process(delta):
 
 func on_finish_growth():
 	is_growing = false
+
+func highlight():
+	animation_player.play("targeted")
+
+func stop_highlight():
+	animation_player.play("RESET")

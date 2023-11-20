@@ -7,7 +7,8 @@ extends CharacterBody2D
 @onready var laser_start := $LaserStart
 @onready var pickup_area := $PickupArea
 @onready var carried_box := $CarriedBox
-@onready var casting_ray := $CastingRay
+#@onready var casting_ray := $CastingRay
+@onready var casting_area := $CastingArea
 @onready var damage_receiver_area := $DamageReceiverArea
 @onready var damage_dealer_area := $DamageDealerArea
 @onready var water_detection_area := $WaterDetectionArea
@@ -15,6 +16,7 @@ extends CharacterBody2D
 @onready var sfx_swing := $SFXSwing
 @onready var sfx_jump := $SFXJump
 @onready var sfx_hit := $SFXHit
+@onready var ground_raycast := $GroundRaycast
 
 @export var gravity := 850.0
 @export var max_fall_velocity := 400.0
@@ -23,7 +25,7 @@ extends CharacterBody2D
 @export var max_velocity_carrying := 90.0
 @export var max_velocity_in_water := 60.0
 @export var max_run_velocity := 180.0
-@export var friction := 700.0
+@export var friction := 800.0
 @export var air_friction := 20.0
 @export var jump_force := 290.0
 @export var knockback_duration := 100.0
@@ -77,6 +79,7 @@ var current_treasure : TreasureChest.Content = TreasureChest.Content.LifePotion
 var is_floating := false
 var time_last_jump := Time.get_ticks_msec()
 var frozen := false
+var last_cast_target = null
 
 func _ready():
 	pickup_area.connect("area_entered", on_player_enter_pickable.bind())
@@ -117,7 +120,8 @@ func move(delta):
 		if is_moving(input_axis):
 			apply_acceleration(delta, input_axis)
 			sprite.scale.x = sign(input_axis)
-			casting_ray.scale.x = sign(input_axis)
+#			casting_ray.scale.x = sign(input_axis)
+			casting_area.scale.x = sign(input_axis)
 			box_detector.scale.x = sign(input_axis)
 			damage_dealer_area.scale.x = sign(input_axis)
 			laser_start.position.x = sign(input_axis) * abs(laser_start.position.x)
@@ -151,11 +155,15 @@ func move(delta):
 		knockback = knockback.lerp(Vector2.ZERO, knockback_val)
 		velocity += knockback
 
+	if state == State.Attacking:
+		apply_friction(delta)
+
 	if state != State.Dead:
 		move_and_slide()
 	camera_target.position.x = lerpf(0.0, 20.0, velocity.x / get_max_velocity())
 	
 	check_poison()
+	check_cast_highlight()
 	
 	# land on water?
 	if not was_on_floor and is_on_floor():
@@ -171,6 +179,15 @@ func play_animations() -> void:
 func check_poison():
 	if in_water() and water_detection_area.get_overlapping_areas()[0].get_parent().liquid_type == WaterBody.LiquidType.Poison:
 		on_player_hit(1, 0.0)
+
+func check_cast_highlight():
+	var collider = find_cast_target()
+	if collider != null:
+		last_cast_target = collider
+		collider.highlight()
+	elif last_cast_target != null:
+		last_cast_target.stop_highlight()
+		last_cast_target = null
 
 func can_pickup() -> bool:
 	return is_on_floor() and (state == State.Idle or state == State.Running)
@@ -216,9 +233,17 @@ func cast_check():
 
 func cast():
 	state = State.Casting
+	var collider = find_cast_target()
+	if collider != null:
+		var collision_point : Vector2 = to_local(collider.global_position)
+		var beam_spell = BeamSpell.instantiate()
+		laser_start.add_child(beam_spell)
+		collision_point.x -= laser_start.position.x
+		collision_point.y = 0
+		beam_spell.cast_to(collider)
 
 func can_attack() -> bool:
-	if frozen:
+	if frozen or is_carrying:
 		return false
 	return [State.Idle, State.Running, State.Jumping, State.StartFalling, State.Falling].has(state)
 
@@ -237,17 +262,30 @@ func get_direction() -> float:
 	return sprite.scale.x
 
 func find_cast_target():
-	if casting_ray.is_colliding():
-		var collider = casting_ray.get_collider()
-		if collider.is_in_group("shrinkable") or collider.is_in_group("expandable"):	
-			var collision_point : Vector2 = to_local(casting_ray.get_collider().global_position)
-			var beam_spell = BeamSpell.instantiate()
-			laser_start.add_child(beam_spell)
-			collision_point.x -= laser_start.position.x
-			collision_point.y = 0
-			beam_spell.cast_to(casting_ray.get_collider())
-	else:
-		pass
+	if casting_area.has_overlapping_bodies():
+		var colliders = casting_area.get_overlapping_bodies()
+		var closest = 100000
+		var target_box = null
+		for collider in colliders:
+			if (global_position - collider.global_position).length() < closest:
+				target_box = collider
+				closest = (global_position - collider.global_position).length()
+		if target_box != null:
+			var collider = target_box
+			if collider.is_in_group("shrinkable") or collider.is_in_group("expandable"):
+				return collider
+	return null
+#	if casting_ray.is_colliding():
+#		var collider = casting_ray.get_collider()
+#		if collider.is_in_group("shrinkable") or collider.is_in_group("expandable"):	
+#			var collision_point : Vector2 = to_local(casting_ray.get_collider().global_position)
+#			var beam_spell = BeamSpell.instantiate()
+#			laser_start.add_child(beam_spell)
+#			collision_point.x -= laser_start.position.x
+#			collision_point.y = 0
+#			beam_spell.cast_to(casting_ray.get_collider())
+#	else:
+#		pass
 		# todo play fizz sound
 	
 
@@ -289,11 +327,9 @@ func jump_check():
 	if frozen:
 		return
 	var force = jump_force
-	if is_carrying:
-		force = jump_force * 0.85
 	var elapsed_since_on_floor = Time.get_ticks_msec() - last_time_on_floor
 	if (is_on_floor() or elapsed_since_on_floor < grace_period_jump) and Input.is_action_just_pressed("jump"):
-		if Input.is_action_pressed("crouch") and not state == State.Casting:
+		if Input.is_action_pressed("crouch") and not state == State.Casting and not ground_raycast.is_colliding():
 			position.y += 1
 		else:
 			jump(force)
@@ -341,6 +377,7 @@ func throw_box():
 		if laser_start.position.x < 0:
 			dir = -1.0
 		smallbox.apply_impulse(Vector2(160 * dir, -20))
+		
 
 func jump(force, create_effect = true):
 	velocity.y = -force

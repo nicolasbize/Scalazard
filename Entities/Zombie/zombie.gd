@@ -161,6 +161,7 @@ func on_finish_action():
 		state = State.Dying
 		damage_receiver_area.set_deferred("monitorable", false)
 		player_detection_area.set_deferred("monitoring", false)
+		set_collision_mask_value(3, false)
 		player = null
 		velocity.x = 0
 

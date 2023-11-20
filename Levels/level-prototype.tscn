@@ -80,6 +80,9 @@ position = Vector2(-1008, 144)
 position = Vector2(-966, 240)
 content = 2
 
+[node name="BigBox3" parent="." instance=ExtResource("3_tdndb")]
+position = Vector2(-983, 224)
+
 [editable path="Bat2"]
 [editable path="Bat2/Animal/DamageDealerArea"]
 [editable path="Bat2/Animal/DamageReceiverArea"]

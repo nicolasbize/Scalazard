@@ -11,5 +11,8 @@ func _process(delta):
 func disappear_east():
 	animation_player.play("disappear_east")
 
+func disappear_up():
+	animation_player.play("disappear_up")
+
 func on_finish_disappear():
 	emit_signal("cinematic_finish")

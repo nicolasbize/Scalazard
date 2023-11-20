@@ -1,13 +1,38 @@
-[gd_scene load_steps=7 format=3 uid="uid://dwcrlgrxpc5qs"]
+[gd_scene load_steps=9 format=3 uid="uid://dwcrlgrxpc5qs"]
 
 [ext_resource type="Script" path="res://Entities/ResizableBox/big_box.gd" id="1_dh5yu"]
 [ext_resource type="Texture2D" uid="uid://7jxpgws33mca" path="res://Entities/ResizableBox/bigbox.png" id="1_nrwon"]
+[ext_resource type="Texture2D" uid="uid://sk2fm427lbje" path="res://Entities/ResizableBox/arrow.png" id="4_efsx3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xy8vj"]
-size = Vector2(30, 30)
+size = Vector2(32, 32)
 
 [sub_resource type="Animation" id="Animation_a7a8y"]
 length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ArrowSprite:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ArrowSprite:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -24)]
+}
 
 [sub_resource type="Animation" id="Animation_urcwu"]
 resource_name = "start"
@@ -27,10 +52,40 @@ tracks/0/keys = {
 }]
 }
 
+[sub_resource type="Animation" id="Animation_0ufh4"]
+resource_name = "targeted"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ArrowSprite:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ArrowSprite:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [Vector2(0, -24), Vector2(0, -22), Vector2(0, -24)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_moels"]
 _data = {
 "RESET": SubResource("Animation_a7a8y"),
-"start": SubResource("Animation_urcwu")
+"start": SubResource("Animation_urcwu"),
+"targeted": SubResource("Animation_0ufh4")
 }
 
 [node name="BigBox" type="RigidBody2D" groups=["shrinkable"]]
@@ -49,19 +104,24 @@ texture = ExtResource("1_nrwon")
 shape = SubResource("RectangleShape2D_xy8vj")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-autoplay = "start"
 libraries = {
 "": SubResource("AnimationLibrary_moels")
 }
 
 [node name="RaycastUp" type="RayCast2D" parent="."]
-target_position = Vector2(0, -16)
+target_position = Vector2(0, -17)
 
 [node name="RaycastDown" type="RayCast2D" parent="."]
-target_position = Vector2(0, 16)
+target_position = Vector2(0, 17)
 
 [node name="RaycastLeft" type="RayCast2D" parent="."]
-target_position = Vector2(-16, 0)
+target_position = Vector2(-17, 0)
 
 [node name="RaycastRight" type="RayCast2D" parent="."]
-target_position = Vector2(16, 0)
+target_position = Vector2(17, 0)
+
+[node name="ArrowSprite" type="Sprite2D" parent="."]
+visible = false
+modulate = Color(1, 1, 1, 0.8)
+position = Vector2(0, -24)
+texture = ExtResource("4_efsx3")

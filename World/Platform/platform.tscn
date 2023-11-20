@@ -1,11 +1,29 @@
-[gd_scene load_steps=5 format=3 uid="uid://btampsatebgrn"]
+[gd_scene load_steps=9 format=3 uid="uid://btampsatebgrn"]
 
 [ext_resource type="Script" path="res://World/Platform/platform.gd" id="1_2c12k"]
 [ext_resource type="Texture2D" uid="uid://ckmtwbbf8krrm" path="res://World/Platform/platform.png" id="1_o8gn0"]
 [ext_resource type="PackedScene" uid="uid://crfcy1ol7wgog" path="res://World/Sign/sign.tscn" id="2_dmeki"]
+[ext_resource type="Texture2D" uid="uid://2ihgicetkuav" path="res://World/GemDoor/1x1-particle.png" id="4_axe7m"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_km8wm"]
 radius = 3.0
+
+[sub_resource type="Gradient" id="Gradient_uv6s5"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_mpyyr"]
+gradient = SubResource("Gradient_uv6s5")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_s2kei"]
+lifetime_randomness = 0.48
+emission_shape = 3
+emission_box_extents = Vector3(10, 1, 1)
+particle_flag_disable_z = true
+gravity = Vector3(0, -98, 0)
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+color_ramp = SubResource("GradientTexture1D_mpyyr")
+turbulence_enabled = true
 
 [node name="Platform" type="Node2D"]
 script = ExtResource("1_2c12k")
@@ -36,5 +54,14 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetectionArea"]
 position = Vector2(0, -11)
 shape = SubResource("CircleShape2D_km8wm")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+z_index = 100
+position = Vector2(0, -2)
+emitting = false
+amount = 20
+process_material = SubResource("ParticleProcessMaterial_s2kei")
+texture = ExtResource("4_axe7m")
+lifetime = 2.0
 
 [editable path="Sign"]
