@@ -65,6 +65,7 @@ layer_2/z_index = 0
 layer_2/tile_data = PackedInt32Array()
 
 [node name="Hero" parent="." instance=ExtResource("2_3krc1")]
+position = Vector2(1240, -192)
 
 [node name="WaterBody2" parent="." instance=ExtResource("3_wucfn")]
 z_index = 50

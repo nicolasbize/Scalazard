@@ -18,7 +18,7 @@ hframes = 2
 collision_mask = 0
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
-polygon = PackedVector2Array(-14, 0, -6, -4, 6, -4, 15, 0)
+polygon = PackedVector2Array(-14, 0, -6, -2, 6, -2, 15, 0)
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 0

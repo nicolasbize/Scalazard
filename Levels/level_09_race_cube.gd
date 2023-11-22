@@ -20,10 +20,6 @@ func _physics_process(delta):
 func on_small_box_enter(box):
 	if small_box == null:
 		small_box = box
-#		small_box.set_deferred("sleeping", true)
-#		small_box.set_deferred("freeze", true)
-#		small_box.linear_velocity = Vector2.ZERO
-#		small_box.angular_velocity = 0
 		small_box_anchor = box.global_position - platform_sprite.global_position
 
 func on_trigger_press():

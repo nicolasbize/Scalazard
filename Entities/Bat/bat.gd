@@ -75,7 +75,7 @@ func on_enemy_hit(dmg:int, direction_knockback:float) -> void:
 	current_path_index = -1
 	var hit_spark = HitSpark.instantiate()
 	get_parent().add_child(hit_spark)
-	hit_spark.global_position = sprite.global_position + Vector2.RIGHT * direction_knockback * 16
+	hit_spark.global_position = sprite.global_position + Vector2.DOWN * 16
 	hit_spark.scale.x = direction_knockback
 	GameState.emit_signal("hit_received")
 	sfx_hit.play_sound()

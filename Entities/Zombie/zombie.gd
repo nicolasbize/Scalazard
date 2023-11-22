@@ -67,7 +67,7 @@ func on_enemy_hit(dmg:int, direction_knockback:float) -> void:
 	state = State.Hurt
 	var hit_spark = HitSpark.instantiate()
 	get_parent().add_child(hit_spark)
-	hit_spark.global_position = global_position + Vector2.UP * 32 + Vector2.RIGHT * direction_knockback * 16
+	hit_spark.global_position = global_position + Vector2.UP * 16
 	hit_spark.rotation_degrees = randf_range(-10.0, 10.0)
 	hit_spark.scale.x = direction_knockback
 	GameState.emit_signal("hit_received")

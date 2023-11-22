@@ -7,7 +7,7 @@ extends CharacterBody2D
 @onready var laser_start := $LaserStart
 @onready var pickup_area := $PickupArea
 @onready var carried_box := $CarriedBox
-#@onready var casting_ray := $CastingRay
+@onready var casting_ray := $CastingRay
 @onready var casting_area := $CastingArea
 @onready var damage_receiver_area := $DamageReceiverArea
 @onready var damage_dealer_area := $DamageDealerArea
@@ -182,12 +182,15 @@ func check_poison():
 
 func check_cast_highlight():
 	var collider = find_cast_target()
-	if collider != null:
+	if collider != null and collider != last_cast_target:
+		if last_cast_target != null:
+			last_cast_target.stop_highlight()
 		last_cast_target = collider
 		collider.highlight()
-	elif last_cast_target != null:
-		last_cast_target.stop_highlight()
-		last_cast_target = null
+	elif collider == null and last_cast_target != null:
+			last_cast_target.stop_highlight()
+			last_cast_target = null
+	
 
 func can_pickup() -> bool:
 	return is_on_floor() and (state == State.Idle or state == State.Running)
@@ -262,6 +265,8 @@ func get_direction() -> float:
 	return sprite.scale.x
 
 func find_cast_target():
+	if is_carrying:
+		return null
 	if casting_area.has_overlapping_bodies():
 		var colliders = casting_area.get_overlapping_bodies()
 		var closest = 100000
@@ -273,21 +278,14 @@ func find_cast_target():
 		if target_box != null:
 			var collider = target_box
 			if collider.is_in_group("shrinkable") or collider.is_in_group("expandable"):
-				return collider
+				if collider.is_in_group("shrinkable") and collider.has_box_on_top():
+					collider = collider.get_box_on_top()
+				if collider != null:
+					casting_ray.target_position.y = collider.global_position.y - global_position.y
+					casting_ray.target_position.x = collider.global_position.x - global_position.x
+					if not casting_ray.is_colliding():
+						return collider
 	return null
-#	if casting_ray.is_colliding():
-#		var collider = casting_ray.get_collider()
-#		if collider.is_in_group("shrinkable") or collider.is_in_group("expandable"):	
-#			var collision_point : Vector2 = to_local(casting_ray.get_collider().global_position)
-#			var beam_spell = BeamSpell.instantiate()
-#			laser_start.add_child(beam_spell)
-#			collision_point.x -= laser_start.position.x
-#			collision_point.y = 0
-#			beam_spell.cast_to(casting_ray.get_collider())
-#	else:
-#		pass
-		# todo play fizz sound
-	
 
 func is_pushing():
 	return target_box != null and not is_carrying
