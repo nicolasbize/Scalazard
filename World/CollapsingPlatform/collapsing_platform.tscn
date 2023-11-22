@@ -11,6 +11,8 @@ size = Vector2(38, 20)
 
 [node name="CollapsingPlatform" type="Node2D"]
 script = ExtResource("1_sd4pi")
+ms_before_collapse = 600
+ms_before_fix = 1500
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_rrdx5")

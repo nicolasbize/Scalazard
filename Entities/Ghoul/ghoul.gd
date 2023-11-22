@@ -143,8 +143,8 @@ func _physics_process(delta):
 func check_jump():
 	if Time.get_ticks_msec() - time_since_landing > rest_after_jump:
 		state = State.Jumping
-		var direction = sign(player.global_position.x - global_position.x)
-		velocity = Vector2(jump_intensity * direction, -jump_height)
+		var dir = sign(player.global_position.x - global_position.x)
+		velocity = Vector2(jump_intensity * dir, -jump_height)
 
 func can_keep_walking() -> bool:
 	if direction > 0:

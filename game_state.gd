@@ -19,18 +19,19 @@ var Levels = {
 	Level.SkeletonBoss: preload("res://Levels/level_10_skeleton_boss.tscn"),
 }
 
-var current_level := Level.WaterCorridor
+var current_level := Level.SacrificeChamber
 var is_music_on := false
 var visited_dracula_entrance := false
+var visited_dracula_center := false
+var opened_center_court_door := false
+
 
 var callback_after_pause : Callable
 var max_life := 3
 var current_life := 3
-var current_gems = [false, false, false, false] # green: float, blue: swim, purple: shrink, yellow: shield
+var current_gems = [false, false, false, false] # green: float, blue: swim, purple: dodge, yellow: shield
 var gems_inserted = [false, false, false, false]
 var hearts_collected = {}
-var opened_center_court_door := false
-var visited_dracula_center := false
 var screen_shake := true
 
 func deal_hero_damage(dmg:int) -> void:
@@ -54,7 +55,7 @@ func new_life() -> void:
 
 func add_to_level(obj) -> void:
 	var level = get_tree().get_first_node_in_group("level")
-	level.add_child(obj)
+	level.call_deferred("add_child", obj)
 
 func show_system_message(text:Array[String], callback:Callable) -> void:
 	get_tree().paused = true

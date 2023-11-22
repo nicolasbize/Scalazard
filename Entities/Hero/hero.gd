@@ -17,6 +17,7 @@ extends CharacterBody2D
 @onready var sfx_jump := $SFXJump
 @onready var sfx_hit := $SFXHit
 @onready var ground_raycast := $GroundRaycast
+@onready var upper_body_wall_detection_area := $UpperBodyWallDetectionArea
 
 @export var gravity := 850.0
 @export var max_fall_velocity := 400.0
@@ -24,7 +25,6 @@ extends CharacterBody2D
 @export var max_velocity := 120.0
 @export var max_velocity_carrying := 90.0
 @export var max_velocity_in_water := 60.0
-@export var max_run_velocity := 180.0
 @export var friction := 800.0
 @export var air_friction := 20.0
 @export var jump_force := 290.0
@@ -34,6 +34,8 @@ extends CharacterBody2D
 @export var min_time_between_hits := 1000.0 # 1sec
 @export var grace_period_jump := 150.0
 @export var float_time := 2000
+@export var slide_time := 500
+@export var time_between_slides := 1500
 
 const BeamSpell = preload("res://FX/BeamSpell/beam_spell.tscn")
 const SmallBox = preload("res://Entities/ResizableBox/small_box.tscn")
@@ -43,7 +45,7 @@ const BoxResize = preload("res://Entities/ResizableBox/box_resize.tscn")
 const WaterSplash = preload("res://FX/Splash/water_spash.tscn")
 const Gem = preload("res://World/Gem/gem.tscn")
 
-enum State {Idle, Running, Jumping, StartFalling, Falling, Casting, Attacking, Pushing, Carrying, CarryingIdle, Hurting, Dying, Dead, Resting, Healing, Pickup}
+enum State {Idle, Running, Jumping, StartFalling, Falling, Casting, Attacking, Pushing, Carrying, CarryingIdle, Hurting, Dying, Dead, Resting, Healing, Pickup, Sliding}
 var anim_states = {
 	State.Idle: "idle",
 	State.Running: "run",
@@ -60,9 +62,10 @@ var anim_states = {
 	State.Resting: "rest",
 	State.Healing: "heal",
 	State.Pickup: "pickup",
+	State.Sliding: "slide",
 }
 var state:State = State.Idle
-var target_box = null
+var pushed_box = null
 var laser = null
 var impulse = null
 var is_carrying := false
@@ -80,6 +83,8 @@ var is_floating := false
 var time_last_jump := Time.get_ticks_msec()
 var frozen := false
 var last_cast_target = null
+var time_start_slide := Time.get_ticks_msec()
+var time_last_slide := Time.get_ticks_msec() - time_between_slides
 
 func _ready():
 	pickup_area.connect("area_entered", on_player_enter_pickable.bind())
@@ -88,9 +93,9 @@ func _ready():
 
 func _physics_process(delta):
 	if box_detector.is_colliding():
-		target_box = box_detector.get_collider()
+		pushed_box = box_detector.get_collider()
 	else:
-		target_box = null
+		pushed_box = null
 	move(delta)
 
 func on_player_enter_pickable(area:Area2D):
@@ -106,14 +111,24 @@ func can_run() -> bool:
 	return can_move() and is_on_floor() and [State.Running, State.Idle].has(state)
 
 func can_cast() -> bool:
-	return is_on_floor() and [State.Running, State.Idle].has(state)
+	return is_on_floor() and not is_carrying and [State.Running, State.Idle].has(state)
+
+func can_slide() -> bool:
+	if Time.get_ticks_msec() - time_last_slide < time_between_slides:
+		return false
+	return can_dodge() and is_on_floor() and not is_carrying and [State.Running, State.Idle].has(state)
 
 func move(delta):
 	carried_box.visible = is_carrying
 	if is_on_floor():
 		last_time_on_floor = Time.get_ticks_msec()
 	apply_gravity(delta)
-	if can_move():
+	if state == State.Sliding:
+		if Time.get_ticks_msec() - time_start_slide > slide_time and not upper_body_wall_detection_area.has_overlapping_bodies():
+			state = State.Idle
+			time_last_slide = Time.get_ticks_msec()
+			damage_receiver_area.set_deferred("monitorable", true)
+	elif can_move():
 		var input_axis = Input.get_axis("move_left", "move_right")
 		if frozen:
 			input_axis = 0
@@ -129,10 +144,10 @@ func move(delta):
 			if is_on_floor():
 				if is_carrying:
 					state = State.Carrying
-				elif target_box != null:
+				elif pushed_box != null:
 					state = State.Pushing
-					var dir = (target_box.position - position).normalized()
-					target_box.move_and_collide(Vector2.RIGHT * dir * delta * push_strength)
+					var dir = (pushed_box.position - position).normalized()
+					pushed_box.move_and_collide(Vector2.RIGHT * dir * delta * push_strength)
 				else:
 					state = State.Running
 		else:
@@ -145,6 +160,7 @@ func move(delta):
 		if not is_on_floor() and velocity.y > 0 and state != State.Falling:
 			state = State.StartFalling
 		jump_check()
+		slide_check()
 		cast_check()
 		attack_check()
 		pickup_check()
@@ -201,14 +217,21 @@ func pickup_check():
 		pickable_target.queue_free()
 		is_carrying = true
 
+func slide_check():
+	if can_slide() and Input.is_action_just_pressed("dodge"):
+		velocity.x = sign(velocity.x) * max_velocity
+		state = State.Sliding
+		damage_receiver_area.set_deferred("monitorable", false)
+		time_start_slide = Time.get_ticks_msec()
+
 func get_item(item: TreasureChest.Content):
 	state = State.Pickup
 	velocity = Vector2.ZERO
 	current_gem_reference = Gem.instantiate()
-	GameState.add_to_level(current_gem_reference)
-	current_gem_reference.set_color(item)
+	current_gem_reference.color = item
 	current_gem_reference.global_position = global_position + Vector2.UP * 16
 	current_gem_reference.connect("gain_gem", on_gain_gem.bind(item))
+	GameState.add_to_level(current_gem_reference)
 	current_treasure = item
 
 func on_system_message_callback():
@@ -225,6 +248,8 @@ func on_gain_gem(item):
 		GameState.show_system_message(["You found the green crystal!", "Your body feels lighter!"], on_system_message_callback.bind())
 	elif item == TreasureChest.Content.BlueGem:
 		GameState.show_system_message(["You found the blue crystal!", "Your lungs feel powerful!"], on_system_message_callback.bind())
+	elif item == TreasureChest.Content.PurpleGem:
+		GameState.show_system_message(["You found the purple crystal!", "Your feel more agile!", "Press c to slide and dodge"], on_system_message_callback.bind())
 
 func cast_check():
 	if Input.is_action_just_pressed("cast"):
@@ -288,7 +313,7 @@ func find_cast_target():
 	return null
 
 func is_pushing():
-	return target_box != null and not is_carrying
+	return pushed_box != null and not is_carrying
 
 func is_moving(input_axis):
 	return input_axis != 0
@@ -303,17 +328,17 @@ func apply_gravity(delta):
 			velocity.y = 0
 
 func apply_acceleration(delta, input_axis):
-	var max = get_max_velocity()
+	var max_vel = get_max_velocity()
 	if is_moving(input_axis):
-		velocity.x = move_toward(velocity.x, input_axis * max, acceleration * delta)
+		velocity.x = move_toward(velocity.x, input_axis * max_vel, acceleration * delta)
 
 func get_max_velocity() -> float:
-	var max = max_velocity
+	var max_vel = max_velocity
 	if is_carrying:
-		max = max_velocity_carrying
+		max_vel = max_velocity_carrying
 	if in_water():
-		max = max_velocity_in_water
-	return max
+		max_vel = max_velocity_in_water
+	return max_vel
 
 func apply_friction(delta):
 	if is_on_floor():
@@ -338,11 +363,11 @@ func jump_check():
 
 func splash():
 	var liquid_color : Color = water_detection_area.get_overlapping_areas()[0].get_parent().get_color()
-	var splash = WaterSplash.instantiate()
-	GameState.add_to_level(splash)
-	splash.process_material.color_ramp.gradient.colors[0] = liquid_color
-	splash.process_material.color_ramp.gradient.colors[1] = liquid_color.lightened(0.4)
-	splash.global_position = global_position
+	var water_splash = WaterSplash.instantiate()
+	GameState.add_to_level(water_splash)
+	water_splash.process_material.color_ramp.gradient.colors[0] = liquid_color
+	water_splash.process_material.color_ramp.gradient.colors[1] = liquid_color.lightened(0.4)
+	water_splash.global_position = global_position
 
 func on_player_hit(dmg:int, direction_knockback: float):
 	if GameState.current_life > 0 and (Time.get_ticks_msec() - time_since_last_hit) > min_time_between_hits:
@@ -407,3 +432,6 @@ func can_float():
 
 func can_swim():
 	return GameState.current_gems[TreasureChest.Content.BlueGem]
+
+func can_dodge():
+	return GameState.current_gems[TreasureChest.Content.PurpleGem]

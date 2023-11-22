@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://dvpwxk6xexp8h"]
+[gd_scene load_steps=8 format=3 uid="uid://dvpwxk6xexp8h"]
 
 [ext_resource type="Texture2D" uid="uid://b3akykxhaje0y" path="res://FX/Fireball/fire.png" id="1_5gw3s"]
+[ext_resource type="Script" path="res://FX/Fireball/fire_impact_fx.gd" id="2_s2q3v"]
 
 [sub_resource type="Gradient" id="Gradient_57n3e"]
 offsets = PackedFloat32Array(0, 0.216749, 0.517241, 1)
@@ -38,3 +39,9 @@ texture = ExtResource("1_5gw3s")
 lifetime = 0.8
 one_shot = true
 explosiveness = 0.9
+script = ExtResource("2_s2q3v")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+autostart = true

@@ -7,21 +7,21 @@ extends Node2D
 @onready var raycast_up := $RaycastUp
 @onready var raycast_down := $RaycastDown
 
-@export var size_mode := SizeMode.Expand
+@export var size_mode := SizeType.Expand
 
-enum SizeMode {Expand = 0, Shrink = 1}
+enum SizeType {Expand = 0, Shrink = 1}
 
 const BigBox = preload("res://Entities/ResizableBox/big_box.tscn")
 const SmallBox = preload("res://Entities/ResizableBox/small_box.tscn")
 
 func _ready():
-	if size_mode == SizeMode.Expand:
+	if size_mode == SizeType.Expand:
 		animation_player.play("expand")
 	else:
 		animation_player.play("shrink")
 
 func _physics_process(delta):
-	if size_mode == SizeMode.Expand:
+	if size_mode == SizeType.Expand:
 		if raycast_left.is_colliding():
 			position.x += 1
 		if raycast_right.is_colliding():
@@ -32,7 +32,7 @@ func _physics_process(delta):
 			position.y -= 1
 
 func on_complete():
-	if size_mode == SizeMode.Shrink:
+	if size_mode == SizeType.Shrink:
 		var smallbox = SmallBox.instantiate()
 		GameState.add_to_level(smallbox)
 		smallbox.global_position = global_position

@@ -1,6 +1,6 @@
 extends Node2D
 
-@onready var area := $Area2D
+@onready var wall_detection_area := $WallDetectionArea
 @onready var damage_area := $DamageDealerArea
 @onready var particles := $GPUParticles2D
 @onready var sprite := $Sprite2D
@@ -14,7 +14,7 @@ var landed := false
 var initialized := false
 
 func _ready():
-	area.connect("body_entered", on_body_enter.bind())
+	wall_detection_area.connect("body_entered", on_body_enter.bind())
 	damage_area.connect("area_entered", on_damage_enter.bind())
 
 func _physics_process(delta):

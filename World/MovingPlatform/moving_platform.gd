@@ -1,6 +1,6 @@
 extends Path2D
 
-@export var speed_platform := 4000.0
+@export var speed_platform := 4000
 @export var progress_start := 0.0
 @export var is_running := true
 @export var one_shot := false
@@ -24,7 +24,7 @@ func start():
 
 func calculate_progress():
 	if progress_start != 0:
-		time_start = Time.get_ticks_msec() - speed_platform * progress_start
+		time_start = int(Time.get_ticks_msec() - speed_platform * progress_start)
 	update_platform_state()
 		
 func _physics_process(delta):
@@ -34,7 +34,7 @@ func _physics_process(delta):
 		
 func update_platform_state():
 	var time_elapsed = Time.get_ticks_msec() - time_start
-	var progress = min(time_elapsed / speed_platform, 1.0)
+	var progress = min(float(time_elapsed) / speed_platform, 1.0)
 	path_follow.progress_ratio = progress
 	if progress >= 1.0:
 		if one_shot:

@@ -6,7 +6,7 @@ extends Area2D
 func _ready():
 	connect("area_entered", on_area_enter.bind())
 
-func on_area_enter(damage_receiver_area:DamageReceiverArea):
+func on_area_enter(damage_receiver_area):
 	var parent = damage_receiver_area.get_parent()
 	# can't deal damage to yourself
 	if parent != get_parent():

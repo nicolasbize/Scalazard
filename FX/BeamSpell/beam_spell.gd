@@ -45,6 +45,7 @@ func resize_box():
 	var box_resize : BoxResize = BoxResize.instantiate()
 	if target.is_in_group("shrinkable"):
 		box_resize.size_mode = 1
+		
 	elif target.is_in_group("expandable"):
 		box_resize.size_mode = 0
 	GameState.add_to_level(box_resize)

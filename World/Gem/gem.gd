@@ -7,12 +7,12 @@ extends Node2D
 signal gain_gem
 
 var color_map = ["83ff70", "70cfff", "ff70e5", "fffa70", "ff7070"]
+var color : TreasureChest.Content = TreasureChest.Content.GreenGem
 
-func set_color(gem_index:int) -> void:
-	gem_sprite.frame = gem_index
-	ray.modulate = Color(color_map[gem_index])
-	circle.modulate = Color(color_map[gem_index])
+func _ready():
+	gem_sprite.frame = color
+	ray.modulate = Color(color_map[color])
+	circle.modulate = Color(color_map[color])
 	
-
 func on_appear_end():
 	emit_signal("gain_gem")

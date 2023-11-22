@@ -30,7 +30,7 @@ func _process(delta):
 		chest_sprite.frame = 1
 	else:
 		chest_sprite.frame = 0
-	if not is_opened and player != null and player.can_pickup() and Input.is_action_just_pressed("crouch"):
+	if visible and not is_opened and player != null and player.can_pickup() and Input.is_action_just_pressed("crouch"):
 		is_opened = true
 		player.get_item(content)
 		emit_signal("open")

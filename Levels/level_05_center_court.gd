@@ -50,15 +50,15 @@ func _process(delta):
 			last_damage_tick = Time.get_ticks_msec()
 			player_in_water.on_player_hit(1, 0)
 			
-func on_player_exit_water(player):
+func on_player_exit_water(body):
 	player_in_water = null
 	last_damage_tick = Time.get_ticks_msec()
 
-func on_player_enter_water(player):
-	player_in_water = player
+func on_player_enter_water(body):
+	player_in_water = body
 	last_damage_tick = Time.get_ticks_msec()
 
-func on_player_enter_platform(player):
+func on_player_enter_platform(body):
 	for i in range(GameState.current_gems.size()):
 		if GameState.current_gems[i] and not GameState.gems_inserted[i]:
 			gem_doors[i].start()

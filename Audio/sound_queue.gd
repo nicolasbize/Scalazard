@@ -15,9 +15,9 @@ var audio_stream_players : Array[AudioStreamPlayer] = []
 func _ready():
 	var child_stream : AudioStreamPlayer = get_child(0)
 	for i in count:
-		var duplicate = child_stream.duplicate()
-		add_child(duplicate)
-		audio_stream_players.append(duplicate)
+		var dupe = child_stream.duplicate()
+		add_child(dupe)
+		audio_stream_players.append(dupe)
 
 func play_sound():
 	if (not audio_stream_players[next].playing):

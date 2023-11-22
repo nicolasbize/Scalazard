@@ -1,3 +1,4 @@
+class_name CollapsingPlatform
 extends Node2D
 
 @export var ms_before_collapse := 1000
