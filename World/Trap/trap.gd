@@ -14,7 +14,7 @@ const Fireball = preload("res://FX/Fireball/fireball.tscn")
 func _ready():
 	timer.connect("timeout", on_timer_timeout.bind())
 	if firing:
-		timer.start(delay_secs)
+		start_firing()
 
 func on_timer_timeout():
 	if firing:
