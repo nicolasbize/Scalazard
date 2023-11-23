@@ -27,7 +27,7 @@ func _ready():
 	water_damage_area.connect("body_exited", on_player_exit_water.bind())
 	platform_area.connect("body_entered", on_player_enter_platform.bind())
 	if GameState.opened_center_court_door:
-		prison_bars.open()
+		prison_bars.set_opened()
 	top_right_door_trigger.connect("press", on_player_open_top_right.bind())
 	if GameState.visited_dracula_center:
 		dracula.queue_free()

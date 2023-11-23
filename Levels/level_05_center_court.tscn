@@ -13,7 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://48ldvq7nc3tr" path="res://Entities/Dracula/dracula.tscn" id="11_ibu37"]
 [ext_resource type="PackedScene" uid="uid://dapdl7vybm6je" path="res://UI/speech_bubble.tscn" id="12_pynj7"]
 
-[sub_resource type="Shader" id="Shader_mw003"]
+[sub_resource type="Shader" id="Shader_fy3b0"]
 code = "shader_type canvas_item;
 
 uniform vec4 tint : source_color = vec4(1.0);
@@ -30,7 +30,7 @@ void fragment() {
 "
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qy0va"]
-shader = SubResource("Shader_mw003")
+shader = SubResource("Shader_fy3b0")
 shader_parameter/tint = Color(0.211765, 0.419608, 0.298039, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_68kpg"]

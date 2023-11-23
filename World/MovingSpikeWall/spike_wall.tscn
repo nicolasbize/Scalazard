@@ -1,0 +1,149 @@
+[gd_scene load_steps=7 format=3 uid="uid://bppnrcffmb32o"]
+
+[ext_resource type="Texture2D" uid="uid://bnnxxib53ms0x" path="res://World/MovingSpikeWall/spike-wall.png" id="1_aipb7"]
+[ext_resource type="PackedScene" uid="uid://b5mhaodm6g8i5" path="res://Entities/HitBox/damage_dealer_area.tscn" id="2_tb8m4"]
+[ext_resource type="PackedScene" uid="uid://crpye41vvqrt0" path="res://World/CollapsingPlatform/collapsing_platform.tscn" id="3_eqepm"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ei871"]
+size = Vector2(10, 107)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_eav8m"]
+size = Vector2(6.5, 97)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_opibh"]
+size = Vector2(16, 112)
+
+[node name="SpikeWall" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_aipb7")
+centered = false
+offset = Vector2(-64, 0)
+
+[node name="DamageDealerArea" parent="." instance=ExtResource("2_tb8m4")]
+position = Vector2(16, 48)
+collision_layer = 128
+collision_mask = 320
+damage = 10
+
+[node name="CollisionShape2D" parent="DamageDealerArea" index="0"]
+position = Vector2(3, 7.5)
+shape = SubResource("RectangleShape2D_ei871")
+
+[node name="DamageDealerArea2" parent="." instance=ExtResource("2_tb8m4")]
+position = Vector2(-55, 58)
+collision_layer = 128
+collision_mask = 320
+damage = 10
+
+[node name="CollisionShape2D" parent="DamageDealerArea2" index="0"]
+position = Vector2(0, -2.5)
+shape = SubResource("RectangleShape2D_eav8m")
+
+[node name="DamageDealerArea3" parent="." instance=ExtResource("2_tb8m4")]
+position = Vector2(-47, 58)
+collision_layer = 128
+collision_mask = 320
+damage = 10
+
+[node name="CollisionShape2D" parent="DamageDealerArea3" index="0"]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_eav8m")
+
+[node name="DamageDealerArea4" parent="." instance=ExtResource("2_tb8m4")]
+position = Vector2(-39, 58)
+collision_layer = 128
+collision_mask = 320
+damage = 10
+
+[node name="CollisionShape2D" parent="DamageDealerArea4" index="0"]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_eav8m")
+
+[node name="DamageDealerArea5" parent="." instance=ExtResource("2_tb8m4")]
+position = Vector2(-31, 58)
+collision_layer = 128
+collision_mask = 320
+damage = 10
+
+[node name="CollisionShape2D" parent="DamageDealerArea5" index="0"]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_eav8m")
+
+[node name="DamageDealerArea6" parent="." instance=ExtResource("2_tb8m4")]
+position = Vector2(-23, 58)
+collision_layer = 128
+collision_mask = 320
+damage = 10
+
+[node name="CollisionShape2D" parent="DamageDealerArea6" index="0"]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_eav8m")
+
+[node name="DamageDealerArea7" parent="." instance=ExtResource("2_tb8m4")]
+position = Vector2(-15, 58)
+collision_layer = 128
+collision_mask = 320
+damage = 10
+
+[node name="CollisionShape2D" parent="DamageDealerArea7" index="0"]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_eav8m")
+
+[node name="DamageDealerArea8" parent="." instance=ExtResource("2_tb8m4")]
+position = Vector2(-7, 58)
+collision_layer = 128
+collision_mask = 320
+damage = 10
+
+[node name="CollisionShape2D" parent="DamageDealerArea8" index="0"]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_eav8m")
+
+[node name="DamageDealerArea9" parent="." instance=ExtResource("2_tb8m4")]
+position = Vector2(1, 58)
+collision_layer = 128
+collision_mask = 320
+damage = 10
+
+[node name="CollisionShape2D" parent="DamageDealerArea9" index="0"]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_eav8m")
+
+[node name="DamageDealerArea10" parent="." instance=ExtResource("2_tb8m4")]
+position = Vector2(9, 58)
+collision_layer = 128
+collision_mask = 320
+damage = 10
+
+[node name="CollisionShape2D" parent="DamageDealerArea10" index="0"]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_eav8m")
+
+[node name="CollapsingPlatform" parent="." instance=ExtResource("3_eqepm")]
+position = Vector2(-88, 120)
+
+[node name="CollapsingPlatform2" parent="." instance=ExtResource("3_eqepm")]
+position = Vector2(-88, 80)
+
+[node name="CollapsingPlatform3" parent="." instance=ExtResource("3_eqepm")]
+position = Vector2(-88, 40)
+
+[node name="BackBody" type="StaticBody2D" parent="."]
+position = Vector2(-56, 48)
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BackBody"]
+position = Vector2(0, 8)
+shape = SubResource("RectangleShape2D_opibh")
+
+[editable path="DamageDealerArea"]
+[editable path="DamageDealerArea2"]
+[editable path="DamageDealerArea3"]
+[editable path="DamageDealerArea4"]
+[editable path="DamageDealerArea5"]
+[editable path="DamageDealerArea6"]
+[editable path="DamageDealerArea7"]
+[editable path="DamageDealerArea8"]
+[editable path="DamageDealerArea9"]
+[editable path="DamageDealerArea10"]

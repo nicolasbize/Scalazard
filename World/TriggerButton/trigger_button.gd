@@ -24,7 +24,6 @@ func on_body_exit(body):
 	pressed = false
 	if door != null:
 		door.close()
-		
 	
 func trigger_press_event():
 	emit_signal("press")
