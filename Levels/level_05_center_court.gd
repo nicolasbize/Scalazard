@@ -59,10 +59,14 @@ func on_player_enter_water(body):
 	last_damage_tick = Time.get_ticks_msec()
 
 func on_player_enter_platform(body):
+	var gem_inserted := false
 	for i in range(GameState.current_gems.size()):
 		if GameState.current_gems[i] and not GameState.gems_inserted[i]:
 			gem_doors[i].start()
 			GameState.gems_inserted[i] = true
+			gem_inserted = true
+	if gem_inserted:
+		GameSounds.play(GameSounds.Sound.PowerUp)
 
 func on_player_enter_cinematic(body):
 	cinematic_ticks = Time.get_ticks_msec()
@@ -97,6 +101,7 @@ func cinematic_next_step():
 			can_travel_next_step = false
 			dracula_speech_bubble.visible = false
 			dracula.disappear_up()
+			GameSounds.play(GameSounds.Sound.Warp)
 
 func on_dracula_leave():
 	get_viewport().get_camera_2d().unlock()

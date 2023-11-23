@@ -1,12 +1,10 @@
-[gd_scene load_steps=24 format=3 uid="uid://b345y5ybsmuar"]
+[gd_scene load_steps=22 format=3 uid="uid://b345y5ybsmuar"]
 
 [ext_resource type="Texture2D" uid="uid://dxncxvcp5kxfj" path="res://Entities/Ghoul/ghoul.png" id="1_iu48a"]
 [ext_resource type="Script" path="res://Entities/Ghoul/ghoul.gd" id="1_juya6"]
 [ext_resource type="Shader" path="res://Assets/outline.gdshader" id="2_u0bdo"]
 [ext_resource type="PackedScene" uid="uid://b5mhaodm6g8i5" path="res://Entities/HitBox/damage_dealer_area.tscn" id="3_yip7v"]
 [ext_resource type="PackedScene" uid="uid://2nfy1ysxtck8" path="res://Entities/HitBox/damage_receiver_area.tscn" id="4_lu8jx"]
-[ext_resource type="PackedScene" uid="uid://dsmce0h5or2e6" path="res://Audio/sound_queue.tscn" id="5_te27l"]
-[ext_resource type="AudioStream" uid="uid://40bythfk0lmn" path="res://Assets/SFX/hit.wav" id="6_yqcpa"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jte88"]
 shader = ExtResource("2_u0bdo")
@@ -308,11 +306,6 @@ collision_layer = 256
 [node name="CollisionShape2D" parent="DamageReceiverArea" index="0"]
 position = Vector2(0, -10)
 shape = SubResource("RectangleShape2D_y5507")
-
-[node name="SFXHit" parent="." instance=ExtResource("5_te27l")]
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="SFXHit"]
-stream = ExtResource("6_yqcpa")
 
 [editable path="DamageDealerArea"]
 [editable path="DamageReceiverArea"]

@@ -2,6 +2,7 @@ extends StaticBody2D
 
 @onready var timer := $Timer
 @onready var nosel_position := $NoselPosition
+@onready var player_detection_area := $PlayerDetectionArea
 
 @export var frequency_secs := 1.0
 @export var delay_secs := 0.0
@@ -37,4 +38,6 @@ func launch_fire():
 	GameState.add_to_level(fireball)
 	fireball.global_position = nosel_position.global_position
 	timer.start(frequency_secs)
+	if player_detection_area.has_overlapping_bodies():
+		GameSounds.play(GameSounds.Sound.Fireball)
 	

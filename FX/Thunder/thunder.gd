@@ -4,6 +4,9 @@ extends Node2D
 
 const ThunderImpactFx = preload("res://FX/Thunder/thunder_impact_fx.tscn")
 
+func on_start_thunder():
+	GameSounds.play(GameSounds.Sound.Thunder)
+
 func on_finish_thunder():
 	var thunder_spark := ThunderImpactFx.instantiate()
 	GameState.add_to_level(thunder_spark)

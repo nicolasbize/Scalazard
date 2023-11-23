@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://3dhu2nnn1p5h"]
+[gd_scene load_steps=10 format=3 uid="uid://3dhu2nnn1p5h"]
 
 [ext_resource type="TileSet" uid="uid://ckdj8m24olhk1" path="res://Assets/tilemap.tres" id="1_hlawe"]
+[ext_resource type="Script" path="res://Levels/level_01_courtyard.gd" id="1_jekoy"]
 [ext_resource type="PackedScene" uid="uid://b5heeqig4y3my" path="res://Entities/Hero/hero.tscn" id="2_v5ua7"]
 [ext_resource type="PackedScene" uid="uid://dwcrlgrxpc5qs" path="res://Entities/ResizableBox/big_box.tscn" id="3_xin6b"]
 [ext_resource type="PackedScene" uid="uid://ducb4gqo6upt" path="res://FX/Rain/rain_generator.tscn" id="5_u1uvj"]
@@ -12,6 +13,7 @@
 size = Vector2(512, 20)
 
 [node name="Level-01-Courtyard" type="Node2D" groups=["level"]]
+script = ExtResource("1_jekoy")
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = ExtResource("1_hlawe")

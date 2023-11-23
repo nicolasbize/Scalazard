@@ -1,0 +1,91 @@
+[gd_scene load_steps=15 format=3 uid="uid://b668xqw87n4y8"]
+
+[ext_resource type="Script" path="res://Audio/game_sounds.gd" id="1_2ij3w"]
+[ext_resource type="PackedScene" uid="uid://d24jch2ldp18e" path="res://Audio/sound_pool.tscn" id="2_7k85b"]
+[ext_resource type="AudioStream" uid="uid://bngsudqqix13j" path="res://Assets/SFX/footstep-stone-01.wav" id="2_v8fa8"]
+[ext_resource type="AudioStream" uid="uid://lf0hkkm0sgcf" path="res://Assets/SFX/footstep-stone-02.wav" id="3_ce7xf"]
+[ext_resource type="PackedScene" uid="uid://dsmce0h5or2e6" path="res://Audio/sound_queue.tscn" id="3_s1m8x"]
+[ext_resource type="AudioStream" uid="uid://d0i4k0ostn3n0" path="res://Assets/SFX/footstep-stone-03.wav" id="4_7l6xn"]
+[ext_resource type="AudioStream" uid="uid://cdhgyqw1kswd8" path="res://Assets/SFX/footstep-stone-04.wav" id="5_qv7by"]
+[ext_resource type="AudioStream" uid="uid://clycvjeuoebuh" path="res://Assets/SFX/swish-01.wav" id="8_gusr7"]
+[ext_resource type="AudioStream" uid="uid://bcnw8cvmj5txu" path="res://Assets/SFX/outside-rain.wav" id="8_sjr57"]
+[ext_resource type="AudioStream" uid="uid://cekm33ix0ldrw" path="res://Assets/SFX/swish-02.wav" id="9_hnhxa"]
+[ext_resource type="AudioStream" uid="uid://b821wa1e7kbnf" path="res://Assets/SFX/spell-expand.wav" id="9_opd46"]
+[ext_resource type="AudioStream" uid="uid://bnumxf7wnvtcb" path="res://Assets/SFX/jump.wav" id="9_syh82"]
+[ext_resource type="AudioStream" uid="uid://d0j4n8ob2mwvl" path="res://Assets/SFX/spell-shrink.wav" id="10_rat2y"]
+[ext_resource type="AudioStream" uid="uid://de35pujwvbgd6" path="res://Assets/SFX/wood-scratch.wav" id="11_k0un1"]
+
+[node name="GameSounds" type="Node"]
+script = ExtResource("1_2ij3w")
+
+[node name="FootstepStone" parent="." instance=ExtResource("2_7k85b")]
+max_ticks_frequency = 200
+
+[node name="SoundQueue" parent="FootstepStone" instance=ExtResource("3_s1m8x")]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="FootstepStone/SoundQueue"]
+stream = ExtResource("2_v8fa8")
+volume_db = -10.0
+
+[node name="SoundQueue2" parent="FootstepStone" instance=ExtResource("3_s1m8x")]
+
+[node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="FootstepStone/SoundQueue2"]
+stream = ExtResource("3_ce7xf")
+volume_db = -10.0
+
+[node name="SoundQueue3" parent="FootstepStone" instance=ExtResource("3_s1m8x")]
+
+[node name="AudioStreamPlayer3" type="AudioStreamPlayer" parent="FootstepStone/SoundQueue3"]
+stream = ExtResource("4_7l6xn")
+volume_db = -10.0
+
+[node name="SoundQueue4" parent="FootstepStone" instance=ExtResource("3_s1m8x")]
+
+[node name="AudioStreamPlayer4" type="AudioStreamPlayer" parent="FootstepStone/SoundQueue4"]
+stream = ExtResource("5_qv7by")
+volume_db = -10.0
+
+[node name="SwordSwish" parent="." instance=ExtResource("2_7k85b")]
+max_ticks_frequency = 200
+
+[node name="SoundQueue" parent="SwordSwish" instance=ExtResource("3_s1m8x")]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="SwordSwish/SoundQueue"]
+stream = ExtResource("8_gusr7")
+volume_db = -10.0
+
+[node name="SoundQueue2" parent="SwordSwish" instance=ExtResource("3_s1m8x")]
+
+[node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="SwordSwish/SoundQueue2"]
+stream = ExtResource("9_hnhxa")
+volume_db = -10.0
+
+[node name="OutsideRain" parent="." instance=ExtResource("3_s1m8x")]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="OutsideRain"]
+stream = ExtResource("8_sjr57")
+volume_db = -10.0
+
+[node name="ExpandMagic" parent="." instance=ExtResource("3_s1m8x")]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="ExpandMagic"]
+stream = ExtResource("9_opd46")
+volume_db = -10.0
+
+[node name="ShrinkMagic" parent="." instance=ExtResource("3_s1m8x")]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="ShrinkMagic"]
+stream = ExtResource("10_rat2y")
+volume_db = -10.0
+
+[node name="PushCrate" parent="." instance=ExtResource("3_s1m8x")]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="PushCrate"]
+stream = ExtResource("11_k0un1")
+
+[node name="Jump" parent="." instance=ExtResource("3_s1m8x")]
+nb_backup_duplicates = 1
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Jump"]
+stream = ExtResource("9_syh82")
+volume_db = 5.0

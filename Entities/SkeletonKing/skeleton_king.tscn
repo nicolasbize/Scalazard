@@ -1,7 +1,7 @@
 [gd_scene load_steps=12 format=3 uid="uid://brqb0hpq1xwks"]
 
 [ext_resource type="Script" path="res://Entities/SkeletonKing/skeleton_king.gd" id="1_mqucg"]
-[ext_resource type="Texture2D" uid="uid://c66i61ejf82ut" path="res://Entities/SkeletonKing/skeleton.png" id="1_ryg5l"]
+[ext_resource type="Texture2D" uid="uid://krneinensf7r" path="res://Entities/SkeletonKing/mage.png" id="2_rbg8x"]
 
 [sub_resource type="Animation" id="Animation_j1pxp"]
 length = 0.001
@@ -55,10 +55,10 @@ tracks/0/path = NodePath("Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
-"values": [10, 11]
+"values": [5, 6, 5, 6]
 }
 tracks/1/type = "method"
 tracks/1/imported = false
@@ -173,10 +173,10 @@ size = Vector2(14, 13.5)
 script = ExtResource("1_mqucg")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_ryg5l")
+texture = ExtResource("2_rbg8x")
 offset = Vector2(-6, -8)
-hframes = 10
-vframes = 5
+hframes = 5
+vframes = 4
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "idle"

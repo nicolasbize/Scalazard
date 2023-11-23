@@ -20,10 +20,10 @@ var Levels = {
 	Level.RaceCube: preload("res://Levels/level_09_race_cube.tscn"),
 	Level.SkeletonBoss: preload("res://Levels/level_10_skeleton_boss.tscn"),
 	Level.RaceAgainstFire: preload("res://Levels/level_11_race_against_fire.tscn"),
-	Level.OneCubeRace: preload("res://Levels/level_12_one_cube_race.tscn")
+	Level.OneCubeRace: preload("res://Levels/level_12_one_cube_race.tscn"),
 }
 
-var current_level := Level.OneCubeRace
+var current_level := Level.SkeletonBoss
 var is_music_on := false
 var visited_dracula_entrance := false
 var visited_dracula_center := false
@@ -33,7 +33,7 @@ var opened_center_court_door := false
 var callback_after_pause : Callable
 var max_life := 3
 var current_life := 3
-var current_gems = [false, true, true, false] # green: float, blue: swim, purple: dodge, yellow: shield
+var current_gems = [false, false, false, false] # green: float, blue: swim, purple: dodge, yellow: shield
 var gems_inserted = [false, false, false, false]
 var hearts_collected = {}
 var screen_shake := true

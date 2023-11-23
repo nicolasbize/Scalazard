@@ -11,7 +11,6 @@ extends RigidBody2D
 @onready var damage_dealer_area := $DamageDealerArea
 @onready var damage_receiver_area := $DamageReceiverArea
 @onready var body_collider := $CollisionShape2D
-@onready var sfx_hit := $SFXHit
 
 @export var speed_walk := 40.0
 @export var speed_run := 70.0
@@ -71,7 +70,7 @@ func on_enemy_hit(dmg:int, direction_knockback:float) -> void:
 	hit_spark.rotation_degrees = randf_range(-10.0, 10.0)
 	hit_spark.scale.x = direction_knockback
 	GameState.emit_signal("hit_received")
-	sfx_hit.play_sound()
+	GameSounds.play(GameSounds.Sound.EnemyHit, true)
 	play_animation()
 
 func turn_around():

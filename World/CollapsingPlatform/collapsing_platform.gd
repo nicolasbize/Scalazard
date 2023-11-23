@@ -40,6 +40,7 @@ func _physics_process(delta):
 	if landed and (Time.get_ticks_msec() - time_on_enter) > ms_before_collapse:
 		if state == State.Stable:
 			state = State.Collapsed
+			GameSounds.play(GameSounds.Sound.Collapse)
 			if not one_way:
 				time_on_collapse = Time.get_ticks_msec()
 		elif state == State.Collapsed and (Time.get_ticks_msec() - time_on_collapse) > ms_before_fix:
@@ -53,5 +54,5 @@ func _physics_process(delta):
 	else:
 		sprite.frame = 1
 		player_detection_area.set_deferred("monitoring", false)
-		collider.set_deferred("disabled", true) 
+		collider.set_deferred("disabled", true)
 		

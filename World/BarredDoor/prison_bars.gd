@@ -19,13 +19,19 @@ func open():
 	if state == State.Closed:
 		animation_player.play("open")
 		state = State.Open
+		GameSounds.play(GameSounds.Sound.DoorOpen)
 
 func set_opened():
 	state = State.Open
 	animation_player.play("opened")
 
+func set_closed():
+	state = State.Closed
+	animation_player.play("closed")
+
 func close():
 	if state == State.Open:
 		animation_player.play("close")
 		state = State.Closed
+		GameSounds.play(GameSounds.Sound.DoorClose)
 

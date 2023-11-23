@@ -16,7 +16,6 @@ extends CharacterBody2D
 @onready var right_arm_raycast := $RightArmRaycast
 @onready var left_arm_raycast := $LeftArmRaycast
 @onready var damage_receiver_area := $DamageReceiverArea
-@onready var sfx_hit := $SFXHit
 
 const SPEED = 300.0
 const jump_height := 110.0
@@ -76,7 +75,7 @@ func on_enemy_hit(dmg:int, direction_knockback:float) -> void:
 		hit_spark.scale.x = direction_knockback
 		GameState.emit_signal("hit_received")
 	time_since_landing = Time.get_ticks_msec()
-	sfx_hit.play_sound()
+	GameSounds.play(GameSounds.Sound.EnemyHit, true)
 	play_animation()
 
 func on_player_hittable(body):

@@ -1,10 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://caeeg0qxnw4sc"]
+[gd_scene load_steps=5 format=3 uid="uid://caeeg0qxnw4sc"]
 
 [ext_resource type="Script" path="res://World/Trap/trap.gd" id="1_bcg34"]
 [ext_resource type="Texture2D" uid="uid://scg2dbg2ba7v" path="res://World/Trap/trap.png" id="1_eg5qv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xn5ij"]
 size = Vector2(16, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2jyuu"]
+size = Vector2(432, 272)
 
 [node name="Trap" type="StaticBody2D"]
 script = ExtResource("1_bcg34")
@@ -25,3 +28,10 @@ one_shot = true
 
 [node name="NoselPosition" type="Node2D" parent="."]
 position = Vector2(16, -8)
+
+[node name="PlayerDetectionArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetectionArea"]
+shape = SubResource("RectangleShape2D_2jyuu")

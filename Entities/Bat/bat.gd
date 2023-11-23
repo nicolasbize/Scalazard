@@ -13,7 +13,6 @@ extends Node2D
 @onready var damage_receiver_area := $Animal/DamageReceiverArea
 @onready var damage_dealer_area := $Animal/DamageDealerArea
 @onready var animation_player := $Animal/AnimationPlayer
-@onready var sfx_hit := $SFXHit
 
 const HitSpark = preload("res://FX/HitSpark/hit_spark.tscn")
 
@@ -78,7 +77,7 @@ func on_enemy_hit(dmg:int, direction_knockback:float) -> void:
 	hit_spark.global_position = sprite.global_position + Vector2.DOWN * 16
 	hit_spark.scale.x = direction_knockback
 	GameState.emit_signal("hit_received")
-	sfx_hit.play_sound()
+	GameSounds.play(GameSounds.Sound.EnemyHit, true)
 	
 func get_valid_path() -> int:
 	if (Time.get_ticks_msec() - time_since_arrived) < wait_before_flight:

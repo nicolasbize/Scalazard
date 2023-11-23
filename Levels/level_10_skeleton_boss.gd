@@ -4,7 +4,7 @@ extends Node2D
 @export var max_ticks_between_thunder := 3000
 
 @onready var player_detection_area := $PlayerDetectionArea
-@onready var prison_bars_animation_player := $PrisonBars/AnimationPlayer
+@onready var prison_bars := $PrisonBars
 @onready var treasure_chest := $TreasureChest
 @onready var timer := $Timer
 @onready var thunder_timer := $ThunderTimer
@@ -81,11 +81,10 @@ func attack_player():
 	GameState.add_to_level(thunder)
 	thunder.global_position = Vector2(player.global_position.x, -208)
 	GameState.emit_signal("hit_received")
-	
 
 func on_player_enter(body):
 	player = body
-	prison_bars_animation_player.play("close")
+	prison_bars.close()
 	player_detection_area.set_deferred("monitoring", false)
 	get_viewport().get_camera_2d().lock_to_target(Vector2(-490, -96))
 	timer.start(3)
@@ -97,6 +96,7 @@ func on_timer_timeout():
 	if timed_out_count < number_shakes:
 		timed_out_count += 1
 		GameState.emit_signal("hit_received")
+		GameSounds.play(GameSounds.Sound.Earthquake)
 		timer.start(.5)
 	else:
 		level_started = true
@@ -113,7 +113,7 @@ func on_skeleton_hit():
 		completed_level = true
 		trap.stop_firing()
 		skeleton_king.queue_free()
-		prison_bars_animation_player.play("open")
+		prison_bars.open()
 		get_viewport().get_camera_2d().unlock()
 	else:
 		on_skeleton_teleporting()

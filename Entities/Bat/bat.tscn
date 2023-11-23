@@ -1,11 +1,9 @@
-[gd_scene load_steps=21 format=3 uid="uid://bfem6jove134i"]
+[gd_scene load_steps=19 format=3 uid="uid://bfem6jove134i"]
 
 [ext_resource type="Texture2D" uid="uid://bnagmtmicdmag" path="res://Entities/Bat/bat.png" id="1_fls3j"]
 [ext_resource type="Script" path="res://Entities/Bat/bat.gd" id="1_xwb35"]
 [ext_resource type="PackedScene" uid="uid://b5mhaodm6g8i5" path="res://Entities/HitBox/damage_dealer_area.tscn" id="3_3vqtu"]
 [ext_resource type="PackedScene" uid="uid://2nfy1ysxtck8" path="res://Entities/HitBox/damage_receiver_area.tscn" id="4_bv6fu"]
-[ext_resource type="PackedScene" uid="uid://dsmce0h5or2e6" path="res://Audio/sound_queue.tscn" id="5_pubgg"]
-[ext_resource type="AudioStream" uid="uid://40bythfk0lmn" path="res://Assets/SFX/hit.wav" id="6_tpsed"]
 
 [sub_resource type="Animation" id="Animation_pd3tp"]
 length = 0.001
@@ -244,11 +242,6 @@ collision_layer = 0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PathRight/WallDetectionArea"]
 position = Vector2(84, 43.5)
 shape = SubResource("RectangleShape2D_n3xy6")
-
-[node name="SFXHit" parent="." instance=ExtResource("5_pubgg")]
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="SFXHit"]
-stream = ExtResource("6_tpsed")
 
 [editable path="Animal/DamageDealerArea"]
 [editable path="Animal/DamageReceiverArea"]

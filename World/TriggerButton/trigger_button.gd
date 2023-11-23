@@ -31,6 +31,7 @@ func trigger_press_event():
 		collider.queue_free()
 	if door != null:
 		door.open()
+	GameSounds.play(GameSounds.Sound.Trigger)
 	
 func _process(delta):
 	sprite.frame = 0

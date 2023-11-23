@@ -5,7 +5,7 @@ extends Node2D
 @export var number_shakes := 3
 
 @onready var player_detection_area := $PlayerDetectionArea
-@onready var prison_bars_animation_player := $PrisonBars/AnimationPlayer
+@onready var door := $PrisonBars
 @onready var timer := $Timer
 @onready var enemy_spawns := [$EnemySpawn, $EnemySpawn2, $EnemySpawn3]
 @onready var shield := $ShieldCollider
@@ -27,7 +27,7 @@ func _ready():
 func _process(delta):
 	if not completed_level and is_enemy_defeated():
 		completed_level = true
-		prison_bars_animation_player.play("open")
+		door.open()
 		remove_shield()
 		get_viewport().get_camera_2d().unlock()
 
@@ -52,6 +52,7 @@ func on_timer_timeout():
 	if timed_out_count < number_shakes:
 		timed_out_count += 1
 		GameState.emit_signal("hit_received")
+		GameSounds.play(GameSounds.Sound.Earthquake)
 		timer.start(.5)
 	elif timed_out_count < number_shakes + number_enemies:
 		timed_out_count += 1
@@ -64,7 +65,7 @@ func on_timer_timeout():
 
 func on_player_enter(player):
 	add_shield()
-	prison_bars_animation_player.play("close")
+	door.close()
 	player_detection_area.set_deferred("monitoring", false)
 	get_viewport().get_camera_2d().lock_to_target(Vector2(746, -48))
 	timer.start(3)

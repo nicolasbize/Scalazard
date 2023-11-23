@@ -1,6 +1,22 @@
-[gd_scene load_steps=5 format=3 uid="uid://dnft04tudxdv5"]
+[gd_scene load_steps=6 format=3 uid="uid://dnft04tudxdv5"]
 
 [ext_resource type="Texture2D" uid="uid://dc05ls5i5co1a" path="res://FX/HitSpark/hero-spark.png" id="1_5u255"]
+[ext_resource type="Script" path="res://FX/HitSpark/hero_spark.gd" id="2_4qqmo"]
+
+[sub_resource type="Animation" id="Animation_gtjud"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
 
 [sub_resource type="Animation" id="Animation_eol2x"]
 resource_name = "start"
@@ -32,21 +48,6 @@ tracks/1/keys = {
 }]
 }
 
-[sub_resource type="Animation" id="Animation_gtjud"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_7gq1a"]
 _data = {
 "RESET": SubResource("Animation_gtjud"),
@@ -56,6 +57,7 @@ _data = {
 [node name="HeroSpark" type="Sprite2D"]
 texture = ExtResource("1_5u255")
 hframes = 4
+script = ExtResource("2_4qqmo")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "start"

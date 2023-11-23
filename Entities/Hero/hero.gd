@@ -13,9 +13,6 @@ extends CharacterBody2D
 @onready var damage_dealer_area := $DamageDealerArea
 @onready var water_detection_area := $WaterDetectionArea
 @onready var camera_target := $CameraTarget
-@onready var sfx_swing := $SFXSwing
-@onready var sfx_jump := $SFXJump
-@onready var sfx_hit := $SFXHit
 @onready var ground_raycast := $GroundRaycast
 @onready var upper_body_wall_detection_area := $UpperBodyWallDetectionArea
 
@@ -144,12 +141,21 @@ func move(delta):
 			if is_on_floor():
 				if is_carrying:
 					state = State.Carrying
+					if not in_water():
+						GameSounds.play(GameSounds.Sound.SlowFootstep)
+					else:
+						GameSounds.play(GameSounds.Sound.FootstepWater)						
 				elif pushed_box != null:
 					state = State.Pushing
 					var dir = (pushed_box.position - position).normalized()
 					pushed_box.move_and_collide(Vector2.RIGHT * dir * delta * push_strength)
+					GameSounds.play(GameSounds.Sound.PushCrate)
 				else:
 					state = State.Running
+					if in_water():
+						GameSounds.play(GameSounds.Sound.FootstepWater)
+					else:
+						GameSounds.play(GameSounds.Sound.FootstepStone)
 		else:
 			apply_friction(delta)
 			if is_on_floor():
@@ -183,6 +189,8 @@ func move(delta):
 	
 	# land on water?
 	if not was_on_floor and is_on_floor():
+		if not in_water():
+			GameSounds.play(GameSounds.Sound.Land)
 		check_splash()
 	was_on_floor = is_on_floor()
 
@@ -206,7 +214,6 @@ func check_cast_highlight():
 	elif collider == null and last_cast_target != null:
 			last_cast_target.stop_highlight()
 			last_cast_target = null
-	
 
 func can_pickup() -> bool:
 	return is_on_floor() and (state == State.Idle or state == State.Running)
@@ -269,7 +276,12 @@ func cast():
 		collision_point.x -= laser_start.position.x
 		collision_point.y = 0
 		beam_spell.cast_to(collider)
-
+		if collider.is_in_group("shrinkable"):
+			GameSounds.play(GameSounds.Sound.Shrink)
+		else:
+			GameSounds.play(GameSounds.Sound.Expand)
+	else:
+		GameSounds.play(GameSounds.Sound.SpellFail)
 func can_attack() -> bool:
 	if frozen or is_carrying:
 		return false
@@ -280,11 +292,10 @@ func attack_check():
 		state = State.Attacking
 		if Time.get_ticks_msec() - time_since_last_attack < 500:
 			attack_anim = "slash_2"
-			sfx_swing.get_child(0).play_sound()
 		else:
 			attack_anim = "slash_1"
 			time_since_last_attack = Time.get_ticks_msec()
-			sfx_swing.get_child(1).play_sound()
+		GameSounds.play(GameSounds.Sound.SwordSwish)
 
 func get_direction() -> float:
 	return sprite.scale.x
@@ -405,7 +416,8 @@ func throw_box():
 func jump(force, create_effect = true):
 	velocity.y = -force
 	state = State.Jumping
-	sfx_jump.play_sound()
+#	sfx_jump.play_sound()
+	GameSounds.play(GameSounds.Sound.Jump)
 	check_splash()
 	if can_float():
 		time_last_jump = Time.get_ticks_msec()
