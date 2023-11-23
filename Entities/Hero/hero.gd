@@ -228,6 +228,7 @@ func slide_check():
 	if can_slide() and Input.is_action_just_pressed("dodge"):
 		velocity.x = sign(velocity.x) * max_velocity
 		state = State.Sliding
+		GameSounds.play(GameSounds.Sound.Slide)
 		damage_receiver_area.set_deferred("monitorable", false)
 		time_start_slide = Time.get_ticks_msec()
 

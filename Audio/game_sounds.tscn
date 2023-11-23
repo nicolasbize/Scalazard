@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://b668xqw87n4y8"]
+[gd_scene load_steps=36 format=3 uid="uid://b668xqw87n4y8"]
 
 [ext_resource type="Script" path="res://Audio/game_sounds.gd" id="1_2ij3w"]
 [ext_resource type="PackedScene" uid="uid://d24jch2ldp18e" path="res://Audio/sound_pool.tscn" id="2_7k85b"]
@@ -31,6 +31,7 @@
 [ext_resource type="AudioStream" uid="uid://dbe7xn6ofjpx" path="res://Assets/SFX/collapsing-platform.wav" id="29_b41ow"]
 [ext_resource type="AudioStream" uid="uid://pnilj0h5ty1f" path="res://Assets/SFX/land.wav" id="30_oppuu"]
 [ext_resource type="AudioStream" uid="uid://bd6k0moigcfxc" path="res://Assets/SFX/fireball.wav" id="31_6354b"]
+[ext_resource type="AudioStream" uid="uid://bro404nv2xwi4" path="res://Assets/SFX/slide.wav" id="31_esldm"]
 [ext_resource type="AudioStream" uid="uid://c51pf2ewgutpo" path="res://Assets/SFX/boss-shake.wav" id="32_dwihe"]
 [ext_resource type="AudioStream" uid="uid://c8cb6ygq4wllq" path="res://Assets/SFX/boss-teleport.wav" id="33_uvei0"]
 [ext_resource type="AudioStream" uid="uid://chg582rtg765l" path="res://Assets/SFX/thunder.wav" id="34_3m645"]
@@ -239,6 +240,13 @@ nb_backup_duplicates = 1
 stream = ExtResource("30_oppuu")
 volume_db = -10.0
 
+[node name="Slide" parent="." instance=ExtResource("3_s1m8x")]
+nb_backup_duplicates = 1
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Slide"]
+stream = ExtResource("31_esldm")
+volume_db = -10.0
+
 [node name="Fireball" parent="." instance=ExtResource("3_s1m8x")]
 nb_backup_duplicates = 3
 
@@ -251,7 +259,7 @@ nb_backup_duplicates = 3
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Earthquake"]
 stream = ExtResource("32_dwihe")
-volume_db = -5.0
+volume_db = -15.0
 
 [node name="BossTeleport" parent="." instance=ExtResource("3_s1m8x")]
 nb_backup_duplicates = 3

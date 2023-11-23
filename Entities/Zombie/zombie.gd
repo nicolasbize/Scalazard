@@ -11,6 +11,7 @@ extends RigidBody2D
 @onready var damage_dealer_area := $DamageDealerArea
 @onready var damage_receiver_area := $DamageReceiverArea
 @onready var body_collider := $CollisionShape2D
+@onready var death_timer := $DeathTimer
 
 @export var speed_walk := 40.0
 @export var speed_run := 70.0
@@ -32,7 +33,7 @@ var knockback := Vector2.ZERO
 var knockback_start := Time.get_ticks_msec()
 var ticks_since_last_action := Time.get_ticks_msec()
 
-enum State {Idle, Walking, Attacking, Hurt, Dying, Dead}
+enum State {Idle, Walking, Attacking, Hurt, Dying, Dead, Disappearing}
 
 const anim_states = {
 	State.Idle: "idle",
@@ -41,6 +42,7 @@ const anim_states = {
 	State.Hurt: "hurt",
 	State.Dying: "dying",
 	State.Dead: "dead",
+	State.Disappearing: "disappear",
 }
 var state := State.Walking
 var player = null
@@ -49,21 +51,29 @@ func _ready():
 	player_detection_area.connect("body_entered", on_player_enter.bind())
 	player_detection_area.connect("body_exited", on_player_exit.bind())
 	damage_receiver_area.connect("hit", on_enemy_hit.bind())
+	death_timer.connect("timeout", on_death_timer_timeout.bind())
 
 func on_player_enter(body):
-	player = body
+	if current_life > 0:
+		player = body
 
 func on_player_exit(body):
-	state = State.Walking
+	if current_life > 0:
+		state = State.Walking
 
 func is_player_within_reach() -> bool:
+	if current_life > 0:
+		return false
 	return player_in_reach_area.has_overlapping_bodies()
 
 func on_enemy_hit(dmg:int, direction_knockback:float) -> void:
 	current_life -= dmg
+	if current_life > 0:
+		state = State.Hurt
+	else:
+		state = State.Dying
 	knockback = Vector2(direction_knockback * knockback_intensity, 0)
-	knockback_start = Time.get_ticks_msec()	
-	state = State.Hurt
+	knockback_start = Time.get_ticks_msec()
 	var hit_spark = HitSpark.instantiate()
 	get_parent().add_child(hit_spark)
 	hit_spark.global_position = global_position + Vector2.UP * 16
@@ -71,7 +81,6 @@ func on_enemy_hit(dmg:int, direction_knockback:float) -> void:
 	hit_spark.scale.x = direction_knockback
 	GameState.emit_signal("hit_received")
 	GameSounds.play(GameSounds.Sound.EnemyHit, true)
-	play_animation()
 
 func turn_around():
 	if can_act() and not is_player_a_target():
@@ -119,8 +128,6 @@ func _physics_process(delta):
 					turn_around()
 	elif current_life <= 0:
 		velocity.x = move_toward(velocity.x, 0, friction * delta)
-		if state != State.Dying and state != State.Hurt:
-			state = State.Dead
 	
 	if knockback != Vector2.ZERO:
 		var knockback_val = min((Time.get_ticks_msec() - knockback_start) / knockback_duration, 1.0)
@@ -167,3 +174,7 @@ func on_finish_action():
 func on_finish_dying():
 	state = State.Dead
 	velocity.x = 0
+	death_timer.start(3)
+
+func on_death_timer_timeout():
+	state = State.Disappearing

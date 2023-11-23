@@ -23,17 +23,17 @@ var Levels = {
 	Level.OneCubeRace: preload("res://Levels/level_12_one_cube_race.tscn"),
 }
 
-var current_level := Level.SkeletonBoss
+var current_level := Level.RaceAgainstFire
 var is_music_on := false
 var visited_dracula_entrance := false
-var visited_dracula_center := false
+var visited_dracula_center := true
 var opened_center_court_door := false
 
 
 var callback_after_pause : Callable
 var max_life := 3
 var current_life := 3
-var current_gems = [false, false, false, false] # green: float, blue: swim, purple: dodge, yellow: shield
+var current_gems = [false, true, true, false] # green: float, blue: swim, purple: dodge, yellow: shield
 var gems_inserted = [false, false, false, false]
 var hearts_collected = {}
 var screen_shake := true

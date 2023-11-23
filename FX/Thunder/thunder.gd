@@ -6,6 +6,7 @@ const ThunderImpactFx = preload("res://FX/Thunder/thunder_impact_fx.tscn")
 
 func on_start_thunder():
 	GameSounds.play(GameSounds.Sound.Thunder)
+	GameState.emit_signal("hit_received")
 
 func on_finish_thunder():
 	var thunder_spark := ThunderImpactFx.instantiate()

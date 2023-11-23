@@ -1,6 +1,6 @@
 extends Node
 
-enum Sound {FootstepStone, FootstepWater, SlowFootstep, OutsideRain, Jump, Expand, Shrink, PushCrate, SwordSwish, SpellFail, HeroHurt,
+enum Sound {FootstepStone, FootstepWater, SlowFootstep, OutsideRain, Jump, Slide, Expand, Shrink, PushCrate, SwordSwish, SpellFail, HeroHurt,
 EnemyHit, EnemyKill, BoxExplode, Warp, PowerUp, DoorOpen, DoorClose, Trigger, Collapse, Land, Fireball, Earthquake,
 BossTeleport, Thunder}
 
@@ -13,6 +13,7 @@ func _ready():
 		Sound.SlowFootstep: $SlowFootstep,
 		Sound.OutsideRain: $OutsideRain,
 		Sound.Jump: $Jump,
+		Sound.Slide: $Slide,
 		Sound.Expand: $ExpandMagic,
 		Sound.Shrink: $ShrinkMagic,
 		Sound.PushCrate: $PushCrate,

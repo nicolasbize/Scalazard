@@ -9,7 +9,6 @@ signal hit
 @onready var bigbox_damage_area := $BigBoxDamageArea
 
 
-
 func _ready():
 	bigbox_damage_area.connect("area_entered", on_damage_receive.bind())
 

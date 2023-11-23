@@ -3,7 +3,6 @@ extends CharacterBody2D
 @export var current_life := 2
 @export var knockback_duration := 200.0
 @export var knockback_intensity := 120.0
-@export var vulnerable_to_attacks := true
 
 @onready var player_detection_area := $PlayerDetectionArea
 @onready var player_in_reach_area := $PlayerInReachArea
@@ -16,6 +15,7 @@ extends CharacterBody2D
 @onready var right_arm_raycast := $RightArmRaycast
 @onready var left_arm_raycast := $LeftArmRaycast
 @onready var damage_receiver_area := $DamageReceiverArea
+@onready var death_timer := $DeathTimer
 
 const SPEED = 300.0
 const jump_height := 110.0
@@ -29,7 +29,7 @@ const rest_after_jump := 1500.0
 const duration_idle := 3000.0
 const duration_walk := 8000.0
 
-enum State {Idle, Jumping, Running, Attacking, Hurt, Dying, Dead}
+enum State {Idle, Jumping, Running, Attacking, Hurt, Dying, Dead, Disappearing}
 var state = State.Idle
 var player = null
 var direction := 1.0
@@ -48,6 +48,7 @@ var anim_states := {
 	State.Hurt: "hurt",
 	State.Dying: "dying",
 	State.Dead: "dead",
+	State.Disappearing: "disappear",
 }
 
 func _ready():
@@ -55,49 +56,48 @@ func _ready():
 	player_detection_area.connect("body_exited", on_player_exit.bind())
 	attack_area.connect("body_entered", on_player_hittable.bind())
 	damage_receiver_area.connect("hit", on_enemy_hit.bind())
-
+	death_timer.connect("timeout", on_death_timer_timeout.bind())
 
 func on_enemy_hit(dmg:int, direction_knockback:float) -> void:
 	var knock = knockback_intensity
-	if not vulnerable_to_attacks:
-		knock *= 1.5
 	if state == State.Jumping or state == State.Attacking:
-		velocity = Vector2(-velocity.x / 2, velocity.y)
+		velocity = Vector2(-sign(velocity.x) * 5, velocity.y)
 	knockback = Vector2(direction_knockback * knock, 0)
 	knockback_start = Time.get_ticks_msec()
-	if vulnerable_to_attacks or dmg > 5:
-		current_life -= dmg
+	current_life -= dmg
+	if current_life > 0:
 		state = State.Hurt
-		var hit_spark = HitSpark.instantiate()
-		get_parent().add_child(hit_spark)
-		hit_spark.global_position = global_position + Vector2.UP * 16 + Vector2.RIGHT * direction_knockback * 16
-		hit_spark.rotation_degrees = randf_range(-10.0, 10.0)
-		hit_spark.scale.x = direction_knockback
-		GameState.emit_signal("hit_received")
+	else:
+		state = State.Dying
+	var hit_spark = HitSpark.instantiate()
+	get_parent().add_child(hit_spark)
+	hit_spark.global_position = global_position + Vector2.UP * 16 + Vector2.RIGHT * direction_knockback * 16
+	hit_spark.rotation_degrees = randf_range(-10.0, 10.0)
+	hit_spark.scale.x = direction_knockback
+	GameState.emit_signal("hit_received")
 	time_since_landing = Time.get_ticks_msec()
 	GameSounds.play(GameSounds.Sound.EnemyHit, true)
 	play_animation()
 
 func on_player_hittable(body):
-	state = State.Attacking
+	if current_life > 0:
+		state = State.Attacking
 
 func on_player_exit(body):
 	player = null
 
 func on_player_enter(body):
-	player = body
-	state = State.Running
+	if current_life > 0:
+		player = body
+		state = State.Running
 
 func _physics_process(delta):
 	damage_dealer_area.monitoring = current_life > 0
 	damage_receiver_area.monitorable = current_life > 0
-	sprite.material.set_shader_parameter("is_active", !vulnerable_to_attacks)
 	if current_life <= 0:
 		if abs(velocity.x) > 100:
 			velocity.x = sign(velocity.x) * 100
 		velocity.x = move_toward(velocity.x, 0, 2 * friction * delta)
-		if state != State.Dying and state != State.Hurt:
-			state = State.Dead
 		move_and_slide()
 	else:
 		if state == State.Jumping or state == State.Attacking:
@@ -129,7 +129,7 @@ func _physics_process(delta):
 
 	if not is_on_floor():
 		velocity.y += gravity * delta
-	elif state == State.Dead:
+	elif state == State.Dead or state == State.Dying:
 		velocity.x = move_toward(velocity.x, 0, friction * delta)
 	
 	sprite.scale.x = direction
@@ -157,9 +157,13 @@ func play_animation():
 func on_finish_dying():
 	state = State.Dead
 	velocity.x = 0
+	death_timer.start(3)
 
 func on_finish_hurt():
 	if is_on_floor():
 		state = State.Running
 	else:
 		state = State.Jumping
+
+func on_death_timer_timeout():
+	state = State.Disappearing

@@ -51,6 +51,7 @@ func _process(delta):
 
 func on_player_close(body):
 	skeleton_animation_player.play("teleport")
+	GameSounds.play(GameSounds.Sound.BossTeleport)
 
 func on_skeleton_teleported():
 	if Time.get_ticks_msec() - ticks_since_last_thunder > max_ticks_between_thunder:
@@ -58,7 +59,10 @@ func on_skeleton_teleported():
 		skeleton_animation_player.play("cast")
 
 func on_skeleton_teleporting():
-	var spawn = null
+	teleport_king()
+
+func teleport_king(default_spawn:Node2D = null) -> void:
+	var spawn = default_spawn
 	while spawn == null:
 		current_spawn_index = (current_spawn_index + 1) % spawns.size()
 		spawn = spawns[current_spawn_index]
@@ -76,11 +80,11 @@ func on_skeleton_teleporting():
 	skeleton_sprite.scale.x = 1 if skeleton_king.global_position.x < -500 else -1
 	skeleton_animation_player.play("reappear")
 	
+
 func attack_player():
 	var thunder := Thunder.instantiate()
 	GameState.add_to_level(thunder)
 	thunder.global_position = Vector2(player.global_position.x, -208)
-	GameState.emit_signal("hit_received")
 
 func on_player_enter(body):
 	player = body
@@ -101,7 +105,8 @@ func on_timer_timeout():
 	else:
 		level_started = true
 		trap.start_firing()
-
+		skeleton_king.global_position = spawns[2].global_position
+		
 func on_skeleton_hit():
 	life_boss -= 1
 	GameState.emit_signal("hit_received")
