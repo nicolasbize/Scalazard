@@ -17,7 +17,6 @@ extends CharacterBody2D
 @onready var damage_receiver_area := $DamageReceiverArea
 @onready var death_timer := $DeathTimer
 
-const SPEED = 300.0
 const jump_height := 110.0
 const jump_intensity := 240.0
 const speed_run := 80.0
@@ -98,7 +97,6 @@ func _physics_process(delta):
 		if abs(velocity.x) > 100:
 			velocity.x = sign(velocity.x) * 100
 		velocity.x = move_toward(velocity.x, 0, 2 * friction * delta)
-		move_and_slide()
 	else:
 		if state == State.Jumping or state == State.Attacking:
 			if is_on_floor():

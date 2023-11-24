@@ -1,7 +1,7 @@
-[gd_scene load_steps=12 format=3 uid="uid://brqb0hpq1xwks"]
+[gd_scene load_steps=12 format=3 uid="uid://chnicwiataij"]
 
-[ext_resource type="Script" path="res://Entities/SkeletonKing/skeleton_king.gd" id="1_mqucg"]
-[ext_resource type="Texture2D" uid="uid://krneinensf7r" path="res://Entities/SkeletonKing/mage.png" id="2_rbg8x"]
+[ext_resource type="Script" path="res://Entities/MageBoss/mage_boss.gd" id="1_4yp7b"]
+[ext_resource type="Texture2D" uid="uid://krneinensf7r" path="res://Entities/MageBoss/mage.png" id="2_fthif"]
 
 [sub_resource type="Animation" id="Animation_j1pxp"]
 length = 0.001
@@ -169,11 +169,11 @@ height = 80.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5i3aj"]
 size = Vector2(14, 13.5)
 
-[node name="SkeletonKing" type="Node2D"]
-script = ExtResource("1_mqucg")
+[node name="MageBoss" type="Node2D"]
+script = ExtResource("1_4yp7b")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_rbg8x")
+texture = ExtResource("2_fthif")
 offset = Vector2(-6, -8)
 hframes = 5
 vframes = 4

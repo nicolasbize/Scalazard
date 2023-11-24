@@ -113,6 +113,8 @@ func can_cast() -> bool:
 func can_slide() -> bool:
 	if Time.get_ticks_msec() - time_last_slide < time_between_slides:
 		return false
+	if velocity.x == 0:
+		return false
 	return can_dodge() and is_on_floor() and not is_carrying and [State.Running, State.Idle].has(state)
 
 func move(delta):
@@ -229,7 +231,6 @@ func slide_check():
 		velocity.x = sign(velocity.x) * max_velocity
 		state = State.Sliding
 		GameSounds.play(GameSounds.Sound.Slide)
-		damage_receiver_area.set_deferred("monitorable", false)
 		time_start_slide = Time.get_ticks_msec()
 
 func get_item(item: TreasureChest.Content):

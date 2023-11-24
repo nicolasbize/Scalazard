@@ -2,5 +2,8 @@
 
 [ext_resource type="Texture2D" uid="uid://bbakhh4m242w6" path="res://UI/heart-full.png" id="1_bnsdj"]
 
-[node name="TextureRect" type="TextureRect"]
+[node name="FullHeart" type="TextureRect"]
+offset_right = 16.0
+offset_bottom = 16.0
 texture = ExtResource("1_bnsdj")
+stretch_mode = 2

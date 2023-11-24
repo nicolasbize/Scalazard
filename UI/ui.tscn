@@ -1,14 +1,39 @@
-[gd_scene load_steps=21 format=3 uid="uid://bghj8ckgg3qp8"]
+[gd_scene load_steps=19 format=3 uid="uid://bghj8ckgg3qp8"]
 
-[ext_resource type="Texture2D" uid="uid://bbakhh4m242w6" path="res://UI/heart-full.png" id="1_07jc7"]
 [ext_resource type="Script" path="res://UI/ui.gd" id="1_hpx26"]
 [ext_resource type="PackedScene" uid="uid://bts8movh5pt4p" path="res://UI/full_heart.tscn" id="2_dn7ha"]
-[ext_resource type="PackedScene" uid="uid://c6t06mort2fxl" path="res://UI/empty_heart.tscn" id="3_jlcge"]
 [ext_resource type="Texture2D" uid="uid://8gwd2d3y715d" path="res://UI/black-strip.png" id="5_wun5f"]
 [ext_resource type="Texture2D" uid="uid://ui05kbutkhds" path="res://UI/panel-borders.png" id="5_xu4p7"]
 [ext_resource type="FontFile" uid="uid://bumvrs8w2btcl" path="res://Assets/runescape_uf.ttf" id="6_54w6s"]
 [ext_resource type="FontFile" uid="uid://dwjsu8m55nl55" path="res://Assets/04B_03__.TTF" id="7_3s712"]
 [ext_resource type="Texture2D" uid="uid://crroq1ob1exgx" path="res://UI/screen-transition.png" id="8_dukjs"]
+
+[sub_resource type="Animation" id="Animation_qafar"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextPanel:custom_minimum_size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TextPanel/SystemLabel:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_d4kmx"]
 resource_name = "text_appear"
@@ -50,33 +75,6 @@ tracks/2/keys = {
 "args": [],
 "method": &"on_ready_for_text"
 }]
-}
-
-[sub_resource type="Animation" id="Animation_qafar"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("TextPanel:custom_minimum_size")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("TextPanel/SystemLabel:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ny56b"]
@@ -263,16 +261,16 @@ layout_mode = 2
 
 [node name="LifeContainer" type="HBoxContainer" parent="GameUI/VBoxContainer"]
 layout_mode = 2
+theme_override_constants/separation = 3
 
-[node name="TextureRect" parent="GameUI/VBoxContainer/LifeContainer" instance=ExtResource("2_dn7ha")]
+[node name="FullHeart" parent="GameUI/VBoxContainer/LifeContainer" instance=ExtResource("2_dn7ha")]
 layout_mode = 2
 
-[node name="TextureRect2" parent="GameUI/VBoxContainer/LifeContainer" instance=ExtResource("3_jlcge")]
+[node name="FullHeart2" parent="GameUI/VBoxContainer/LifeContainer" instance=ExtResource("2_dn7ha")]
 layout_mode = 2
 
-[node name="TextureRect3" type="TextureRect" parent="GameUI/VBoxContainer/LifeContainer"]
+[node name="FullHeart3" parent="GameUI/VBoxContainer/LifeContainer" instance=ExtResource("2_dn7ha")]
 layout_mode = 2
-texture = ExtResource("1_07jc7")
 
 [node name="Container" type="Control" parent="GameUI/VBoxContainer"]
 custom_minimum_size = Vector2(0, 140)

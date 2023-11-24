@@ -2,5 +2,5 @@
 
 [ext_resource type="Texture2D" uid="uid://dnvj2o4k661yv" path="res://UI/heart-empty.png" id="1_xhdis"]
 
-[node name="TextureRect2" type="TextureRect"]
+[node name="EmptyHeart" type="TextureRect"]
 texture = ExtResource("1_xhdis")

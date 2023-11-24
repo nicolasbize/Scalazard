@@ -8,10 +8,10 @@ extends Node2D
 @onready var treasure_chest := $TreasureChest
 @onready var timer := $Timer
 @onready var thunder_timer := $ThunderTimer
-@onready var player_too_close_to_skeleton_area := $SkeletonKing/PlayerDetectionArea
-@onready var skeleton_king := $SkeletonKing
-@onready var skeleton_animation_player := $SkeletonKing/AnimationPlayer
-@onready var skeleton_sprite := $SkeletonKing/Sprite2D
+@onready var player_too_close_area := $MageBoss/PlayerDetectionArea
+@onready var mage_boss := $MageBoss
+@onready var mage_animation_player := $MageBoss/AnimationPlayer
+@onready var mage_sprite := $MageBoss/Sprite2D
 @onready var spawns := [$Spawn1, $Spawn2, $Spawn3, $Spawn4, $Spawn5, $Spawn6]
 @onready var trap := $Trap
 
@@ -32,33 +32,33 @@ func _ready():
 	if GameState.current_gems[TreasureChest.Content.PurpleGem]:
 		treasure_chest.visible = true
 		treasure_chest.is_opened = true
-		skeleton_king.queue_free()
+		mage_boss.queue_free()
 		trap.queue_free()
 	else:
 		player_detection_area.connect("body_entered", on_player_enter.bind())
-		player_too_close_to_skeleton_area.connect("body_entered", on_player_close.bind())
-		skeleton_king.connect("teleporting", on_skeleton_teleporting.bind())
-		skeleton_king.connect("teleported", on_skeleton_teleported.bind())
-		skeleton_king.connect("hit", on_skeleton_hit.bind())
-		skeleton_king.connect("cast", attack_player.bind())
+		player_too_close_area.connect("body_entered", on_player_close.bind())
+		mage_boss.connect("teleporting", on_mage_teleporting.bind())
+		mage_boss.connect("teleported", on_mage_teleported.bind())
+		mage_boss.connect("hit", on_mage_hit.bind())
+		mage_boss.connect("cast", attack_player.bind())
 		previous_spawn = spawns[0]
 	timer.connect("timeout", on_timer_timeout.bind())
 
 func _process(delta):
 	if level_started and not completed_level and (Time.get_ticks_msec() - ticks_since_last_thunder) > max_ticks_between_thunder:
 		ticks_since_last_thunder = Time.get_ticks_msec()
-		skeleton_animation_player.play("cast")
+		mage_animation_player.play("cast")
 
 func on_player_close(body):
-	skeleton_animation_player.play("teleport")
+	mage_animation_player.play("teleport")
 	GameSounds.play(GameSounds.Sound.BossTeleport)
 
-func on_skeleton_teleported():
+func on_mage_teleported():
 	if Time.get_ticks_msec() - ticks_since_last_thunder > max_ticks_between_thunder:
 		ticks_since_last_thunder = Time.get_ticks_msec()
-		skeleton_animation_player.play("cast")
+		mage_animation_player.play("cast")
 
-func on_skeleton_teleporting():
+func on_mage_teleporting():
 	teleport_king()
 
 func teleport_king(default_spawn:Node2D = null) -> void:
@@ -76,9 +76,9 @@ func teleport_king(default_spawn:Node2D = null) -> void:
 				if platform.state == CollapsingPlatform.State.Collapsed:
 					spawn = null
 	previous_spawn = spawn
-	skeleton_king.global_position = spawn.global_position
-	skeleton_sprite.scale.x = 1 if skeleton_king.global_position.x < -500 else -1
-	skeleton_animation_player.play("reappear")
+	mage_boss.global_position = spawn.global_position
+	mage_sprite.scale.x = 1 if mage_boss.global_position.x < -500 else -1
+	mage_animation_player.play("reappear")
 	
 
 func attack_player():
@@ -93,9 +93,6 @@ func on_player_enter(body):
 	get_viewport().get_camera_2d().lock_to_target(Vector2(-490, -96))
 	timer.start(3)
 
-func is_enemy_defeated() -> bool:
-	return false
-
 func on_timer_timeout():
 	if timed_out_count < number_shakes:
 		timed_out_count += 1
@@ -105,20 +102,20 @@ func on_timer_timeout():
 	else:
 		level_started = true
 		trap.start_firing()
-		skeleton_king.global_position = spawns[2].global_position
+		mage_boss.global_position = spawns[2].global_position
 		
-func on_skeleton_hit():
+func on_mage_hit():
 	life_boss -= 1
 	GameState.emit_signal("hit_received")
 	var hit_spark = HitSpark.instantiate()
 	GameState.add_to_level(hit_spark)
-	hit_spark.global_position = skeleton_king.global_position + Vector2.UP * 16
+	hit_spark.global_position = mage_boss.global_position + Vector2.UP * 16
 	if life_boss == 0:
 		treasure_chest.visible = true
 		completed_level = true
 		trap.stop_firing()
-		skeleton_king.queue_free()
+		mage_boss.queue_free()
 		prison_bars.open()
 		get_viewport().get_camera_2d().unlock()
 	else:
-		on_skeleton_teleporting()
+		on_mage_teleporting()

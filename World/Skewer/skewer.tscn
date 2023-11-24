@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://d2bauyi4f17f3"]
+
+[ext_resource type="Texture2D" uid="uid://bb3w4ogd4drg8" path="res://World/Skewer/skewer.png" id="1_b3wko"]
+[ext_resource type="Script" path="res://World/Skewer/skewer.gd" id="1_fdnyp"]
+[ext_resource type="PackedScene" uid="uid://b5mhaodm6g8i5" path="res://Entities/HitBox/damage_dealer_area.tscn" id="3_22yl5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y3w1j"]
+size = Vector2(6, 10)
+
+[node name="Skewer" type="Node2D"]
+script = ExtResource("1_fdnyp")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_b3wko")
+centered = false
+offset = Vector2(0, -16)
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+position = Vector2(4, -4)
+target_position = Vector2(8, 0)
+
+[node name="DamageDealerArea" parent="." instance=ExtResource("3_22yl5")]
+collision_layer = 128
+damage = 1
+
+[node name="CollisionShape2D" parent="DamageDealerArea" index="0"]
+position = Vector2(4, -5)
+shape = SubResource("RectangleShape2D_y3w1j")
+
+[editable path="DamageDealerArea"]

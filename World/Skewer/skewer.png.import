@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://krneinensf7r"
-path="res://.godot/imported/mage.png-2a3f40956eb61857850b83fa7d66b0ee.ctex"
+uid="uid://bb3w4ogd4drg8"
+path="res://.godot/imported/skewer.png-057b75f1ba1d3d635303646298c5d335.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Entities/SkeletonKing/mage.png"
-dest_files=["res://.godot/imported/mage.png-2a3f40956eb61857850b83fa7d66b0ee.ctex"]
+source_file="res://World/Skewer/skewer.png"
+dest_files=["res://.godot/imported/skewer.png-057b75f1ba1d3d635303646298c5d335.ctex"]
 
 [params]
 

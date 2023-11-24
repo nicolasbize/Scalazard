@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c66i61ejf82ut"
-path="res://.godot/imported/skeleton.png-1f859cd524f1ec8ce8515f94e4ec283a.ctex"
+uid="uid://krneinensf7r"
+path="res://.godot/imported/mage.png-154e5580a8d9c199813d9ef510986ec4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Entities/SkeletonKing/skeleton.png"
-dest_files=["res://.godot/imported/skeleton.png-1f859cd524f1ec8ce8515f94e4ec283a.ctex"]
+source_file="res://Entities/MageBoss/mage.png"
+dest_files=["res://.godot/imported/mage.png-154e5580a8d9c199813d9ef510986ec4.ctex"]
 
 [params]
 
