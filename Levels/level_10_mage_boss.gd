@@ -22,7 +22,7 @@ var previous_spawn : Node2D = null
 var current_spawn_index := 0
 var player = null
 var nb_thunders := 1
-var life_boss := 1
+var life_boss := 3
 var ticks_since_last_thunder := Time.get_ticks_msec()
 
 const Thunder := preload("res://FX/Thunder/thunder.tscn")

@@ -29,6 +29,7 @@ gdscript/warnings/unused_parameter=0
 
 window/size/viewport_width=416
 window/size/viewport_height=256
+window/size/mode=3
 window/size/window_width_override=1664
 window/size/window_height_override=1024
 window/stretch/mode="viewport"

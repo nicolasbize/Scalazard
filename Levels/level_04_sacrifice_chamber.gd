@@ -44,7 +44,7 @@ func is_enemy_defeated() -> bool:
 	if ghouls.size() == number_enemies:
 		defeated = true
 		for ghoul in ghouls:
-			if ghoul.current_life > 0:
+			if ghoul != null and ghoul.current_life > 0:
 				defeated = false
 	return defeated
 

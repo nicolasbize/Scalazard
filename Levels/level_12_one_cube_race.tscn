@@ -474,6 +474,9 @@ destination_address = 2
 
 [node name="Portal2" parent="." instance=ExtResource("15_0jmae")]
 position = Vector2(1952, 0)
+address_in_level = 2
+destination_level = 13
+destination_address = 6
 
 [editable path="Elevator1"]
 [editable path="WaterBody3"]

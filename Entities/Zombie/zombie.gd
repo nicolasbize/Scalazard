@@ -72,6 +72,10 @@ func on_enemy_hit(dmg:int, direction_knockback:float) -> void:
 		state = State.Hurt
 	else:
 		state = State.Dying
+		damage_receiver_area.set_deferred("monitorable", false)
+		player_detection_area.set_deferred("monitoring", false)
+		set_collision_mask_value(3, false)
+		player = null
 	knockback = Vector2(direction_knockback * knockback_intensity, 0)
 	knockback_start = Time.get_ticks_msec()
 	var hit_spark = HitSpark.instantiate()
@@ -163,13 +167,6 @@ func on_finish_action():
 			state = State.Walking
 		else:
 			state = State.Idle
-	else:
-		state = State.Dying
-		damage_receiver_area.set_deferred("monitorable", false)
-		player_detection_area.set_deferred("monitoring", false)
-		set_collision_mask_value(3, false)
-		player = null
-		velocity.x = 0
 
 func on_finish_dying():
 	state = State.Dead

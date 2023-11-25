@@ -402,7 +402,11 @@ func create_wound_fx(direction_knockback: float):
 	add_child(hero_spark)
 	hero_spark.position = Vector2.UP * 16
 	GameState.emit_signal("hit_received")
-	
+
+func push_back(direction: float, intensity: float):
+	knockback = Vector2(direction * intensity, 0)
+	knockback_start = Time.get_ticks_msec()
+
 func throw_box():
 	is_carrying = false
 	var smallbox = SmallBox.instantiate()

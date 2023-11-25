@@ -113,4 +113,9 @@ address_in_level = 1
 destination_level = 2
 destination_address = 6
 
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+autostart = true
+
 [editable path="RainGenerator"]

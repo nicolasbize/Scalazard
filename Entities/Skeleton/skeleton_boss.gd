@@ -8,8 +8,9 @@ const HitSpark = preload("res://FX/HitSpark/hit_spark.tscn")
 @onready var player_in_reach_area := $PlayerInReachArea
 @onready var damage_receiver_area := $DamageReceiverArea
 @onready var attack_damage_dealer_area := $AttackDamageDealerArea
+@onready var damage_dealer_area := $DamageDealerArea
 
-@export var current_life := 1
+@export var current_life := 3
 @export var walk_speed := 70.0
 @export var acceleration := 600.0
 @export var friction := 200.0
@@ -41,6 +42,10 @@ const anim_states = {
 
 func _ready():
 	damage_receiver_area.connect("hit", on_enemy_hit.bind())
+	damage_dealer_area.connect("area_entered", on_player_too_close.bind())
+
+func on_player_too_close(player_area):
+	player_area.get_parent().push_back(direction, 100)
 
 func start_fight(body):
 	player = body

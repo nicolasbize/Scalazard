@@ -24,17 +24,17 @@ var Levels = {
 	Level.SkeletonBoss: preload("res://Levels/level_13_skeleton_boss.tscn"),
 }
 
-var current_level := Level.SkeletonBoss
-var is_music_on := false
+var current_level := Level.Courtyard
+var is_music_on := true
 var visited_dracula_entrance := false
-var visited_dracula_center := true
+var visited_dracula_center := false
 var opened_center_court_door := false
 
 
 var callback_after_pause : Callable
 var max_life := 3
 var current_life := 3
-var current_gems = [false, true, true, false] # green: float, blue: swim, purple: dodge, yellow: shield
+var current_gems = [false, false, false, false] # green: float, blue: swim, purple: dodge, yellow: shield
 var gems_inserted = [false, false, false, false]
 var hearts_collected = {}
 var screen_shake := true
@@ -52,7 +52,8 @@ func gain_treasure(treasure:TreasureChest.Content) -> void:
 		emit_signal("life_change", current_life, max_life)
 	else:
 		current_gems[treasure] = true
-		
+		current_life = max_life
+		emit_signal("life_change", current_life, max_life)
 
 func new_life() -> void:
 	current_life = max_life
@@ -63,12 +64,12 @@ func add_to_level(obj) -> void:
 	level.call_deferred("add_child", obj)
 
 func show_system_message(text:Array[String], callback:Callable) -> void:
-	get_tree().paused = true
+#	get_tree().paused = true
 	callback_after_pause = callback
 	emit_signal("system_message", text)
 
 func resume_play() -> void:
-	get_tree().paused = false
+#	get_tree().paused = false
 	if callback_after_pause != null:
 		callback_after_pause.call()
 		callback_after_pause = func():

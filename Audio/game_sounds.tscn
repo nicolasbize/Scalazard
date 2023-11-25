@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://b668xqw87n4y8"]
+[gd_scene load_steps=37 format=3 uid="uid://b668xqw87n4y8"]
 
 [ext_resource type="Script" path="res://Audio/game_sounds.gd" id="1_2ij3w"]
 [ext_resource type="PackedScene" uid="uid://d24jch2ldp18e" path="res://Audio/sound_pool.tscn" id="2_7k85b"]
@@ -35,6 +35,7 @@
 [ext_resource type="AudioStream" uid="uid://c51pf2ewgutpo" path="res://Assets/SFX/boss-shake.wav" id="32_dwihe"]
 [ext_resource type="AudioStream" uid="uid://c8cb6ygq4wllq" path="res://Assets/SFX/boss-teleport.wav" id="33_uvei0"]
 [ext_resource type="AudioStream" uid="uid://chg582rtg765l" path="res://Assets/SFX/thunder.wav" id="34_3m645"]
+[ext_resource type="AudioStream" uid="uid://cu3q74tttefkk" path="res://Assets/SFX/chop.wav" id="36_fscf1"]
 
 [node name="GameSounds" type="Node"]
 script = ExtResource("1_2ij3w")
@@ -273,4 +274,11 @@ nb_backup_duplicates = 3
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Thunder"]
 stream = ExtResource("34_3m645")
+volume_db = -10.0
+
+[node name="Chop" parent="." instance=ExtResource("3_s1m8x")]
+nb_backup_duplicates = 8
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Chop"]
+stream = ExtResource("36_fscf1")
 volume_db = -10.0
