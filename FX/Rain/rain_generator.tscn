@@ -6,3 +6,8 @@
 script = ExtResource("1_dg0ly")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+autostart = true

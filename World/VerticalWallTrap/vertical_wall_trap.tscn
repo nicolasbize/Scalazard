@@ -1,0 +1,131 @@
+[gd_scene load_steps=6 format=3 uid="uid://bxvb1yycji2wy"]
+
+[ext_resource type="Texture2D" uid="uid://5un78hmn03al" path="res://World/VerticalWallTrap/vertical-wall-trap.png" id="1_t4kfs"]
+[ext_resource type="PackedScene" uid="uid://doivhvt13lshc" path="res://World/FloorSpike/spikes.tscn" id="2_uonqu"]
+[ext_resource type="PackedScene" uid="uid://b5mhaodm6g8i5" path="res://Entities/HitBox/damage_dealer_area.tscn" id="3_t62tk"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u0xk0"]
+size = Vector2(175, 6)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2mys1"]
+size = Vector2(8, 46)
+
+[node name="VerticalWallTrap" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_t4kfs")
+centered = false
+
+[node name="Spikes" parent="." instance=ExtResource("2_uonqu")]
+modulate = Color(1, 0.501961, 0.501961, 1)
+position = Vector2(0, 48)
+scale = Vector2(1, -1)
+damage = 3
+
+[node name="Spikes2" parent="." instance=ExtResource("2_uonqu")]
+modulate = Color(1, 0.501961, 0.501961, 1)
+position = Vector2(16, 48)
+scale = Vector2(1, -1)
+damage = 3
+
+[node name="Spikes3" parent="." instance=ExtResource("2_uonqu")]
+modulate = Color(1, 0.501961, 0.501961, 1)
+position = Vector2(32, 48)
+scale = Vector2(1, -1)
+damage = 3
+
+[node name="Spikes4" parent="." instance=ExtResource("2_uonqu")]
+modulate = Color(1, 0.501961, 0.501961, 1)
+position = Vector2(48, 48)
+scale = Vector2(1, -1)
+damage = 3
+
+[node name="Spikes5" parent="." instance=ExtResource("2_uonqu")]
+modulate = Color(1, 0.501961, 0.501961, 1)
+position = Vector2(64, 48)
+scale = Vector2(1, -1)
+damage = 3
+
+[node name="Spikes6" parent="." instance=ExtResource("2_uonqu")]
+modulate = Color(1, 0.501961, 0.501961, 1)
+position = Vector2(80, 48)
+scale = Vector2(1, -1)
+damage = 3
+
+[node name="Spikes7" parent="." instance=ExtResource("2_uonqu")]
+modulate = Color(1, 0.501961, 0.501961, 1)
+position = Vector2(96, 48)
+scale = Vector2(1, -1)
+damage = 3
+
+[node name="Spikes8" parent="." instance=ExtResource("2_uonqu")]
+modulate = Color(1, 0.501961, 0.501961, 1)
+position = Vector2(112, 48)
+scale = Vector2(1, -1)
+damage = 3
+
+[node name="Spikes9" parent="." instance=ExtResource("2_uonqu")]
+modulate = Color(1, 0.501961, 0.501961, 1)
+position = Vector2(128, 48)
+scale = Vector2(1, -1)
+damage = 3
+
+[node name="Spikes10" parent="." instance=ExtResource("2_uonqu")]
+modulate = Color(1, 0.501961, 0.501961, 1)
+position = Vector2(144, 48)
+scale = Vector2(1, -1)
+damage = 3
+
+[node name="Spikes11" parent="." instance=ExtResource("2_uonqu")]
+modulate = Color(1, 0.501961, 0.501961, 1)
+position = Vector2(160, 48)
+scale = Vector2(1, -1)
+damage = 3
+
+[node name="Spikes12" parent="." instance=ExtResource("2_uonqu")]
+modulate = Color(1, 0.501961, 0.501961, 1)
+position = Vector2(176, 48)
+scale = Vector2(1, -1)
+damage = 3
+
+[node name="DamageDealerArea" parent="." instance=ExtResource("3_t62tk")]
+damage = 10
+
+[node name="CollisionShape2D" parent="DamageDealerArea" index="0"]
+position = Vector2(96.5, 41)
+shape = SubResource("RectangleShape2D_u0xk0")
+
+[node name="DamageDealerArea2" parent="." instance=ExtResource("3_t62tk")]
+position = Vector2(0, -9)
+damage = 10
+
+[node name="CollisionShape2D" parent="DamageDealerArea2" index="0"]
+position = Vector2(96.5, 41)
+shape = SubResource("RectangleShape2D_u0xk0")
+
+[node name="DamageDealerArea3" parent="." instance=ExtResource("3_t62tk")]
+position = Vector2(0, -18)
+damage = 10
+
+[node name="CollisionShape2D" parent="DamageDealerArea3" index="0"]
+position = Vector2(96.5, 41)
+shape = SubResource("RectangleShape2D_u0xk0")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(4, 24)
+shape = SubResource("RectangleShape2D_2mys1")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="."]
+position = Vector2(184, -1)
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
+position = Vector2(4, 24)
+shape = SubResource("RectangleShape2D_2mys1")
+
+[editable path="DamageDealerArea"]
+[editable path="DamageDealerArea2"]
+[editable path="DamageDealerArea3"]

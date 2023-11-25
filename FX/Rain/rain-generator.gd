@@ -9,6 +9,17 @@ var fractional_drops := 0.0
 
 @onready var shape := $CollisionShape2D
 
+@onready var timer := $Timer
+
+func _ready():
+	timer.connect("timeout", on_timer_timeout.bind())
+
+func on_timer_timeout():
+	GameSounds.play(GameSounds.Sound.OutsideRain)
+	
+func _exit_tree():
+	GameSounds.stop(GameSounds.Sound.OutsideRain)
+
 const RainDrop = preload("res://FX/Rain/rain_drop.tscn")
 
 func _physics_process(delta):

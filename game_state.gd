@@ -6,7 +6,7 @@ signal system_message(text:String)
 
 enum Level {Prototype, Courtyard, Entrance, EastTower, SacrificeChamber, CenterCourt, DoubleTrigger, 
 SimpleCorridor, WaterCorridor, RaceCube, MageBoss, RaceAgainstFire,
-OneCubeRace, SkeletonBoss, }
+OneCubeRace, SkeletonBoss, FlyAway}
 var Levels = {
 	Level.Prototype: preload("res://Levels/level-prototype.tscn"),
 	Level.Courtyard: preload("res://Levels/level_01_courtyard.tscn"),
@@ -22,19 +22,20 @@ var Levels = {
 	Level.RaceAgainstFire: preload("res://Levels/level_11_race_against_fire.tscn"),
 	Level.OneCubeRace: preload("res://Levels/level_12_one_cube_race.tscn"),
 	Level.SkeletonBoss: preload("res://Levels/level_13_skeleton_boss.tscn"),
+	Level.FlyAway: preload("res://Levels/level_14_fly_away.tscn"),
 }
 
-var current_level := Level.Courtyard
-var is_music_on := true
-var visited_dracula_entrance := false
-var visited_dracula_center := false
-var opened_center_court_door := false
+var current_level := Level.FlyAway
+var is_music_on := false
+var visited_dracula_entrance := true
+var visited_dracula_center := true
+var opened_center_court_door := true
 
 
 var callback_after_pause : Callable
 var max_life := 3
 var current_life := 3
-var current_gems = [false, false, false, false] # green: float, blue: swim, purple: dodge, yellow: shield
+var current_gems = [true, true, true, false] # green: float, blue: swim, purple: dodge, yellow: shield
 var gems_inserted = [false, false, false, false]
 var hearts_collected = {}
 var screen_shake := true
