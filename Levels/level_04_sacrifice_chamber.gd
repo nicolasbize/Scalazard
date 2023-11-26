@@ -67,5 +67,5 @@ func on_player_enter(player):
 	add_shield()
 	door.close()
 	player_detection_area.set_deferred("monitoring", false)
-	get_viewport().get_camera_2d().lock_to_target(Vector2(746, -48))
+	get_viewport().get_camera_2d().lock_to_target(Vector2(704, -64))
 	timer.start(3)

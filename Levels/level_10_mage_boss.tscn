@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://c7246d4dvk1y5"]
+[gd_scene load_steps=15 format=3 uid="uid://c7246d4dvk1y5"]
 
 [ext_resource type="Script" path="res://Levels/level_10_mage_boss.gd" id="1_gsjhs"]
 [ext_resource type="TileSet" uid="uid://ckdj8m24olhk1" path="res://Assets/tilemap.tres" id="2_dkl4y"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://caeeg0qxnw4sc" path="res://World/Trap/trap.tscn" id="9_5no3f"]
 [ext_resource type="PackedScene" uid="uid://chnicwiataij" path="res://Entities/MageBoss/mage_boss.tscn" id="10_4v0sh"]
 [ext_resource type="PackedScene" uid="uid://hkwu5mgomxyh" path="res://World/Door/portal.tscn" id="10_tlm3c"]
+[ext_resource type="PackedScene" uid="uid://yihlblm061l0" path="res://World/Chandelier/chandelier.tscn" id="11_tc6p2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5r30x"]
 size = Vector2(80, 56)
@@ -184,3 +185,9 @@ destination_address = 7
 
 [node name="MageBoss" parent="." instance=ExtResource("10_4v0sh")]
 position = Vector2(-904, -200)
+
+[node name="Chandelier" parent="." instance=ExtResource("11_tc6p2")]
+position = Vector2(-337, -208)
+
+[node name="Chandelier2" parent="." instance=ExtResource("11_tc6p2")]
+position = Vector2(-554, -208)

@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://c6gpbqfp22g7h"]
+
+[ext_resource type="Texture2D" uid="uid://duon57v5pt8ft" path="res://World/MegaFloorSpikes/spike-floor.png" id="1_x8nsy"]
+[ext_resource type="PackedScene" uid="uid://b5mhaodm6g8i5" path="res://Entities/HitBox/damage_dealer_area.tscn" id="2_n7fmm"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kh6ns"]
+size = Vector2(376, 17)
+
+[node name="MegaFloorSpike" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_x8nsy")
+centered = false
+
+[node name="DamageDealerArea" parent="." instance=ExtResource("2_n7fmm")]
+collision_layer = 128
+damage = 10
+
+[node name="CollisionShape2D" parent="DamageDealerArea" index="0"]
+position = Vector2(192, 17.5)
+shape = SubResource("RectangleShape2D_kh6ns")
+
+[editable path="DamageDealerArea"]

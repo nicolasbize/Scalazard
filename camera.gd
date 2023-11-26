@@ -38,10 +38,12 @@ func set_limits():
 func _physics_process(delta):
 	if locked_target != Vector2.ZERO:
 		global_position = locked_target
+		drag_horizontal_enabled = false
 		shake_strength = lerpf(shake_strength, 0.0, shake_decay_rate * delta)
 		offset = get_random_offset()
 	elif player != null:
 		calculate_target_destination()
+		drag_horizontal_enabled = true
 		global_position = target_destination
 		shake_strength = lerpf(shake_strength, 0.0, shake_decay_rate * delta)
 		offset = get_random_offset()

@@ -1,0 +1,125 @@
+[gd_scene load_steps=8 format=3 uid="uid://cvkkrx584kb1n"]
+
+[ext_resource type="Texture2D" uid="uid://dmanqy5db0e6f" path="res://UI/Intro/black-background.png" id="1_qgsx1"]
+[ext_resource type="Script" path="res://UI/Intro/options_screen.gd" id="1_ux38b"]
+[ext_resource type="FontFile" uid="uid://bumvrs8w2btcl" path="res://Assets/runescape_uf.ttf" id="2_50l4f"]
+[ext_resource type="PackedScene" uid="uid://bn2naqxvcohry" path="res://UI/volume_control.tscn" id="4_eevnn"]
+
+[sub_resource type="Animation" id="Animation_2xow1"]
+resource_name = "start"
+length = 0.5
+step = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextureRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_ytxy8"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextureRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_q4ttg"]
+_data = {
+"RESET": SubResource("Animation_ytxy8"),
+"start": SubResource("Animation_2xow1")
+}
+
+[node name="OptionsScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ux38b")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("1_qgsx1")
+
+[node name="MarginContainer" type="MarginContainer" parent="TextureRect"]
+layout_mode = 0
+offset_right = 416.0
+offset_bottom = 256.0
+theme_override_constants/margin_left = 80
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 80
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TextureRect/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="TopLabel" type="Label" parent="TextureRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.878431, 0.647059, 0.490196, 1)
+theme_override_fonts/font = ExtResource("2_50l4f")
+theme_override_font_sizes/font_size = 32
+text = "Options"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="TextureRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.878431, 0.647059, 0.490196, 1)
+theme_override_fonts/font = ExtResource("2_50l4f")
+theme_override_font_sizes/font_size = 16
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MusicVolumeControl" parent="TextureRect/MarginContainer/VBoxContainer" instance=ExtResource("4_eevnn")]
+layout_mode = 2
+
+[node name="SoundVolumeControl" parent="TextureRect/MarginContainer/VBoxContainer" instance=ExtResource("4_eevnn")]
+layout_mode = 2
+
+[node name="Label" parent="TextureRect/MarginContainer/VBoxContainer/SoundVolumeControl" index="0"]
+text = "Sound Volume"
+
+[node name="Control" type="Control" parent="TextureRect/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+
+[node name="ReturnLabel" type="Label" parent="TextureRect/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.878431, 0.647059, 0.490196, 1)
+theme_override_fonts/font = ExtResource("2_50l4f")
+text = "Return to Game"
+
+[node name="QuitLabel" type="Label" parent="TextureRect/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.878431, 0.647059, 0.490196, 1)
+theme_override_fonts/font = ExtResource("2_50l4f")
+text = "Quit to Main Menu"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "start"
+libraries = {
+"": SubResource("AnimationLibrary_q4ttg")
+}
+
+[editable path="TextureRect/MarginContainer/VBoxContainer/SoundVolumeControl"]

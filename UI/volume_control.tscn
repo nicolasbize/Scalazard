@@ -1,0 +1,80 @@
+[gd_scene load_steps=5 format=3 uid="uid://bn2naqxvcohry"]
+
+[ext_resource type="Script" path="res://UI/volume_control.gd" id="1_epj8g"]
+[ext_resource type="FontFile" uid="uid://bumvrs8w2btcl" path="res://Assets/runescape_uf.ttf" id="1_gepvc"]
+[ext_resource type="Texture2D" uid="uid://by6xiptlr1cuk" path="res://UI/Intro/square.png" id="4_16x66"]
+[ext_resource type="Texture2D" uid="uid://d0g3ssgq15gl3" path="res://UI/Intro/dot.png" id="6_ogm3f"]
+
+[node name="VolumeControl" type="HBoxContainer"]
+script = ExtResource("1_epj8g")
+
+[node name="Label" type="Label" parent="."]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.878431, 0.647059, 0.490196, 1)
+theme_override_fonts/font = ExtResource("1_gepvc")
+text = "Music Volume"
+
+[node name="Control" type="Control" parent="."]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+
+[node name="Dot2" type="TextureRect" parent="."]
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("4_16x66")
+stretch_mode = 2
+
+[node name="TextureRect5" type="TextureRect" parent="."]
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("4_16x66")
+stretch_mode = 2
+
+[node name="TextureRect7" type="TextureRect" parent="."]
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("6_ogm3f")
+stretch_mode = 2
+
+[node name="TextureRect8" type="TextureRect" parent="."]
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("6_ogm3f")
+stretch_mode = 2
+
+[node name="TextureRect9" type="TextureRect" parent="."]
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("6_ogm3f")
+stretch_mode = 2
+
+[node name="TextureRect10" type="TextureRect" parent="."]
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("6_ogm3f")
+stretch_mode = 2
+
+[node name="TextureRect11" type="TextureRect" parent="."]
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("6_ogm3f")
+stretch_mode = 2
+
+[node name="TextureRect12" type="TextureRect" parent="."]
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("6_ogm3f")
+stretch_mode = 2
+
+[node name="TextureRect13" type="TextureRect" parent="."]
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("6_ogm3f")
+stretch_mode = 2
+
+[node name="TextureRect14" type="TextureRect" parent="."]
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("6_ogm3f")
+stretch_mode = 2

@@ -32,7 +32,7 @@ extends CharacterBody2D
 @export var grace_period_jump := 150.0
 @export var float_time := 2000
 @export var slide_time := 500
-@export var time_between_slides := 1500
+@export var time_between_slides := 550
 
 const BeamSpell = preload("res://FX/BeamSpell/beam_spell.tscn")
 const SmallBox = preload("res://Entities/ResizableBox/small_box.tscn")
@@ -41,6 +41,8 @@ const HeroSpark = preload("res://FX/HitSpark/hero_spark.tscn")
 const BoxResize = preload("res://Entities/ResizableBox/box_resize.tscn")
 const WaterSplash = preload("res://FX/Splash/water_spash.tscn")
 const Gem = preload("res://World/Gem/gem.tscn")
+const JumpEffect = preload("res://FX/Jump/jump_effect.tscn")
+const SlideEffect = preload("res://FX/Slide/slide_effect.tscn")
 
 enum State {Idle, Running, Jumping, StartFalling, Falling, Casting, Attacking, Pushing, Carrying, CarryingIdle, Hurting, Dying, Dead, Resting, Healing, Pickup, Sliding}
 var anim_states = {
@@ -232,6 +234,10 @@ func slide_check():
 		state = State.Sliding
 		GameSounds.play(GameSounds.Sound.Slide)
 		time_start_slide = Time.get_ticks_msec()
+		var slide_effect := SlideEffect.instantiate()
+		GameState.add_to_level(slide_effect)
+		slide_effect.scale.x = -sign(velocity.x)
+		slide_effect.global_position = global_position + Vector2.RIGHT * sign(velocity.x) * -16
 
 func get_item(item: TreasureChest.Content):
 	state = State.Pickup
@@ -383,7 +389,7 @@ func splash():
 	water_splash.global_position = global_position
 
 func on_player_hit(dmg:int, direction_knockback: float):
-	if GameState.current_life > 0 and (Time.get_ticks_msec() - time_since_last_hit) > min_time_between_hits:
+	if GameState.current_life > 0 and (dmg > 5 or (Time.get_ticks_msec() - time_since_last_hit) > min_time_between_hits):
 		time_since_last_hit = Time.get_ticks_msec()
 		GameState.deal_hero_damage(dmg)
 		if GameState.current_life > 0:
@@ -422,8 +428,11 @@ func throw_box():
 func jump(force, create_effect = true):
 	velocity.y = -force
 	state = State.Jumping
-#	sfx_jump.play_sound()
 	GameSounds.play(GameSounds.Sound.Jump)
+	if not in_water():
+		var jump_effect := JumpEffect.instantiate()
+		GameState.add_to_level(jump_effect)
+		jump_effect.global_position = global_position
 	check_splash()
 	if can_float():
 		time_last_jump = Time.get_ticks_msec()

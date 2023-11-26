@@ -34,4 +34,5 @@ collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetectionArea"]
+visible = false
 shape = SubResource("RectangleShape2D_2jyuu")

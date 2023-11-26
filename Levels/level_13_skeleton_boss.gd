@@ -27,7 +27,7 @@ func _ready():
 func on_player_enter(body):
 	player = body
 	player_detection_area.set_deferred("monitoring", false)
-	get_viewport().get_camera_2d().lock_to_target(Vector2(570, 0))
+	get_viewport().get_camera_2d().lock_to_target(Vector2(528, 0))
 	for trap in traps:
 		trap.start_firing()
 	boss.start_fight(player)

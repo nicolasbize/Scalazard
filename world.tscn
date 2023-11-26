@@ -22,6 +22,7 @@ adjustment_saturation = 1.8
 script = ExtResource("1_kk187")
 
 [node name="Camera2D" parent="." instance=ExtResource("5_spp4s")]
+position = Vector2(208, 128)
 drag_horizontal_enabled = true
 editor_draw_drag_margin = true
 
@@ -32,6 +33,8 @@ environment = SubResource("Environment_efmn2")
 
 [node name="MusicIntro" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_1j8vo")
+bus = &"Music"
 
 [node name="MusicTheme" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_emaur")
+bus = &"Music"

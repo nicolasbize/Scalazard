@@ -9,6 +9,9 @@ var current_level_scene = null
 var upcoming_level : GameState.Level
 var upcoming_destination_address := -1
 var in_transition := false
+var option_screen = null
+
+const OptionsScreen = preload("res://UI/Intro/options_screen.tscn")
 
 func _ready():
 	ui.connect("in_transit", repack_level.bind())
@@ -28,6 +31,7 @@ func repack_level():
 		current_level_scene.queue_free()
 	current_level_scene = GameState.Levels[upcoming_level].instantiate()
 	add_child(current_level_scene)
+	GameState.current_level = upcoming_level
 	var hero = current_level_scene.find_child("Hero", false)
 	var tilemap = current_level_scene.find_child("TileMap", false)
 	for child in current_level_scene.get_children():
@@ -36,13 +40,16 @@ func repack_level():
 				child.connect("level_transition", on_level_transition_request.bind())
 			if child.address_in_level == upcoming_destination_address:
 				hero.global_position = child.get_spawn_location()
+				GameState.last_portal_location = upcoming_destination_address
 	camera.reset(hero, tilemap)
 	if GameState.current_life <= 0:
 		ui.reset_death()
 		GameState.new_life()
 	ui.end_transition()
-	if upcoming_level != GameState.Level.Courtyard and not music_theme.is_playing() and GameState.is_music_on:
+	if upcoming_level != GameState.Level.Courtyard and not music_theme.is_playing():
 		music_intro.play()
+	if upcoming_level != GameState.Level.Courtyard or GameState.is_starting_game_from_load_file:
+		GameState.save_game()
 	in_transition = false
 	
 func on_level_transition_request(destination_level: GameState.Level, destination_address: Portal.DoorIndex):
@@ -58,3 +65,24 @@ func on_player_life_change(current_life:int, max_life:int) -> void:
 func _process(delta):
 	if GameState.current_life == 0 and Input.is_action_just_pressed("restart"):
 		load_level(upcoming_level)
+	if Input.is_action_just_pressed("ui_cancel") and option_screen == null:
+		pause_game()
+		
+func pause_game():
+	option_screen = OptionsScreen.instantiate()
+	option_screen.in_game = true
+	option_screen.connect("leave", on_return_to_game.bind())
+	option_screen.connect("quit", on_leave_game.bind())
+	ui.add_child(option_screen)
+	get_tree().paused = true
+
+func on_return_to_game():
+	option_screen.queue_free()
+	get_tree().paused = false
+
+func on_leave_game():
+	option_screen.queue_free()
+	option_screen = null
+	get_tree().paused = false
+	GameState.quit_to_menu()
+	queue_free()

@@ -24,6 +24,7 @@ var player = null
 var nb_thunders := 1
 var life_boss := 3
 var ticks_since_last_thunder := Time.get_ticks_msec()
+var is_teleporting := false
 
 const Thunder := preload("res://FX/Thunder/thunder.tscn")
 const HitSpark := preload("res://FX/HitSpark/hit_spark.tscn")
@@ -45,18 +46,20 @@ func _ready():
 	timer.connect("timeout", on_timer_timeout.bind())
 
 func _process(delta):
-	if level_started and not completed_level and (Time.get_ticks_msec() - ticks_since_last_thunder) > max_ticks_between_thunder:
+	if level_started and not completed_level and not is_teleporting and (Time.get_ticks_msec() - ticks_since_last_thunder) > max_ticks_between_thunder:
 		ticks_since_last_thunder = Time.get_ticks_msec()
 		mage_animation_player.play("cast")
 
 func on_player_close(body):
 	mage_animation_player.play("teleport")
+	is_teleporting = true
 	GameSounds.play(GameSounds.Sound.BossTeleport)
 
 func on_mage_teleported():
 	if Time.get_ticks_msec() - ticks_since_last_thunder > max_ticks_between_thunder:
 		ticks_since_last_thunder = Time.get_ticks_msec()
 		mage_animation_player.play("cast")
+	is_teleporting = false
 
 func on_mage_teleporting():
 	teleport_king()
@@ -84,13 +87,13 @@ func teleport_king(default_spawn:Node2D = null) -> void:
 func attack_player():
 	var thunder := Thunder.instantiate()
 	GameState.add_to_level(thunder)
-	thunder.global_position = Vector2(player.global_position.x, -208)
+	thunder.global_position = Vector2(player.global_position.x - 16, -208)
 
 func on_player_enter(body):
 	player = body
 	prison_bars.close()
 	player_detection_area.set_deferred("monitoring", false)
-	get_viewport().get_camera_2d().lock_to_target(Vector2(-490, -96))
+	get_viewport().get_camera_2d().lock_to_target(Vector2(-448, -96))
 	timer.start(3)
 
 func on_timer_timeout():

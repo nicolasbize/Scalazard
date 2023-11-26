@@ -21,13 +21,13 @@ func _ready():
 	else:
 		cinematic_player_area.connect("body_entered", on_player_enter.bind())
 		dracula.connect("cinematic_finish", on_dracula_leave.bind())
-	if GameState.hearts_collected.has(name):
+	if GameState.level_2_heart_collected:
 		treasure_chest.is_opened = true
 	else:
 		treasure_chest.connect("open", on_treasure_open.bind())
 
 func on_treasure_open():
-	GameState.hearts_collected[name] = true
+	GameState.level_2_heart_collected = true
 
 func _process(delta):
 	if in_cinematic():

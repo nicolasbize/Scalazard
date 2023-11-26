@@ -4,10 +4,10 @@ extends Node2D
 
 
 func _ready():
-	if GameState.hearts_collected.has(name):
+	if GameState.level_3_heart_collected:
 		treasure_chest.is_opened = true
 	else:
 		treasure_chest.connect("open", on_treasure_open.bind())
 		
 func on_treasure_open():
-	GameState.hearts_collected[name] = true
+	GameState.level_3_heart_collected = true
