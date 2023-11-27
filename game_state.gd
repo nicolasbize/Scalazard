@@ -9,7 +9,7 @@ signal system_message(text:String)
 
 enum Level {Prototype, Courtyard, Entrance, EastTower, SacrificeChamber, CenterCourt, DoubleTrigger, 
 SimpleCorridor, WaterCorridor, RaceCube, MageBoss, RaceAgainstFire,
-OneCubeRace, SkeletonBoss, FlyAway, RaceToTheTop}
+OneCubeRace, SkeletonBoss, FlyAway, RaceToTheTop, HerosShadow}
 var Levels = {
 	Level.Prototype: preload("res://Levels/level-prototype.tscn"),
 	Level.Courtyard: preload("res://Levels/level_01_courtyard.tscn"),
@@ -27,17 +27,18 @@ var Levels = {
 	Level.SkeletonBoss: preload("res://Levels/level_13_skeleton_boss.tscn"),
 	Level.FlyAway: preload("res://Levels/level_14_fly_away.tscn"),
 	Level.RaceToTheTop: preload("res://Levels/level_15_to_the_top.tscn"),
+	Level.HerosShadow: preload("res://Levels/level_16_heros_shadow.tscn"),
 }
 
 # game data
-var current_level := Level.RaceToTheTop
+var current_level := Level.Courtyard
 var last_portal_location := Portal.DoorIndex.West
 var visited_dracula_entrance := false
 var visited_dracula_center := false
 var opened_center_court_door := false
 var max_life := 3
 var current_life := 3
-var current_gems = [true, false, true, false] # green: float, blue: swim, purple: dodge, yellow: shield
+var current_gems = [false, false, false, false] # green: float, blue: swim, purple: dodge, yellow: shield
 var gems_inserted = [false, false, false, false]
 var level_2_heart_collected := false
 var level_3_heart_collected := false

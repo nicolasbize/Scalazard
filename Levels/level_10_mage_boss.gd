@@ -18,9 +18,9 @@ extends Node2D
 var level_started := false
 var completed_level := false
 var timed_out_count := 0
+var player = null
 var previous_spawn : Node2D = null
 var current_spawn_index := 0
-var player = null
 var nb_thunders := 1
 var life_boss := 3
 var ticks_since_last_thunder := Time.get_ticks_msec()
@@ -30,7 +30,7 @@ const Thunder := preload("res://FX/Thunder/thunder.tscn")
 const HitSpark := preload("res://FX/HitSpark/hit_spark.tscn")
 
 func _ready():
-	if GameState.current_gems[TreasureChest.Content.PurpleGem]:
+	if GameState.current_gems[treasure_chest.content]:
 		treasure_chest.visible = true
 		treasure_chest.is_opened = true
 		mage_boss.queue_free()

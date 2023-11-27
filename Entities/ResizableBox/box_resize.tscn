@@ -453,7 +453,7 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rkx1i"]
 size = Vector2(5, 5)
 
-[node name="BoxResize" type="Node2D"]
+[node name="BoxResize" type="Node2D" groups=["boxresize"]]
 script = ExtResource("1_omm1s")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

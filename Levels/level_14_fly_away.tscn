@@ -220,5 +220,8 @@ destination_address = 7
 [node name="Portal2" parent="." instance=ExtResource("15_fdtgu")]
 position = Vector2(-1648, -272)
 scale = Vector2(-1, 1)
+address_in_level = 7
+destination_level = 15
+destination_address = 3
 
 [editable path="RainGenerator"]

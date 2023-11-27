@@ -13,7 +13,7 @@ var timed_out_count := 0
 var player = null
 
 func _ready():
-	if GameState.current_gems[TreasureChest.Content.GreenGem]:
+	if GameState.current_gems[treasure_chest.content]:
 		treasure_chest.visible = true
 		treasure_chest.is_opened = true
 		for trap in traps:

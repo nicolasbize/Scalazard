@@ -10,6 +10,7 @@ extends Node2D
 @onready var enemy_spawns := [$EnemySpawn, $EnemySpawn2, $EnemySpawn3]
 @onready var shield := $ShieldCollider
 @onready var shield_shape := $ShieldCollider/CollisionShape2D
+@onready var treasure_chest := $TreasureChest
 
 const Ghoul = preload("res://Entities/Ghoul/ghoul.tscn")
 
@@ -18,7 +19,7 @@ var ghouls = []
 var completed_level := false
 
 func _ready():
-	if GameState.current_gems[TreasureChest.Content.BlueGem]:
+	if GameState.current_gems[treasure_chest.content]:
 		remove_shield()
 	else:
 		player_detection_area.connect("body_entered", on_player_enter.bind())

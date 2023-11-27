@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://b5mhaodm6g8i5" path="res://Entities/HitBox/damage_dealer_area.tscn" id="5_etfw3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b5gn1"]
-size = Vector2(10, 22)
+size = Vector2(10, 27)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h2j74"]
 size = Vector2(10, 10)
@@ -702,7 +702,7 @@ hframes = 10
 vframes = 16
 
 [node name="StandingCollisionShape" type="CollisionShape2D" parent="."]
-position = Vector2(0, -11)
+position = Vector2(0, -13.5)
 shape = SubResource("RectangleShape2D_b5gn1")
 
 [node name="SlidingCollisionShape" type="CollisionShape2D" parent="."]
@@ -785,6 +785,7 @@ target_position = Vector2(0, 6)
 hit_from_inside = true
 
 [node name="CastingArea" type="Area2D" parent="."]
+visible = false
 position = Vector2(0, -12)
 collision_layer = 0
 collision_mask = 12

@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://c1yle8tqi27no"]
+[gd_scene load_steps=13 format=3 uid="uid://c1yle8tqi27no"]
 
 [ext_resource type="TileSet" uid="uid://ckdj8m24olhk1" path="res://Assets/tilemap.tres" id="1_hjssi"]
 [ext_resource type="Script" path="res://Levels/level_15_to_the_top.gd" id="1_s2al8"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://c6gpbqfp22g7h" path="res://World/MegaFloorSpikes/mega_floor_spike.tscn" id="6_ah3nc"]
 [ext_resource type="PackedScene" uid="uid://wsmlmhofoyky" path="res://World/BarredDoor/prison_bars.tscn" id="7_2ewcq"]
 [ext_resource type="PackedScene" uid="uid://bnbch1un7bdok" path="res://World/TriggerButton/trigger_button.tscn" id="8_8siwb"]
+[ext_resource type="PackedScene" uid="uid://hkwu5mgomxyh" path="res://World/Door/portal.tscn" id="11_1ix2v"]
 [ext_resource type="PackedScene" uid="uid://bxvb1yycji2wy" path="res://World/VerticalWallTrap/vertical_wall_trap.tscn" id="11_w5i8i"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ptqvy"]
@@ -38,7 +39,7 @@ layer_2/z_index = 0
 layer_2/tile_data = PackedInt32Array()
 
 [node name="Hero" parent="." instance=ExtResource("2_sfvyf")]
-position = Vector2(40, 0)
+position = Vector2(-592, -1136)
 
 [node name="BigBox" parent="." instance=ExtResource("3_6dctn")]
 position = Vector2(-368, -208)
@@ -155,3 +156,16 @@ door = NodePath("../DoorTop")
 
 [node name="TopWallTrap" parent="." instance=ExtResource("11_w5i8i")]
 position = Vector2(-448, -1264)
+
+[node name="Portal" parent="." instance=ExtResource("11_1ix2v")]
+position = Vector2(144, 0)
+address_in_level = 3
+destination_level = 14
+destination_address = 7
+
+[node name="Portal2" parent="." instance=ExtResource("11_1ix2v")]
+position = Vector2(-688, -1136)
+scale = Vector2(-1, 1)
+address_in_level = 7
+destination_level = 16
+destination_address = 2
