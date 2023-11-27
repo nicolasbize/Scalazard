@@ -40,7 +40,7 @@ shader = SubResource("Shader_mw003")
 shader_parameter/tint = Color(0.211765, 0.419608, 0.298039, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_73ofg"]
-size = Vector2(152, 48.5)
+size = Vector2(156, 46.5)
 
 [node name="Level-12-One-Cube-Race" type="Node2D" groups=["level"]]
 script = ExtResource("1_jjbny")
@@ -413,7 +413,7 @@ material = SubResource("ShaderMaterial_8x1i2")
 position = Vector2(1, 0)
 
 [node name="CollisionShape2D" parent="WaterBody2/PlayerDetectionArea" index="0"]
-position = Vector2(83, 23.75)
+position = Vector2(85, 22.75)
 shape = SubResource("RectangleShape2D_73ofg")
 
 [node name="GPUParticles2D" parent="WaterBody2" index="2"]

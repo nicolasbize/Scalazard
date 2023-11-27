@@ -19,6 +19,7 @@ func _ready():
 		treasure_chest.is_opened = true
 		for trap in traps:
 			trap.queue_free()
+		boss.queue_free()
 	else:
 		player_detection_area.connect("body_entered", on_player_enter.bind())
 		boss.connect("die", on_boss_die.bind())

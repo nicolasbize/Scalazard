@@ -14,7 +14,7 @@ const HitSpark = preload("res://FX/HitSpark/hit_spark.tscn")
 @export var walk_speed := 70.0
 @export var acceleration := 600.0
 @export var friction := 200.0
-@export var time_charge := 500
+@export var time_charge := 1000
 @export var time_attack := 2000
 
 signal die

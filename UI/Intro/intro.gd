@@ -8,6 +8,8 @@ extends CanvasLayer
 @onready var selection_indicator := $MainMenu/SelectionIndicator
 
 const OptionsScreen = preload("res://UI/Intro/options_screen.tscn")
+const ConfirmOverride = preload("res://UI/Intro/confirm_dialog.tscn")
+const PreGameIntro = preload("res://UI/Intro/pre_game_intro.tscn")
 
 signal new_game
 
@@ -20,6 +22,8 @@ var in_menu := false
 var in_credits := false
 var current_menu_selected_index := 0
 var options_screen = null
+var confirmation_screen = null
+var intro_screen = null
 var continue_available := false
 var skip_to_menu := false
 
@@ -52,7 +56,7 @@ func _process(delta):
 	elif in_credits:
 		if Input.is_action_just_pressed("jump") or Input.is_action_just_pressed("ui_cancel") or Input.is_action_just_pressed("ui_accept"):
 			credits_animation_player.play("stop-credits")
-	elif in_menu and options_screen == null:
+	elif in_menu and options_screen == null and confirmation_screen == null and intro_screen == null:
 		if Input.is_action_just_pressed("ui_up"):
 			select_entry(-1)
 		elif Input.is_action_just_pressed("ui_down"):
@@ -78,8 +82,12 @@ func on_stop_credits():
 
 func enter_selection() -> void:
 	if current_menu_selected_index == MenuOption.NewGame as int:
-		GameState.start_game()
-		queue_free()
+		if continue_available:
+			confirmation_screen = ConfirmOverride.instantiate()
+			confirmation_screen.connect("override_save", intro_new_game.bind())
+			add_child(confirmation_screen)
+		else:
+			intro_new_game()
 	elif current_menu_selected_index == MenuOption.Continue as int:
 		GameState.continue_game()
 		queue_free()
@@ -92,6 +100,16 @@ func enter_selection() -> void:
 		add_child(options_screen)
 	elif current_menu_selected_index == MenuOption.Quit as int:
 		get_tree().quit()
+
+func intro_new_game():
+	intro_screen = PreGameIntro.instantiate()
+	intro_screen.connect("complete", start_new_game.bind())
+	add_child(intro_screen)
+	
+func start_new_game():
+	GameState.start_game()
+	queue_free()
+	
 
 func on_options_leave():
 	if options_screen != null:

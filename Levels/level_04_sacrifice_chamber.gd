@@ -8,8 +8,6 @@ extends Node2D
 @onready var door := $PrisonBars
 @onready var timer := $Timer
 @onready var enemy_spawns := [$EnemySpawn, $EnemySpawn2, $EnemySpawn3]
-@onready var shield := $ShieldCollider
-@onready var shield_shape := $ShieldCollider/CollisionShape2D
 @onready var treasure_chest := $TreasureChest
 
 const Ghoul = preload("res://Entities/Ghoul/ghoul.tscn")
@@ -20,7 +18,8 @@ var completed_level := false
 
 func _ready():
 	if GameState.current_gems[treasure_chest.content]:
-		remove_shield()
+		treasure_chest.visible = true
+		treasure_chest.is_opened = true
 	else:
 		player_detection_area.connect("body_entered", on_player_enter.bind())
 	timer.connect("timeout", on_timer_timeout.bind())
@@ -28,17 +27,9 @@ func _ready():
 func _process(delta):
 	if not completed_level and is_enemy_defeated():
 		completed_level = true
+		treasure_chest.visible = true
 		door.open()
-		remove_shield()
 		get_viewport().get_camera_2d().unlock()
-
-func remove_shield():
-	shield.visible = false
-	shield_shape.set_deferred("disabled", true)
-
-func add_shield():
-	shield.visible = true
-	shield_shape.set_deferred("disabled", false)
 
 func is_enemy_defeated() -> bool:
 	var defeated = false
@@ -65,7 +56,6 @@ func on_timer_timeout():
 		timer.start(time_between_enemies)
 
 func on_player_enter(player):
-	add_shield()
 	door.close()
 	player_detection_area.set_deferred("monitoring", false)
 	get_viewport().get_camera_2d().lock_to_target(Vector2(704, -64))

@@ -171,7 +171,7 @@ shape = SubResource("RectangleShape2D_c4fsd")
 
 [node name="Trap" parent="." instance=ExtResource("9_5no3f")]
 position = Vector2(-640, 0)
-frequency_secs = 1.5
+frequency_secs = 2.5
 firing = false
 
 [node name="ThunderTimer" type="Timer" parent="."]

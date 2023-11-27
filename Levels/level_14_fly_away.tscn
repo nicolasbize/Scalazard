@@ -204,6 +204,9 @@ firing = false
 position = Vector2(-1032, -80)
 one_way = true
 
+[node name="StopFireTrigger" parent="." instance=ExtResource("13_0rgc5")]
+position = Vector2(-816, -128)
+
 [node name="VerticalTrapTrigger" parent="." instance=ExtResource("13_0rgc5")]
 position = Vector2(-1216, -272)
 one_way = true

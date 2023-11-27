@@ -27,7 +27,7 @@ func on_body_exit(body):
 	
 func trigger_press_event():
 	emit_signal("press")
-	if one_way:
+	if one_way and collider != null:
 		collider.queue_free()
 	if door != null:
 		door.open()

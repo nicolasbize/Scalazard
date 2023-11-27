@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://i6nkaxusc5s3"]
+[gd_scene load_steps=17 format=3 uid="uid://i6nkaxusc5s3"]
 
 [ext_resource type="TileSet" uid="uid://ckdj8m24olhk1" path="res://Assets/tilemap.tres" id="1_2ok8s"]
 [ext_resource type="Script" path="res://Levels/level_04_sacrifice_chamber.gd" id="1_u8k5i"]
@@ -7,7 +7,6 @@
 [ext_resource type="PackedScene" uid="uid://7hpd42fr1nlw" path="res://FX/Water/water_body.tscn" id="5_h6jb0"]
 [ext_resource type="PackedScene" uid="uid://bfem6jove134i" path="res://Entities/Bat/bat.tscn" id="6_3y5ve"]
 [ext_resource type="PackedScene" uid="uid://duwpkeop6bhdk" path="res://World/Chest/treasure_chest.tscn" id="7_5xjaw"]
-[ext_resource type="Texture2D" uid="uid://djh8xvp8cjqli" path="res://World/Pickup/shield.png" id="8_jbwys"]
 [ext_resource type="PackedScene" uid="uid://hkwu5mgomxyh" path="res://World/Door/portal.tscn" id="9_4jp7o"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j34js"]
@@ -39,9 +38,6 @@ size = Vector2(82.5, 20)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nlvbu"]
 size = Vector2(74, 70)
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_qxybo"]
-radius = 28.0
 
 [node name="Level-04-Sacrifice-Chamber" type="Node2D" groups=["level"]]
 script = ExtResource("1_u8k5i")
@@ -184,20 +180,9 @@ position = Vector2(35, 37)
 shape = SubResource("RectangleShape2D_nlvbu")
 
 [node name="TreasureChest" parent="." instance=ExtResource("7_5xjaw")]
-position = Vector2(872, 16)
-content = 1
-
-[node name="ShieldCollider" type="StaticBody2D" parent="."]
 visible = false
-position = Vector2(880, 0)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ShieldCollider"]
-position = Vector2(9, 10)
-shape = SubResource("CircleShape2D_qxybo")
-disabled = true
-
-[node name="Sprite2D" type="Sprite2D" parent="ShieldCollider"]
-texture = ExtResource("8_jbwys")
+position = Vector2(704, 16)
+content = 1
 
 [node name="Portal" parent="." instance=ExtResource("9_4jp7o")]
 position = Vector2(48, 0)

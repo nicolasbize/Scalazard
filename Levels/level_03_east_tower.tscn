@@ -107,14 +107,12 @@ destination_address = 2
 [node name="Trap" parent="." instance=ExtResource("8_bug65")]
 position = Vector2(424, -507)
 scale = Vector2(-1, 1)
-frequency_secs = 2.0
-fireball_speed = 80.0
+fireball_speed = 90.0
 
 [node name="Trap2" parent="." instance=ExtResource("8_bug65")]
 position = Vector2(424, -603)
 scale = Vector2(-1, 1)
-frequency_secs = 2.0
-fireball_speed = 80.0
+fireball_speed = 90.0
 
 [node name="Trap3" parent="." instance=ExtResource("8_bug65")]
 position = Vector2(56, -555)

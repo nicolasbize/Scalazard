@@ -264,7 +264,7 @@ func on_gain_gem(item):
 	elif item == TreasureChest.Content.BlueGem:
 		GameState.show_system_message(["You found the blue crystal!", "Your lungs feel powerful!"], on_system_message_callback.bind())
 	elif item == TreasureChest.Content.PurpleGem:
-		GameState.show_system_message(["You found the purple crystal!", "Your feel more agile!", "Press c to slide!"], on_system_message_callback.bind())
+		GameState.show_system_message(["You found the purple crystal!", "Your feel more agile!", "Press X to slide!"], on_system_message_callback.bind())
 	elif item == TreasureChest.Content.YellowGem:
 		GameState.show_system_message(["You found the last crystal!", "Time to end this!"], on_system_message_callback.bind())
 

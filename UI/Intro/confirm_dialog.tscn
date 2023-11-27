@@ -1,0 +1,75 @@
+[gd_scene load_steps=5 format=3 uid="uid://byr4mkwd22hyc"]
+
+[ext_resource type="Texture2D" uid="uid://lle8864nud2w" path="res://UI/menu-panel-border.png" id="1_lxhau"]
+[ext_resource type="Script" path="res://UI/Intro/confirm_dialog.gd" id="1_ypwl7"]
+[ext_resource type="FontFile" uid="uid://bumvrs8w2btcl" path="res://Assets/runescape_uf.ttf" id="2_x4tml"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4n24r"]
+texture = ExtResource("1_lxhau")
+texture_margin_left = 2.0
+texture_margin_top = 2.0
+texture_margin_right = 2.0
+texture_margin_bottom = 2.0
+
+[node name="ConfirmDialog" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ypwl7")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 98
+theme_override_constants/margin_top = 80
+theme_override_constants/margin_right = 98
+theme_override_constants/margin_bottom = 76
+
+[node name="Panel" type="Panel" parent="MarginContainer"]
+custom_minimum_size = Vector2(220, 100)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_4n24r")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/Panel"]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 11.0
+offset_right = 212.0
+offset_bottom = 92.0
+
+[node name="NewGameLabel" type="Label" parent="MarginContainer/Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.878431, 0.647059, 0.490196, 1)
+theme_override_fonts/font = ExtResource("2_x4tml")
+text = "Starting a new game will erase
+the current progress. Continue?"
+
+[node name="OptionsLabel" type="Label" parent="MarginContainer/Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.878431, 0.647059, 0.490196, 1)
+theme_override_fonts/font = ExtResource("2_x4tml")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="ConfirmLabel" type="Label" parent="MarginContainer/Panel/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(90, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.878431, 0.647059, 0.490196, 1)
+theme_override_fonts/font = ExtResource("2_x4tml")
+text = "Yes
+"
+horizontal_alignment = 2
+
+[node name="ReturnLabel" type="Label" parent="MarginContainer/Panel/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.878431, 0.647059, 0.490196, 1)
+theme_override_fonts/font = ExtResource("2_x4tml")
+text = "No
+"
+horizontal_alignment = 2
