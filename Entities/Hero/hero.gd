@@ -260,7 +260,7 @@ func on_gain_gem(item):
 	if item == TreasureChest.Content.LifePotion:
 		GameState.show_system_message(["You found a life potion!", "You feel stronger!"], on_system_message_callback.bind())
 	elif item == TreasureChest.Content.GreenGem:
-		GameState.show_system_message(["You found the green crystal!", "Your body feels lighter!"], on_system_message_callback.bind())
+		GameState.show_system_message(["You found the green crystal!", "Your body feels lighter!", "Hold jump to float!"], on_system_message_callback.bind())
 	elif item == TreasureChest.Content.BlueGem:
 		GameState.show_system_message(["You found the blue crystal!", "Your lungs feel powerful!"], on_system_message_callback.bind())
 	elif item == TreasureChest.Content.PurpleGem:

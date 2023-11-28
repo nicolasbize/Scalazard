@@ -56,7 +56,7 @@ func cinematic_next_step():
 			dracula_speech_bubble.visible = false
 			player_speech_bubble.visible = true
 			player_speech_bubble.global_position = player.global_position + Vector2.UP * 33
-			player_speech_label.text = "Dracula! Your time has come!"
+			player_speech_label.text = "Monster, your time has come!"
 		2:
 			dracula_speech_bubble.visible = true
 			dracula_speech_label.text = "We will not waste our time with you!"

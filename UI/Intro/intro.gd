@@ -25,13 +25,13 @@ var options_screen = null
 var confirmation_screen = null
 var intro_screen = null
 var continue_available := false
-var skip_to_menu := false
 
 func _ready():
-	anim_index = 9 if skip_to_menu else 0
+	anim_index = 9 if GameState.skip_intro else 0
 	animation_player.play(anims[anim_index])
 	check_valid_save_game()
 	select_entry(0, true)
+	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 
 func check_valid_save_game():
 	if FileAccess.file_exists(GameState.SAVE_FILE_LOCATION):
@@ -84,10 +84,16 @@ func enter_selection() -> void:
 	if current_menu_selected_index == MenuOption.NewGame as int:
 		if continue_available:
 			confirmation_screen = ConfirmOverride.instantiate()
-			confirmation_screen.connect("override_save", intro_new_game.bind())
+			if GameState.skip_intro:
+				confirmation_screen.connect("override_save", start_new_game.bind())
+			else:
+				confirmation_screen.connect("override_save", intro_new_game.bind())
 			add_child(confirmation_screen)
 		else:
-			intro_new_game()
+			if GameState.skip_intro:
+				start_new_game()
+			else:
+				intro_new_game()
 	elif current_menu_selected_index == MenuOption.Continue as int:
 		GameState.continue_game()
 		queue_free()

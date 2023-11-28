@@ -30,10 +30,11 @@ var Levels = {
 	Level.HerosShadow: preload("res://Levels/level_16_heros_shadow.tscn"),
 }
 
+var skip_intro := true
 # game data
-var current_level := Level.Courtyard
+var current_level := Level.Entrance
 var last_portal_location := Portal.DoorIndex.West
-var visited_dracula_entrance := false
+var visited_dracula_entrance := true
 var visited_dracula_center := false
 var opened_center_court_door := false
 var max_life := 3

@@ -16,7 +16,9 @@ By Gad and Momonga"
 run/main_scene="res://UI/Intro/intro.tscn"
 config/features=PackedStringArray("4.1", "Forward Plus")
 boot_splash/bg_color=Color(0.141176, 0.141176, 0.141176, 1)
-config/icon="res://icon.svg"
+config/icon="res://Assets/Icons/icon.png"
+config/macos_native_icon="res://Assets/Icons/icon.icns"
+config/windows_native_icon="res://Assets/Icons/icon.ico"
 
 [autoload]
 
@@ -33,7 +35,6 @@ gdscript/warnings/unused_parameter=0
 
 window/size/viewport_width=416
 window/size/viewport_height=256
-window/size/mode=3
 window/size/window_width_override=1664
 window/size/window_height_override=1024
 window/stretch/mode="viewport"
