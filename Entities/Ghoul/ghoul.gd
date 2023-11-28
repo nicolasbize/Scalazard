@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+signal die
+
 @export var current_life := 2
 @export var knockback_duration := 200.0
 @export var knockback_intensity := 120.0
@@ -67,6 +69,7 @@ func on_enemy_hit(dmg:int, direction_knockback:float) -> void:
 	if current_life > 0:
 		state = State.Hurt
 	else:
+		emit_signal("die")
 		state = State.Dying
 	var hit_spark = HitSpark.instantiate()
 	get_parent().add_child(hit_spark)

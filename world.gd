@@ -2,8 +2,6 @@ extends Node2D
 
 @onready var ui := $UI
 @onready var camera := $Camera2D
-@onready var music_intro := $MusicIntro
-@onready var music_theme := $MusicTheme
 
 var current_level_scene = null
 var upcoming_level : GameState.Level
@@ -16,15 +14,11 @@ const OptionsScreen = preload("res://UI/Intro/options_screen.tscn")
 func _ready():
 	ui.connect("in_transit", repack_level.bind())
 	GameState.connect("life_change", on_player_life_change.bind())
-	music_intro.connect("finished", on_intro_music_finished.bind())
 	load_level(GameState.current_level)
 
 func load_level(level:GameState.Level):
 	upcoming_level = level
 	ui.start_transition()
-
-func on_intro_music_finished():
-	music_theme.play(0)
 
 func repack_level():
 	if current_level_scene != null:
@@ -46,12 +40,17 @@ func repack_level():
 		ui.reset_death()
 		GameState.new_life()
 	ui.end_transition()
-	if upcoming_level != GameState.Level.Courtyard and not music_theme.is_playing():
-		music_intro.play()
+	if is_special_level(upcoming_level) or GameState.has_all_gems():
+		GameMusic.stop()
+	else:
+		GameMusic.play(GameMusic.Track.Gameplay)
 	if upcoming_level != GameState.Level.Courtyard or GameState.is_starting_game_from_load_file:
 		GameState.save_game()
 	in_transition = false
-	
+
+func is_special_level(level: GameState.Level) -> bool:
+	return [GameState.Level.Courtyard, GameState.Level.MageBoss, GameState.Level.SacrificeChamber, GameState.Level.SkeletonBoss, GameState.Level.HerosShadow].has(level)
+
 func on_level_transition_request(destination_level: GameState.Level, destination_address: Portal.DoorIndex):
 	if not in_transition:
 		in_transition = true

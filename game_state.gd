@@ -174,3 +174,9 @@ func get_nb_gems_acquired() -> int:
 		if current_gems[j]:
 			i += 1
 	return i
+
+func has_all_gems() -> bool:
+	for has_gem in current_gems:
+		if not has_gem:
+			return false
+	return true

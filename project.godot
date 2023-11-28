@@ -22,6 +22,7 @@ config/icon="res://icon.svg"
 
 GameState="*res://game_state.gd"
 GameSounds="*res://Audio/game_sounds.tscn"
+GameMusic="*res://Audio/game_music.tscn"
 
 [debug]
 

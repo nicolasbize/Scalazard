@@ -1,0 +1,36 @@
+[gd_scene load_steps=8 format=3 uid="uid://deevyr2adbq45"]
+
+[ext_resource type="Script" path="res://Audio/game_music.gd" id="1_coqxk"]
+[ext_resource type="AudioStream" uid="uid://5grdqcw1kg5p" path="res://Assets/Music/main-menu.mp3" id="2_8smki"]
+[ext_resource type="AudioStream" uid="uid://b78d8kuvwubmd" path="res://Assets/Music/intro.mp3" id="3_4j6ou"]
+[ext_resource type="AudioStream" uid="uid://ckfs8o1wwn5s2" path="res://Assets/Music/torn-of-hope_Intro.mp3" id="3_jrgiu"]
+[ext_resource type="AudioStream" uid="uid://w8v1o3fnpdh5" path="res://Assets/Music/torn-of-hope.mp3" id="4_na4js"]
+[ext_resource type="AudioStream" uid="uid://bj44k5e6ysug" path="res://Assets/Music/boss-fight_Intro.mp3" id="6_qx4n7"]
+[ext_resource type="AudioStream" uid="uid://dl7ga1x50f273" path="res://Assets/Music/boss-fight.mp3" id="7_2215e"]
+
+[node name="GameMusic" type="Node"]
+script = ExtResource("1_coqxk")
+
+[node name="MainMenuLoop" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_8smki")
+bus = &"Music"
+
+[node name="Intro" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_4j6ou")
+bus = &"Music"
+
+[node name="ThemeIntro" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_jrgiu")
+bus = &"Music"
+
+[node name="ThemeLoop" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_na4js")
+bus = &"Music"
+
+[node name="BossFightIntro" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_qx4n7")
+bus = &"Music"
+
+[node name="BossFightLoop" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_2215e")
+bus = &"Music"

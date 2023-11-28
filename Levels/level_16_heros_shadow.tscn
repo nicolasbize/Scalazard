@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://b5ggfojh75kqn"]
+[gd_scene load_steps=12 format=3 uid="uid://b5ggfojh75kqn"]
 
 [ext_resource type="TileSet" uid="uid://ckdj8m24olhk1" path="res://Assets/tilemap.tres" id="1_dy721"]
 [ext_resource type="Script" path="res://Levels/level_16_heros_shadow.gd" id="1_vy2iq"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://dwcrlgrxpc5qs" path="res://Entities/ResizableBox/big_box.tscn" id="7_ei2rj"]
 [ext_resource type="PackedScene" uid="uid://caeeg0qxnw4sc" path="res://World/Trap/trap.tscn" id="8_o5bhu"]
 [ext_resource type="PackedScene" uid="uid://hkwu5mgomxyh" path="res://World/Door/portal.tscn" id="9_cbhcp"]
+[ext_resource type="PackedScene" uid="uid://wsmlmhofoyky" path="res://World/BarredDoor/prison_bars.tscn" id="10_5vn20"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1irk7"]
 size = Vector2(44, 58)
@@ -47,7 +48,7 @@ collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetectionArea"]
-position = Vector2(-12, -19)
+position = Vector2(4, -20)
 shape = SubResource("RectangleShape2D_1irk7")
 
 [node name="Timer" type="Timer" parent="."]
@@ -93,3 +94,6 @@ position = Vector2(144, 0)
 address_in_level = 2
 destination_level = 15
 destination_address = 7
+
+[node name="PrisonBars" parent="." instance=ExtResource("10_5vn20")]
+position = Vector2(-96, -64)

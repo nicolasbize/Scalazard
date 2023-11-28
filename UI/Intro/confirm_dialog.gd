@@ -9,10 +9,15 @@ var confirm_override := true
 
 func _process(delta):
 	if Input.is_action_just_pressed("ui_right"):
-		confirm_override = false
+		if confirm_override:
+			confirm_override = false
+			GameSounds.play(GameSounds.Sound.MenuNav)
 	if Input.is_action_just_pressed("ui_left"):
-		confirm_override = true
+		if not confirm_override:
+			confirm_override = true
+			GameSounds.play(GameSounds.Sound.MenuNav)
 	if Input.is_action_just_pressed("ui_accept"):
+		GameSounds.play(GameSounds.Sound.MenuSelect)
 		if confirm_override:
 			emit_signal("override_save")
 		queue_free()

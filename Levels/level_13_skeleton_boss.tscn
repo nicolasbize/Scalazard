@@ -39,7 +39,7 @@ layer_2/tile_data = PackedInt32Array()
 position = Vector2(280, 0)
 
 [node name="PlayerDetectionArea" type="Area2D" parent="."]
-position = Vector2(528, 80)
+position = Vector2(400, -16)
 collision_layer = 0
 collision_mask = 2
 

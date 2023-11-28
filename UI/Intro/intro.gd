@@ -129,6 +129,7 @@ func play_next_anim():
 		animation_player.play(anims[anim_index])
 	else:
 		in_menu = true
+		GameMusic.play(GameMusic.Track.MainMenu, false)
 
 func on_appear_complete():
 	play_next_anim()

@@ -2,6 +2,7 @@ extends CharacterBody2D
 
 const Skewer = preload("res://World/Skewer/skewer.tscn")
 const HitSpark = preload("res://FX/HitSpark/hit_spark.tscn")
+const Explosion = preload("res://FX/Explode/explosion.tscn")
 
 @onready var sprite := $Sprite2D
 @onready var animation_player := $AnimationPlayer
@@ -54,7 +55,7 @@ func _physics_process(delta):
 	if player != null:
 		if can_move():
 			direction = -1 if global_position.x > player.global_position.x else 1
-			sprite.scale.x = direction * 2
+			sprite.scale.x = direction
 			damage_receiver_area.scale.x = direction
 			attack_damage_dealer_area.scale.x = direction
 			player_in_reach_area.scale.x = direction
@@ -129,4 +130,7 @@ func on_finish_attack() -> void:
 
 func on_finish_dying() -> void:
 	state = State.Dead
+	var explosion := Explosion.instantiate()
+	GameState.add_to_level(explosion)
+	explosion.global_position = global_position
 	emit_signal("die")

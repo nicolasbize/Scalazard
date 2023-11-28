@@ -2,6 +2,7 @@ extends Node2D
 
 @export var number_shakes := 4
 @export var max_ticks_between_thunder := 3000
+@export var slowdown_duration := 2000
 
 @onready var player_detection_area := $PlayerDetectionArea
 @onready var prison_bars := $PrisonBars
@@ -25,6 +26,7 @@ var nb_thunders := 1
 var life_boss := 3
 var ticks_since_last_thunder := Time.get_ticks_msec()
 var is_teleporting := false
+var time_slow_down := -1
 
 const Thunder := preload("res://FX/Thunder/thunder.tscn")
 const HitSpark := preload("res://FX/HitSpark/hit_spark.tscn")
@@ -49,6 +51,8 @@ func _process(delta):
 	if level_started and not completed_level and not is_teleporting and (Time.get_ticks_msec() - ticks_since_last_thunder) > max_ticks_between_thunder:
 		ticks_since_last_thunder = Time.get_ticks_msec()
 		mage_animation_player.play("cast")
+	if completed_level and (Time.get_ticks_msec() - time_slow_down > slowdown_duration):
+		Engine.time_scale = 1
 
 func on_player_close(body):
 	mage_animation_player.play("teleport")
@@ -106,6 +110,8 @@ func on_timer_timeout():
 		level_started = true
 		trap.start_firing()
 		mage_boss.global_position = spawns[2].global_position
+		print("playing music")
+		GameMusic.play(GameMusic.Track.Boss)
 		
 func on_mage_hit():
 	life_boss -= 1
@@ -120,5 +126,10 @@ func on_mage_hit():
 		mage_boss.queue_free()
 		prison_bars.open()
 		get_viewport().get_camera_2d().unlock()
+		GameMusic.stop()
+		GameSounds.play(GameSounds.Sound.Earthquake)
+		GameSounds.play(GameSounds.Sound.Earthquake, true)
+		time_slow_down = Time.get_ticks_msec()
+		Engine.time_scale = 0.1
 	else:
 		on_mage_teleporting()

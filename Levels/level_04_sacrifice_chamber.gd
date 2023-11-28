@@ -3,6 +3,7 @@ extends Node2D
 @export var time_between_enemies := 1.5
 @export var number_enemies := 5
 @export var number_shakes := 3
+@export var slowdown_duration := 2000
 
 @onready var player_detection_area := $PlayerDetectionArea
 @onready var door := $PrisonBars
@@ -15,6 +16,7 @@ const Ghoul = preload("res://Entities/Ghoul/ghoul.tscn")
 var timed_out_count := 0
 var ghouls = []
 var completed_level := false
+var time_slow_down := -1
 
 func _ready():
 	if GameState.current_gems[treasure_chest.content]:
@@ -23,6 +25,7 @@ func _ready():
 	else:
 		player_detection_area.connect("body_entered", on_player_enter.bind())
 	timer.connect("timeout", on_timer_timeout.bind())
+	GameMusic.stop()
 
 func _process(delta):
 	if not completed_level and is_enemy_defeated():
@@ -30,6 +33,8 @@ func _process(delta):
 		treasure_chest.visible = true
 		door.open()
 		get_viewport().get_camera_2d().unlock()
+	if completed_level and (Time.get_ticks_msec() - time_slow_down > slowdown_duration):
+		Engine.time_scale = 1
 
 func is_enemy_defeated() -> bool:
 	var defeated = false
@@ -47,13 +52,23 @@ func on_timer_timeout():
 		GameSounds.play(GameSounds.Sound.Earthquake)
 		timer.start(.5)
 	elif timed_out_count < number_shakes + number_enemies:
+		GameMusic.play(GameMusic.Track.Boss)
 		timed_out_count += 1
 		var ghoul := Ghoul.instantiate()
+		ghoul.connect("die", on_ghoul_die.bind())
 		GameState.add_to_level(ghoul)
 		enemy_spawns.shuffle()
 		ghoul.global_position = enemy_spawns[0].global_position
 		ghouls.append(ghoul)
 		timer.start(time_between_enemies)
+
+func on_ghoul_die():
+	if is_enemy_defeated():
+		GameMusic.stop()
+		GameSounds.play(GameSounds.Sound.Earthquake)
+		GameSounds.play(GameSounds.Sound.Earthquake, true)
+		time_slow_down = Time.get_ticks_msec()
+		Engine.time_scale = 0.1
 
 func on_player_enter(player):
 	door.close()

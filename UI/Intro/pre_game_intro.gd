@@ -8,8 +8,11 @@ var current_slide_index := 0
 var can_skip := false
 var animations = ["slide-1", "slide-2", "slide-3", "slide-4"]
 
+func _ready():
+	GameMusic.play(GameMusic.Track.Intro)
+
 func _process(delta):
-	if Input.is_action_just_pressed("jump") or Input.is_action_just_pressed("ui_accept") and can_skip:
+	if (Input.is_action_just_pressed("jump") or Input.is_action_just_pressed("ui_accept")) and can_skip:
 		on_end_slide()
 		
 func on_skippable():
