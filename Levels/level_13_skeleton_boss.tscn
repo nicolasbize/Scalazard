@@ -36,7 +36,7 @@ layer_2/z_index = 0
 layer_2/tile_data = PackedInt32Array()
 
 [node name="Hero" parent="." instance=ExtResource("2_2qknr")]
-position = Vector2(280, 0)
+position = Vector2(24, 0)
 
 [node name="PlayerDetectionArea" type="Area2D" parent="."]
 position = Vector2(400, -16)
@@ -72,6 +72,7 @@ position = Vector2(688, 112)
 [node name="Trap" parent="." instance=ExtResource("7_em38m")]
 position = Vector2(336, 16)
 frequency_secs = 2.0
+delay_secs = 2.0
 firing = false
 
 [node name="Trap2" parent="." instance=ExtResource("7_em38m")]

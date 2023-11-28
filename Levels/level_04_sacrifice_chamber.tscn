@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://i6nkaxusc5s3"]
+[gd_scene load_steps=11 format=3 uid="uid://i6nkaxusc5s3"]
 
 [ext_resource type="TileSet" uid="uid://ckdj8m24olhk1" path="res://Assets/tilemap.tres" id="1_2ok8s"]
 [ext_resource type="Script" path="res://Levels/level_04_sacrifice_chamber.gd" id="1_u8k5i"]
@@ -14,30 +14,6 @@ size = Vector2(34, 26)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3son8"]
 size = Vector2(80, 7)
-
-[sub_resource type="Curve2D" id="Curve2D_wnjor"]
-_data = {
-"points": PackedVector2Array(0, 0, 0, 0, 1, 0, 79.37, -0.529134, -79.37, 0.529134, -86.5679, 56, 0, 0, 0, 0, -172, 0)
-}
-point_count = 3
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_hlq2j"]
-size = Vector2(92, 20)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_evj88"]
-size = Vector2(84, 70)
-
-[sub_resource type="Curve2D" id="Curve2D_80j4h"]
-_data = {
-"points": PackedVector2Array(0, 0, 0, 0, 1, 0, -32.3045, 1.44419, 32.3045, -1.44419, 32, 56, 0, 0, 0, 0, 64, 0)
-}
-point_count = 3
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_1vs6i"]
-size = Vector2(82.5, 20)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_nlvbu"]
-size = Vector2(74, 70)
 
 [node name="Level-04-Sacrifice-Chamber" type="Node2D" groups=["level"]]
 script = ExtResource("1_u8k5i")
@@ -116,68 +92,8 @@ shape = SubResource("RectangleShape2D_3son8")
 [node name="Bat3" parent="." instance=ExtResource("6_3y5ve")]
 position = Vector2(360, -80)
 
-[node name="Path2D" parent="Bat3/PathLeft" index="0"]
-position = Vector2(0.531792, 0)
-scale = Vector2(0.468208, 1)
-curve = SubResource("Curve2D_wnjor")
-
-[node name="PathFollow2D" parent="Bat3/PathLeft/Path2D" index="0"]
-rotation = 2.57263
-
-[node name="CollisionShape2D" parent="Bat3/PathLeft/PlayerDetectionArea" index="0"]
-position = Vector2(-40, 64)
-shape = SubResource("RectangleShape2D_hlq2j")
-
-[node name="CollisionShape2D" parent="Bat3/PathLeft/WallDetectionArea" index="0"]
-position = Vector2(-38, 37)
-shape = SubResource("RectangleShape2D_evj88")
-
-[node name="Path2D" parent="Bat3/PathRight" index="0"]
-curve = SubResource("Curve2D_80j4h")
-
-[node name="PathFollow2D" parent="Bat3/PathRight/Path2D" index="0"]
-rotation = 1.06522
-
-[node name="CollisionShape2D" parent="Bat3/PathRight/PlayerDetectionArea" index="0"]
-position = Vector2(38.75, 64)
-shape = SubResource("RectangleShape2D_1vs6i")
-
-[node name="CollisionShape2D" parent="Bat3/PathRight/WallDetectionArea" index="0"]
-position = Vector2(35, 37)
-shape = SubResource("RectangleShape2D_nlvbu")
-
 [node name="Bat4" parent="." instance=ExtResource("6_3y5ve")]
 position = Vector2(248, -80)
-
-[node name="Path2D" parent="Bat4/PathLeft" index="0"]
-position = Vector2(0.531792, 0)
-scale = Vector2(0.468208, 1)
-curve = SubResource("Curve2D_wnjor")
-
-[node name="PathFollow2D" parent="Bat4/PathLeft/Path2D" index="0"]
-rotation = 2.57263
-
-[node name="CollisionShape2D" parent="Bat4/PathLeft/PlayerDetectionArea" index="0"]
-position = Vector2(-40, 64)
-shape = SubResource("RectangleShape2D_hlq2j")
-
-[node name="CollisionShape2D" parent="Bat4/PathLeft/WallDetectionArea" index="0"]
-position = Vector2(-38, 37)
-shape = SubResource("RectangleShape2D_evj88")
-
-[node name="Path2D" parent="Bat4/PathRight" index="0"]
-curve = SubResource("Curve2D_80j4h")
-
-[node name="PathFollow2D" parent="Bat4/PathRight/Path2D" index="0"]
-rotation = 1.06522
-
-[node name="CollisionShape2D" parent="Bat4/PathRight/PlayerDetectionArea" index="0"]
-position = Vector2(38.75, 64)
-shape = SubResource("RectangleShape2D_1vs6i")
-
-[node name="CollisionShape2D" parent="Bat4/PathRight/WallDetectionArea" index="0"]
-position = Vector2(35, 37)
-shape = SubResource("RectangleShape2D_nlvbu")
 
 [node name="TreasureChest" parent="." instance=ExtResource("7_5xjaw")]
 visible = false
@@ -193,9 +109,3 @@ destination_address = 2
 
 [editable path="WaterBody2"]
 [editable path="WaterBody3"]
-[editable path="Bat3"]
-[editable path="Bat3/Animal/DamageDealerArea"]
-[editable path="Bat3/Animal/DamageReceiverArea"]
-[editable path="Bat4"]
-[editable path="Bat4/Animal/DamageDealerArea"]
-[editable path="Bat4/Animal/DamageReceiverArea"]

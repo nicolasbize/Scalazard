@@ -32,14 +32,14 @@ var Levels = {
 
 var skip_intro := true
 # game data
-var current_level := Level.Entrance
+var current_level := Level.SkeletonBoss
 var last_portal_location := Portal.DoorIndex.West
-var visited_dracula_entrance := true
+var visited_dracula_entrance := false
 var visited_dracula_center := false
 var opened_center_court_door := false
 var max_life := 3
 var current_life := 3
-var current_gems = [false, false, false, false] # green: float, blue: swim, purple: dodge, yellow: shield
+var current_gems = [false, false, true, false] # green: float, blue: swim, purple: dodge, yellow: shield
 var gems_inserted = [false, false, false, false]
 var level_2_heart_collected := false
 var level_3_heart_collected := false

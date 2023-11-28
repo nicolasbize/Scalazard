@@ -53,10 +53,12 @@ func _process(delta):
 				track_defs[upcoming_track].volume_db = linear_to_db(volume)
 			
 func on_main_theme_transition():
+	main_theme_loop.volume_db = 0
 	main_theme_loop.play()
 	currently_playing = Track.GameplayLoop
 
 func on_boss_theme_transition():
+	boss_fight_loop.volume_db = 0
 	boss_fight_loop.play()
 	currently_playing = Track.BossLoop
 

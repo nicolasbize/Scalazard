@@ -34,5 +34,4 @@ func has_box_on_top() -> bool:
 	return top_box_detection_area.has_overlapping_bodies()
 
 func get_box_on_top():
-	print(top_box_detection_area.get_overlapping_bodies()[0])
 	return top_box_detection_area.get_overlapping_bodies()[0]
