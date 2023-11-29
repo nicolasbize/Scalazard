@@ -1,3 +1,4 @@
+class_name BeamSpell
 extends Node2D
 
 @onready var circle := $Circle

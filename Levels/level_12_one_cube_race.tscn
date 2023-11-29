@@ -97,55 +97,55 @@ position = Vector2(432, 32)
 state = 1
 
 [node name="Bat" parent="." instance=ExtResource("9_m5omf")]
-position = Vector2(520, 32)
+position = Vector2(552, -96)
 
 [node name="Bat6" parent="." instance=ExtResource("9_m5omf")]
-position = Vector2(480, 32)
+position = Vector2(512, -96)
 
 [node name="Bat2" parent="." instance=ExtResource("9_m5omf")]
-position = Vector2(704, 32)
+position = Vector2(736, -96)
 
 [node name="Bat10" parent="." instance=ExtResource("9_m5omf")]
-position = Vector2(728, 32)
+position = Vector2(760, -96)
 
 [node name="Bat7" parent="." instance=ExtResource("9_m5omf")]
-position = Vector2(672, 32)
+position = Vector2(704, -96)
 
 [node name="Bat3" parent="." instance=ExtResource("9_m5omf")]
-position = Vector2(800, 32)
+position = Vector2(832, -96)
 
 [node name="Bat8" parent="." instance=ExtResource("9_m5omf")]
-position = Vector2(824, 32)
+position = Vector2(856, -96)
 
 [node name="Bat4" parent="." instance=ExtResource("9_m5omf")]
-position = Vector2(904, 32)
+position = Vector2(936, -96)
 
 [node name="Bat5" parent="." instance=ExtResource("9_m5omf")]
-position = Vector2(1016, 32)
+position = Vector2(1048, -96)
 
 [node name="Bat9" parent="." instance=ExtResource("9_m5omf")]
-position = Vector2(1120, 32)
+position = Vector2(792, 32)
 
 [node name="Bat11" parent="." instance=ExtResource("9_m5omf")]
-position = Vector2(1184, 0)
-
-[node name="Bat12" parent="." instance=ExtResource("9_m5omf")]
-position = Vector2(1312, 0)
+position = Vector2(1112, 32)
 
 [node name="Bat13" parent="." instance=ExtResource("9_m5omf")]
-position = Vector2(1368, 32)
+position = Vector2(1648, 32)
+
+[node name="Bat18" parent="." instance=ExtResource("9_m5omf")]
+position = Vector2(1568, 32)
 
 [node name="Bat14" parent="." instance=ExtResource("9_m5omf")]
-position = Vector2(1424, 32)
+position = Vector2(1456, -96)
 
 [node name="Bat15" parent="." instance=ExtResource("9_m5omf")]
-position = Vector2(1480, 32)
+position = Vector2(1512, -96)
 
 [node name="Bat16" parent="." instance=ExtResource("9_m5omf")]
-position = Vector2(1560, 32)
+position = Vector2(1592, -96)
 
 [node name="Bat17" parent="." instance=ExtResource("9_m5omf")]
-position = Vector2(1656, 32)
+position = Vector2(1688, -96)
 
 [node name="ThirdDoor" parent="." instance=ExtResource("4_wffn5")]
 position = Vector2(944, 32)

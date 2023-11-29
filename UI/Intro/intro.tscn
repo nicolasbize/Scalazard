@@ -693,7 +693,7 @@ theme_override_fonts/font = ExtResource("5_a8ya5")
 theme_override_font_sizes/font_size = 16
 text = "Made from scratch for GameOff Jam 2023.
 
-This game is best played with a controller!"
+This game is best played on desktop with a controller!"
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
@@ -759,6 +759,7 @@ offset_bottom = 130.0
 texture = ExtResource("8_w8544")
 
 [node name="Fader" type="TextureRect" parent="."]
+visible = false
 modulate = Color(1, 1, 1, 0)
 texture = ExtResource("1_f0dog")
 

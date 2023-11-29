@@ -1,0 +1,77 @@
+[gd_scene load_steps=8 format=3 uid="uid://cksbebdrmabw7"]
+
+[ext_resource type="Script" path="res://UI/loading_screen.gd" id="1_26ku6"]
+[ext_resource type="Texture2D" uid="uid://dmanqy5db0e6f" path="res://UI/Intro/black-background.png" id="1_e8sls"]
+[ext_resource type="FontFile" uid="uid://dwjsu8m55nl55" path="res://Assets/04B_03__.TTF" id="2_30d1n"]
+[ext_resource type="PackedScene" uid="uid://btampsatebgrn" path="res://World/Platform/platform.tscn" id="2_63pvr"]
+[ext_resource type="PackedScene" uid="uid://7hpd42fr1nlw" path="res://FX/Water/water_body.tscn" id="2_nt5ek"]
+[ext_resource type="PackedScene" uid="uid://dq6x4w0gucx5d" path="res://World/GemDoor/gem_door.tscn" id="3_41l2u"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ia8fp"]
+size = Vector2(64, 10.5)
+
+[node name="LoadingScreen" type="Node2D"]
+script = ExtResource("1_26ku6")
+
+[node name="Platform" parent="." instance=ExtResource("2_63pvr")]
+position = Vector2(144, 72)
+
+[node name="GPUParticles2D" parent="Platform" index="4"]
+emitting = true
+
+[node name="GemDoorBlue" parent="." instance=ExtResource("3_41l2u")]
+position = Vector2(224, 88)
+gem_color = 1
+
+[node name="WaterBody3" parent="." instance=ExtResource("2_nt5ek")]
+z_index = 50
+position = Vector2(192, 72)
+liquid_type = 1
+
+[node name="PlayerDetectionArea" parent="WaterBody3" index="1"]
+position = Vector2(1, 0)
+
+[node name="CollisionShape2D" parent="WaterBody3/PlayerDetectionArea" index="0"]
+position = Vector2(31, 4.75)
+shape = SubResource("RectangleShape2D_ia8fp")
+
+[node name="GPUParticles2D" parent="WaterBody3" index="2"]
+position = Vector2(32, 0)
+
+[node name="FX" type="Node2D" parent="." groups=["level"]]
+
+[node name="BeamTarget" type="Node2D" parent="." groups=["shrinkable"]]
+position = Vector2(10, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 4096
+texture = ExtResource("1_e8sls")
+centered = false
+
+[node name="Label" type="Label" parent="Sprite2D"]
+offset_left = 72.0
+offset_top = 80.0
+offset_right = 368.0
+offset_bottom = 113.0
+theme_override_fonts/font = ExtResource("2_30d1n")
+theme_override_font_sizes/font_size = 8
+text = "Preloading particle effects and shaders to avoid in-game stuttering.
+Please wait, this may take a moment:
+
+If this gets stuck, please download a desktop version of the game."
+autowrap_mode = 2
+
+[node name="CompletionLabel" type="Label" parent="Sprite2D"]
+offset_left = 237.0
+offset_top = 91.0
+offset_right = 313.0
+offset_bottom = 102.0
+theme_override_colors/font_color = Color(0, 0.772549, 0, 1)
+theme_override_fonts/font = ExtResource("2_30d1n")
+theme_override_font_sizes/font_size = 8
+text = "0% complete"
+autowrap_mode = 2
+
+[editable path="Platform"]
+[editable path="Platform/Sign"]
+[editable path="WaterBody3"]

@@ -9,7 +9,7 @@ signal system_message(text:String)
 
 enum Level {Prototype, Courtyard, Entrance, EastTower, SacrificeChamber, CenterCourt, DoubleTrigger, 
 SimpleCorridor, WaterCorridor, RaceCube, MageBoss, RaceAgainstFire,
-OneCubeRace, SkeletonBoss, FlyAway, RaceToTheTop, HerosShadow}
+OneCubeRace, SkeletonBoss, FlyAway, RaceToTheTop, HerosShadow, LastFight}
 var Levels = {
 	Level.Prototype: preload("res://Levels/level-prototype.tscn"),
 	Level.Courtyard: preload("res://Levels/level_01_courtyard.tscn"),
@@ -28,18 +28,21 @@ var Levels = {
 	Level.FlyAway: preload("res://Levels/level_14_fly_away.tscn"),
 	Level.RaceToTheTop: preload("res://Levels/level_15_to_the_top.tscn"),
 	Level.HerosShadow: preload("res://Levels/level_16_heros_shadow.tscn"),
+	Level.LastFight: preload("res://Levels/level_17_last_fight.tscn"),
 }
 
-var skip_intro := true
+var debug := true
+var skip_splash := debug or false
+var skip_intro := debug or false
 # game data
-var current_level := Level.SkeletonBoss
+var current_level := Level.LastFight
 var last_portal_location := Portal.DoorIndex.West
-var visited_dracula_entrance := false
-var visited_dracula_center := false
-var opened_center_court_door := false
-var max_life := 3
-var current_life := 3
-var current_gems = [false, false, true, false] # green: float, blue: swim, purple: dodge, yellow: shield
+var visited_dracula_entrance := debug or false
+var visited_dracula_center := debug or false
+var opened_center_court_door := debug or false
+var max_life := 6 if debug else 3
+var current_life := 6 if debug else 3
+var current_gems = [debug or false, debug or false, debug or false, debug or false] # green: float, blue: swim, purple: dodge, yellow: shield
 var gems_inserted = [false, false, false, false]
 var level_2_heart_collected := false
 var level_3_heart_collected := false
@@ -66,7 +69,7 @@ func continue_game():
 
 func quit_to_menu():
 	var intro = Intro.instantiate()
-	intro.skip_to_menu = true
+	GameState.skip_splash = true
 	get_parent().add_child(intro)
 
 func save_game():

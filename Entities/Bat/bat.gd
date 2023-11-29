@@ -37,7 +37,7 @@ func _physics_process(delta):
 	if player != null:
 		if state == State.Idle:
 			state = State.StartFlying
-		direction = (player.global_position + Vector2.UP * 32 - global_position).normalized()
+		direction = (player.global_position + Vector2.UP * 24 - global_position).normalized()
 		sprite.scale.x = 1 if direction.x > 0 else -1
 		velocity = direction * fly_speed * delta
 		global_position += velocity

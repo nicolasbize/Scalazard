@@ -10,6 +10,7 @@ extends CanvasLayer
 const OptionsScreen = preload("res://UI/Intro/options_screen.tscn")
 const ConfirmOverride = preload("res://UI/Intro/confirm_dialog.tscn")
 const PreGameIntro = preload("res://UI/Intro/pre_game_intro.tscn")
+const LoadingScreen = preload("res://UI/loading_screen.tscn")
 
 signal new_game
 
@@ -27,11 +28,19 @@ var intro_screen = null
 var continue_available := false
 
 func _ready():
-	anim_index = 9 if GameState.skip_intro else 0
-	animation_player.play(anims[anim_index])
+	anim_index = 9 if GameState.skip_splash else 0
 	check_valid_save_game()
 	select_entry(0, true)
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+	if OS.has_feature("web"):
+		var loading_screen = LoadingScreen.instantiate()
+		loading_screen.connect("complete", on_start_logos.bind())
+		add_child(loading_screen)
+	else:
+		on_start_logos()
+
+func on_start_logos():
+	animation_player.play(anims[anim_index])
 
 func check_valid_save_game():
 	if FileAccess.file_exists(GameState.SAVE_FILE_LOCATION):
