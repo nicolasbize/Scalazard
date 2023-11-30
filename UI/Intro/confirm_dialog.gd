@@ -16,7 +16,7 @@ func _process(delta):
 		if not confirm_override:
 			confirm_override = true
 			GameSounds.play(GameSounds.Sound.MenuNav)
-	if Input.is_action_just_pressed("ui_accept"):
+	if Input.is_action_just_pressed("ui_accept") or Input.is_action_just_pressed("jump"):
 		GameSounds.play(GameSounds.Sound.MenuSelect)
 		if confirm_override:
 			emit_signal("override_save")

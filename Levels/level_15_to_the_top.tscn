@@ -39,7 +39,7 @@ layer_2/z_index = 0
 layer_2/tile_data = PackedInt32Array()
 
 [node name="Hero" parent="." instance=ExtResource("2_sfvyf")]
-position = Vector2(-592, -1136)
+position = Vector2(128, 0)
 
 [node name="BigBox" parent="." instance=ExtResource("3_6dctn")]
 position = Vector2(-368, -208)

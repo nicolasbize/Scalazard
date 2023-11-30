@@ -105,7 +105,7 @@ func on_player_enter(body):
 	for trap in traps:
 		trap.start_firing()
 	door.close()
-	GameMusic.play(GameMusic.Track.Boss, false)
+	GameMusic.play_track(GameMusic.Track.Boss, false)
 
 func on_boss_death():
 	for trap in traps:

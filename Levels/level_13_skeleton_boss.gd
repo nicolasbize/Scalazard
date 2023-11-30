@@ -37,7 +37,7 @@ func on_player_enter(body):
 	for trap in traps:
 		trap.start_firing()
 	boss.start_fight(player)
-	GameMusic.play(GameMusic.Track.Boss, false)
+	GameMusic.play_track(GameMusic.Track.Boss, false)
 	
 #	timer.start(3)
 

@@ -26,18 +26,26 @@ var options_screen = null
 var confirmation_screen = null
 var intro_screen = null
 var continue_available := false
+var start_with_credits := false
 
 func _ready():
 	anim_index = 9 if GameState.skip_splash else 0
 	check_valid_save_game()
 	select_entry(0, true)
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
-	if OS.has_feature("web"):
-		var loading_screen = LoadingScreen.instantiate()
-		loading_screen.connect("complete", on_start_logos.bind())
-		add_child(loading_screen)
+	if start_with_credits:
+		in_credits = true
+		credits_animation_player.play("credit-roll")
+		in_menu = true
+		GameMusic.play_track(GameMusic.Track.MainMenu, false)
 	else:
-		on_start_logos()
+		if not GameState.web_instantiated and OS.has_feature("web"):
+			GameState.web_instantiated = true
+			var loading_screen = LoadingScreen.instantiate()
+			loading_screen.connect("complete", on_start_logos.bind())
+			add_child(loading_screen)
+		else:
+			on_start_logos()
 
 func on_start_logos():
 	animation_player.play(anims[anim_index])
@@ -87,6 +95,7 @@ func select_entry(index_diff, mute_selection:bool = false) -> void:
 	refresh_menu_selection()
 
 func on_stop_credits():
+	animation_player.play("menu-appeared")
 	in_credits = false
 
 func enter_selection() -> void:
@@ -144,7 +153,7 @@ func play_next_anim():
 		animation_player.play(anims[anim_index])
 	else:
 		in_menu = true
-		GameMusic.play(GameMusic.Track.MainMenu, false)
+		GameMusic.play_track(GameMusic.Track.MainMenu, false)
 
 func on_appear_complete():
 	play_next_anim()

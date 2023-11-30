@@ -16,7 +16,9 @@ const Ghoul = preload("res://Entities/Ghoul/ghoul.tscn")
 var timed_out_count := 0
 var ghouls = []
 var completed_level := false
+var enemies_killed := 0
 var time_slow_down := -1
+
 
 func _ready():
 	if GameState.current_gems[treasure_chest.content]:
@@ -37,13 +39,7 @@ func _process(delta):
 		Engine.time_scale = 1
 
 func is_enemy_defeated() -> bool:
-	var defeated = false
-	if ghouls.size() == number_enemies:
-		defeated = true
-		for ghoul in ghouls:
-			if ghoul != null and ghoul.current_life > 0:
-				defeated = false
-	return defeated
+	return enemies_killed == number_enemies
 
 func on_timer_timeout():
 	if timed_out_count < number_shakes:
@@ -52,7 +48,7 @@ func on_timer_timeout():
 		GameSounds.play(GameSounds.Sound.Earthquake)
 		timer.start(.5)
 	elif timed_out_count < number_shakes + number_enemies:
-		GameMusic.play(GameMusic.Track.Boss, false)
+		GameMusic.play_track(GameMusic.Track.Boss, false)
 		timed_out_count += 1
 		var ghoul := Ghoul.instantiate()
 		ghoul.connect("die", on_ghoul_die.bind())
@@ -63,6 +59,7 @@ func on_timer_timeout():
 		timer.start(time_between_enemies)
 
 func on_ghoul_die():
+	enemies_killed += 1
 	if is_enemy_defeated():
 		GameMusic.stop()
 		GameSounds.play(GameSounds.Sound.Earthquake)

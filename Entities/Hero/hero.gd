@@ -395,6 +395,8 @@ func splash():
 	water_splash.global_position = global_position
 
 func on_player_hit(dmg:int, direction_knockback: float):
+	if state == State.Pickup:
+		return
 	if GameState.current_life > 0 and (dmg > 5 or (Time.get_ticks_msec() - time_since_last_hit) > min_time_between_hits):
 		time_since_last_hit = Time.get_ticks_msec()
 		GameState.deal_hero_damage(dmg)

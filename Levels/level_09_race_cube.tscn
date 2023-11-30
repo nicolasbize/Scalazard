@@ -38,7 +38,6 @@ layer_2/z_index = 0
 layer_2/tile_data = PackedInt32Array()
 
 [node name="Hero" parent="." instance=ExtResource("1_nafkw")]
-position = Vector2(24, -208)
 
 [node name="MainMovingPlatform" parent="." instance=ExtResource("3_nod0s")]
 position = Vector2(728, 16)

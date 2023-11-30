@@ -1,0 +1,308 @@
+[gd_scene load_steps=13 format=3 uid="uid://bmvetw727lc2r"]
+
+[ext_resource type="Script" path="res://UI/Outro/outro.gd" id="1_yjlsj"]
+[ext_resource type="Texture2D" uid="uid://dmanqy5db0e6f" path="res://UI/Intro/black-background.png" id="1_yorp8"]
+[ext_resource type="Texture2D" uid="uid://cdietwyieijeo" path="res://UI/Outro/outro-1.png" id="2_wge08"]
+[ext_resource type="FontFile" uid="uid://bumvrs8w2btcl" path="res://Assets/runescape_uf.ttf" id="3_yoww8"]
+[ext_resource type="Texture2D" uid="uid://cyt0h4wpsp61d" path="res://UI/Outro/outro-2.png" id="4_gjrf6"]
+[ext_resource type="Texture2D" uid="uid://cad5ff85pifvu" path="res://UI/Outro/outro-3.png" id="5_haysa"]
+
+[sub_resource type="Animation" id="Animation_nltoh"]
+resource_name = "slide-1"
+length = 12.0
+step = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Intro-01:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(2, 2.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(3, 12),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"on_skippable"
+}, {
+"args": [],
+"method": &"on_end_slide"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_ljnnw"]
+resource_name = "slide-2"
+length = 12.0
+step = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Intro-01:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Intro-02:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(2, 12),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"on_skippable"
+}, {
+"args": [],
+"method": &"on_end_slide"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_oeiuy"]
+resource_name = "slide-3"
+length = 12.0
+step = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Intro-02:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Intro-03:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(2, 12),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"on_skippable"
+}, {
+"args": [],
+"method": &"on_end_slide"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_n3ykq"]
+resource_name = "slide-4"
+length = 12.0
+step = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Intro-03:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"on_end_slide"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_ngewn"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Intro-01:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Intro-02:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Intro-03:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5rdnw"]
+_data = {
+"RESET": SubResource("Animation_ngewn"),
+"slide-1": SubResource("Animation_nltoh"),
+"slide-2": SubResource("Animation_ljnnw"),
+"slide-3": SubResource("Animation_oeiuy"),
+"slide-4": SubResource("Animation_n3ykq")
+}
+
+[node name="Outro" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_yjlsj")
+
+[node name="Background" type="TextureRect" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("1_yorp8")
+
+[node name="Intro-01" type="Control" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 416.0
+offset_bottom = 256.0
+
+[node name="TextureRect" type="TextureRect" parent="Intro-01"]
+layout_mode = 0
+offset_right = 416.0
+offset_bottom = 206.0
+texture = ExtResource("2_wge08")
+stretch_mode = 2
+
+[node name="NewGameLabel" type="Label" parent="Intro-01"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 213.0
+offset_right = 407.0
+offset_bottom = 252.0
+theme_override_colors/font_color = Color(0.984314, 0.941176, 0.913725, 1)
+theme_override_fonts/font = ExtResource("3_yoww8")
+text = "As the vampire's body turned to dust, the entire castle started trembling. The air filled with a smell of smoke and brikstone."
+autowrap_mode = 2
+
+[node name="Intro-02" type="Control" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 416.0
+offset_bottom = 256.0
+
+[node name="TextureRect" type="TextureRect" parent="Intro-02"]
+layout_mode = 0
+offset_right = 416.0
+offset_bottom = 205.0
+texture = ExtResource("4_gjrf6")
+stretch_mode = 2
+
+[node name="NewGameLabel2" type="Label" parent="Intro-02"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 213.0
+offset_right = 407.0
+offset_bottom = 252.0
+theme_override_colors/font_color = Color(0.984314, 0.941176, 0.913725, 1)
+theme_override_fonts/font = ExtResource("3_yoww8")
+text = "With adrenaline coursing through his veins, Merlin dashed through the crumbling corridors. Stones and debris rained down around him."
+autowrap_mode = 2
+
+[node name="Intro-03" type="Control" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 416.0
+offset_bottom = 256.0
+
+[node name="TextureRect" type="TextureRect" parent="Intro-03"]
+layout_mode = 0
+offset_right = 416.0
+offset_bottom = 205.0
+texture = ExtResource("5_haysa")
+stretch_mode = 2
+
+[node name="NewGameLabel2" type="Label" parent="Intro-03"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 213.0
+offset_right = 407.0
+offset_bottom = 252.0
+theme_override_colors/font_color = Color(0.984314, 0.941176, 0.913725, 1)
+theme_override_fonts/font = ExtResource("3_yoww8")
+text = "Standing on the precipice of a new dawn, Merlin gazed at the peeking sun. It was finally time for the land to heal..."
+autowrap_mode = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "slide-1"
+libraries = {
+"": SubResource("AnimationLibrary_5rdnw")
+}

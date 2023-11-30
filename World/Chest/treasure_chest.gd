@@ -33,5 +33,6 @@ func _process(delta):
 	if visible and not is_opened and player != null and player.can_pickup() and Input.is_action_just_pressed("crouch"):
 		is_opened = true
 		player.get_item(content)
+		GameMusic.play_track(GameMusic.Track.ItemGain, false)
 		emit_signal("open")
 

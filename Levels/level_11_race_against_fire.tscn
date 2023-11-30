@@ -152,7 +152,7 @@ points = PackedVector2Array(0, 0, 0, -136)
 position = Vector2(896, 32)
 
 [node name="Ghoul2" parent="." instance=ExtResource("10_7ps5v")]
-position = Vector2(152, 0)
+position = Vector2(296, 0)
 
 [node name="Zombie3" parent="." instance=ExtResource("11_qa541")]
 position = Vector2(848, -48)

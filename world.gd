@@ -10,6 +10,7 @@ var in_transition := false
 var option_screen = null
 
 const OptionsScreen = preload("res://UI/Intro/options_screen.tscn")
+const Outro = preload("res://UI/Outro/outro.tscn")
 
 func _ready():
 	ui.connect("in_transit", repack_level.bind())
@@ -48,7 +49,7 @@ func repack_level():
 	if is_special_level(upcoming_level) or GameState.has_all_gems():
 		GameMusic.stop()
 	else:
-		GameMusic.play(GameMusic.Track.Gameplay)
+		GameMusic.play_track(GameMusic.Track.Gameplay)
 	if upcoming_level != GameState.Level.Courtyard or GameState.is_starting_game_from_load_file:
 		GameState.save_game()
 	in_transition = false
@@ -72,7 +73,7 @@ func on_player_life_change(current_life:int, max_life:int) -> void:
 func _process(delta):
 	if GameState.current_life == 0 and Input.is_action_just_pressed("restart"):
 		load_level(upcoming_level)
-	if Input.is_action_just_pressed("ui_cancel") and option_screen == null:
+	if Input.is_action_just_pressed("pause") and option_screen == null:
 		pause_game()
 		
 func pause_game():
@@ -98,4 +99,6 @@ func on_start_outro():
 	ui.fade_to_black()
 
 func on_ready_for_ending():
-	print("show ending")
+	var outro = Outro.instantiate()
+	get_parent().add_child(outro)
+	queue_free()
