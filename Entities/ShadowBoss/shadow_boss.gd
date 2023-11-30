@@ -23,7 +23,7 @@ var time_since_last_hit := -1
 var time_between_hits := 300
 var time_start_attack = -1
 var ticks_since_last_thunder := -1
-var max_ticks_between_thunder := 3000
+var max_ticks_between_thunder := 4000
 
 enum State {Idle, Running, Jumping, Landing, Attacking, Hurt, Dying, Dead, Casting}
 var state = State.Idle

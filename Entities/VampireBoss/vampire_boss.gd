@@ -220,5 +220,5 @@ func on_finish_dying():
 func pick_new_destination():
 	var x := destination.x
 	while abs(x - destination.x) < 100: # prevent tiny movements
-		x = randf_range(-152, 128)
+		x = randf_range(-112, 112)
 	return Vector2(x, origin_y)

@@ -79,17 +79,23 @@ position = Vector2(-120, -184)
 
 [node name="Trap" parent="." instance=ExtResource("8_o5bhu")]
 position = Vector2(-480, -48)
-frequency_secs = 2.0
+frequency_secs = 3.0
+delay_secs = 2.0
+fireball_speed = 110.0
 firing = false
 
 [node name="Trap3" parent="." instance=ExtResource("8_o5bhu")]
 position = Vector2(-480, -168)
-frequency_secs = 2.0
+frequency_secs = 3.0
+fireball_speed = 110.0
+firing = false
 
 [node name="Trap2" parent="." instance=ExtResource("8_o5bhu")]
 position = Vector2(-96, -96)
 scale = Vector2(-1, 1)
-frequency_secs = 2.0
+frequency_secs = 3.0
+delay_secs = 1.0
+fireball_speed = 110.0
 firing = false
 
 [node name="Portal" parent="." instance=ExtResource("9_cbhcp")]

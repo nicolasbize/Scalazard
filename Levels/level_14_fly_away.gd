@@ -7,7 +7,7 @@ extends Node2D
 @onready var vertical_trap := $VerticalWallTrap
 @onready var treasure_chest := $TreasureChest
 
-@export var vertical_trap_speed := 20.0
+@export var vertical_trap_speed := 15.0
 
 var is_vertical_trap_running := false
 

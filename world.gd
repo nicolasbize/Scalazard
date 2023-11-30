@@ -46,7 +46,7 @@ func repack_level():
 		current_level_scene.connect("gotoboss", transition_to_final_boss.bind())
 	if upcoming_level == GameState.Level.LastFight:
 		current_level_scene.connect("game_complete", on_start_outro.bind())
-	if is_special_level(upcoming_level) or GameState.has_all_gems():
+	if is_special_level(upcoming_level):
 		GameMusic.stop()
 	else:
 		GameMusic.play_track(GameMusic.Track.Gameplay)

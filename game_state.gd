@@ -31,12 +31,12 @@ var Levels = {
 	Level.LastFight: preload("res://Levels/level_17_last_fight.tscn"),
 }
 
-var debug := false
+var debug := true
 var skip_splash := debug or false
 var skip_intro := debug or false
 var web_instantiated := false
 # game data
-var current_level := Level.Courtyard
+var current_level := Level.LastFight
 var last_portal_location := Portal.DoorIndex.West
 var visited_dracula_entrance := debug or false
 var visited_dracula_center := debug or false
