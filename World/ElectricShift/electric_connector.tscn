@@ -1,0 +1,76 @@
+[gd_scene load_steps=7 format=3 uid="uid://2qhuwjeritj1"]
+
+[ext_resource type="Script" path="res://World/ElectricShift/electric_connector.gd" id="1_fyphj"]
+[ext_resource type="Texture2D" uid="uid://b5tccchjitut8" path="res://World/ElectricShift/electric.png" id="1_tbjeg"]
+
+[sub_resource type="Animation" id="Animation_xtxud"]
+resource_name = "idle"
+length = 0.1
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_0jysu"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_b2cd0"]
+resource_name = "charge"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [5, 6, 7, 8, 9]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pb1ta"]
+_data = {
+"RESET": SubResource("Animation_0jysu"),
+"charge": SubResource("Animation_b2cd0"),
+"idle": SubResource("Animation_xtxud")
+}
+
+[node name="ElectricConnector" type="Node2D"]
+z_index = 10
+script = ExtResource("1_fyphj")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_tbjeg")
+centered = false
+hframes = 5
+vframes = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "idle"
+libraries = {
+"": SubResource("AnimationLibrary_pb1ta")
+}

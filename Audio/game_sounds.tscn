@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://b668xqw87n4y8"]
+[gd_scene load_steps=43 format=3 uid="uid://b668xqw87n4y8"]
 
 [ext_resource type="Script" path="res://Audio/game_sounds.gd" id="1_2ij3w"]
 [ext_resource type="PackedScene" uid="uid://d24jch2ldp18e" path="res://Audio/sound_pool.tscn" id="2_7k85b"]
@@ -35,9 +35,13 @@
 [ext_resource type="AudioStream" uid="uid://c51pf2ewgutpo" path="res://Assets/SFX/boss-shake.wav" id="32_dwihe"]
 [ext_resource type="AudioStream" uid="uid://c8cb6ygq4wllq" path="res://Assets/SFX/boss-teleport.wav" id="33_uvei0"]
 [ext_resource type="AudioStream" uid="uid://chg582rtg765l" path="res://Assets/SFX/thunder.wav" id="34_3m645"]
+[ext_resource type="AudioStream" uid="uid://csuchnq08jgfm" path="res://Assets/SFX/electric-charge.wav" id="36_dfs3f"]
 [ext_resource type="AudioStream" uid="uid://cu3q74tttefkk" path="res://Assets/SFX/chop.wav" id="36_fscf1"]
 [ext_resource type="AudioStream" uid="uid://dvi6v6o488kag" path="res://Assets/SFX/menu-nav.wav" id="37_6jkjd"]
+[ext_resource type="AudioStream" uid="uid://1a0sr6key6s3" path="res://Assets/SFX/laser.wav" id="37_vbtk7"]
+[ext_resource type="AudioStream" uid="uid://r7m7p4v133py" path="res://Assets/SFX/fireball-creation.wav" id="38_5ht5e"]
 [ext_resource type="AudioStream" uid="uid://bmjn3hluhoui7" path="res://Assets/SFX/menu-select.wav" id="38_85mad"]
+[ext_resource type="AudioStream" uid="uid://bbhlbdgcn88b0" path="res://Assets/SFX/energy-explosion.wav" id="38_nmw13"]
 
 [node name="GameSounds" type="Node"]
 script = ExtResource("1_2ij3w")
@@ -312,6 +316,37 @@ nb_backup_duplicates = 3
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Thunder"]
 stream = ExtResource("34_3m645")
+volume_db = -10.0
+bus = &"SFX"
+
+[node name="ElectricShock" parent="." instance=ExtResource("3_s1m8x")]
+nb_backup_duplicates = 1
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="ElectricShock"]
+stream = ExtResource("36_dfs3f")
+volume_db = -15.0
+bus = &"SFX"
+
+[node name="Laser" parent="." instance=ExtResource("3_s1m8x")]
+nb_backup_duplicates = 1
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Laser"]
+stream = ExtResource("37_vbtk7")
+volume_db = -15.0
+bus = &"SFX"
+
+[node name="EnergyCreation" parent="." instance=ExtResource("3_s1m8x")]
+nb_backup_duplicates = 1
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="EnergyCreation"]
+stream = ExtResource("38_5ht5e")
+bus = &"SFX"
+
+[node name="EnergyExplosion" parent="." instance=ExtResource("3_s1m8x")]
+nb_backup_duplicates = 1
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="EnergyExplosion"]
+stream = ExtResource("38_nmw13")
 volume_db = -10.0
 bus = &"SFX"
 

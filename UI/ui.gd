@@ -1,12 +1,14 @@
 extends CanvasLayer
 
 signal in_transit
+signal end_fade
 
 @onready var life_container := $GameUI/VBoxContainer/LifeContainer
 @onready var transition_animation := $TransitionScreen/AnimationPlayer
 @onready var death_animation := $DeathScreen/AnimationPlayer
 @onready var text_animation := $GameUI/VBoxContainer/MarginContainer/AnimationPlayer
 @onready var system_label := $GameUI/VBoxContainer/MarginContainer/TextPanel/SystemLabel
+@onready var fade_animation := $FadeToBlackScreen/AnimationPlayer
 
 @export var speed_typing := 2000
 
@@ -79,3 +81,8 @@ func show_next_text():
 func display_text():
 	system_label.text = message_queue[message_index]
 	
+func fade_to_black():
+	fade_animation.play("fade_to_black")
+
+func on_end_fade():
+	emit_signal("end_fade")

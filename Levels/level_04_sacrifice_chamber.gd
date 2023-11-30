@@ -52,7 +52,7 @@ func on_timer_timeout():
 		GameSounds.play(GameSounds.Sound.Earthquake)
 		timer.start(.5)
 	elif timed_out_count < number_shakes + number_enemies:
-		GameMusic.play(GameMusic.Track.Boss)
+		GameMusic.play(GameMusic.Track.Boss, false)
 		timed_out_count += 1
 		var ghoul := Ghoul.instantiate()
 		ghoul.connect("die", on_ghoul_die.bind())

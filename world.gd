@@ -13,6 +13,7 @@ const OptionsScreen = preload("res://UI/Intro/options_screen.tscn")
 
 func _ready():
 	ui.connect("in_transit", repack_level.bind())
+	ui.connect("end_fade", on_ready_for_ending.bind())
 	GameState.connect("life_change", on_player_life_change.bind())
 	load_level(GameState.current_level)
 
@@ -40,6 +41,10 @@ func repack_level():
 		ui.reset_death()
 		GameState.new_life()
 	ui.end_transition()
+	if upcoming_level == GameState.Level.CenterCourt and GameState.has_all_gems():
+		current_level_scene.connect("gotoboss", transition_to_final_boss.bind())
+	if upcoming_level == GameState.Level.LastFight:
+		current_level_scene.connect("game_complete", on_start_outro.bind())
 	if is_special_level(upcoming_level) or GameState.has_all_gems():
 		GameMusic.stop()
 	else:
@@ -49,7 +54,10 @@ func repack_level():
 	in_transition = false
 
 func is_special_level(level: GameState.Level) -> bool:
-	return [GameState.Level.Courtyard, GameState.Level.MageBoss, GameState.Level.SacrificeChamber, GameState.Level.SkeletonBoss, GameState.Level.HerosShadow].has(level)
+	return [GameState.Level.Courtyard, GameState.Level.MageBoss, GameState.Level.SacrificeChamber, GameState.Level.SkeletonBoss, GameState.Level.HerosShadow, GameState.Level.LastFight].has(level)
+
+func transition_to_final_boss() -> void:
+	on_level_transition_request(GameState.Level.LastFight, Portal.DoorIndex.West)
 
 func on_level_transition_request(destination_level: GameState.Level, destination_address: Portal.DoorIndex):
 	if not in_transition:
@@ -85,3 +93,9 @@ func on_leave_game():
 	get_tree().paused = false
 	GameState.quit_to_menu()
 	queue_free()
+
+func on_start_outro():
+	ui.fade_to_black()
+
+func on_ready_for_ending():
+	print("show ending")

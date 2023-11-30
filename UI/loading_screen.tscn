@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://cksbebdrmabw7"]
+[gd_scene load_steps=9 format=3 uid="uid://cksbebdrmabw7"]
 
 [ext_resource type="Script" path="res://UI/loading_screen.gd" id="1_26ku6"]
 [ext_resource type="Texture2D" uid="uid://dmanqy5db0e6f" path="res://UI/Intro/black-background.png" id="1_e8sls"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://btampsatebgrn" path="res://World/Platform/platform.tscn" id="2_63pvr"]
 [ext_resource type="PackedScene" uid="uid://7hpd42fr1nlw" path="res://FX/Water/water_body.tscn" id="2_nt5ek"]
 [ext_resource type="PackedScene" uid="uid://dq6x4w0gucx5d" path="res://World/GemDoor/gem_door.tscn" id="3_41l2u"]
+[ext_resource type="PackedScene" uid="uid://dmhlgfn0e3g60" path="res://FX/EnemyBeam/enemy_beam_source.tscn" id="7_bb48p"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ia8fp"]
 size = Vector2(64, 10.5)
@@ -71,6 +72,9 @@ theme_override_fonts/font = ExtResource("2_30d1n")
 theme_override_font_sizes/font_size = 8
 text = "0% complete"
 autowrap_mode = 2
+
+[node name="EnemyBeamSource" parent="." instance=ExtResource("7_bb48p")]
+position = Vector2(184, 104)
 
 [editable path="Platform"]
 [editable path="Platform/Sign"]

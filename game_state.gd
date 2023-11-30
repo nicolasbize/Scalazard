@@ -35,10 +35,11 @@ var debug := true
 var skip_splash := debug or false
 var skip_intro := debug or false
 # game data
-var current_level := Level.LastFight
+var current_level := Level.RaceCube
 var last_portal_location := Portal.DoorIndex.West
 var visited_dracula_entrance := debug or false
 var visited_dracula_center := debug or false
+var visited_dracula_ending := debug or false
 var opened_center_court_door := debug or false
 var max_life := 6 if debug else 3
 var current_life := 6 if debug else 3
@@ -78,6 +79,7 @@ func save_game():
 		"last_portal_location": last_portal_location,
 		"visited_dracula_entrance": visited_dracula_entrance,
 		"visited_dracula_center": visited_dracula_center,
+		"visited_dracula_ending": visited_dracula_ending,
 		"opened_center_court_door": opened_center_court_door,
 		"max_life": max_life,
 		"current_life": current_life,
@@ -100,6 +102,7 @@ func load_game():
 	last_portal_location = game_data["last_portal_location"]
 	visited_dracula_entrance = game_data["visited_dracula_entrance"]
 	visited_dracula_center = game_data["visited_dracula_center"]
+	visited_dracula_ending = game_data["visited_dracula_ending"]
 	opened_center_court_door = game_data["opened_center_court_door"]
 	max_life = game_data["max_life"]
 	current_life = game_data["current_life"]

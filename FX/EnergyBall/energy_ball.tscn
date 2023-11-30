@@ -1,0 +1,109 @@
+[gd_scene load_steps=10 format=3 uid="uid://bol33o0epaiss"]
+
+[ext_resource type="Script" path="res://FX/EnergyBall/energy_ball.gd" id="1_8xons"]
+[ext_resource type="Texture2D" uid="uid://hlvqmpinb5oe" path="res://FX/EnergyBall/energy-ball.png" id="1_dtidm"]
+[ext_resource type="PackedScene" uid="uid://b5mhaodm6g8i5" path="res://Entities/HitBox/damage_dealer_area.tscn" id="3_dv8fj"]
+
+[sub_resource type="Animation" id="Animation_hwrxe"]
+resource_name = "start"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"on_start_finish"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_akawq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_aoup4"]
+resource_name = "fly"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [1, 2, 3, 4]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_a3o18"]
+_data = {
+"RESET": SubResource("Animation_akawq"),
+"fly": SubResource("Animation_aoup4"),
+"start": SubResource("Animation_hwrxe")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_82k70"]
+radius = 15.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_tlgyr"]
+radius = 15.0
+
+[node name="EnergyBall" type="Node2D"]
+script = ExtResource("1_8xons")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_dtidm")
+hframes = 5
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "start"
+libraries = {
+"": SubResource("AnimationLibrary_a3o18")
+}
+
+[node name="GroundDetectionArea2D" type="Area2D" parent="."]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GroundDetectionArea2D"]
+shape = SubResource("CircleShape2D_82k70")
+
+[node name="DamageDealerArea" parent="." instance=ExtResource("3_dv8fj")]
+z_index = 20
+collision_layer = 128
+damage = 1
+
+[node name="CollisionShape2D" parent="DamageDealerArea" index="0"]
+shape = SubResource("CircleShape2D_tlgyr")
+
+[editable path="DamageDealerArea"]

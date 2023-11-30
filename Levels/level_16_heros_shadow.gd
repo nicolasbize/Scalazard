@@ -32,7 +32,7 @@ func _ready():
 func on_player_enter(body):
 	player = body
 	door.close()
-	GameMusic.play(GameMusic.Track.Boss)
+	GameMusic.play(GameMusic.Track.Boss, false)
 	player_detection_area.set_deferred("monitoring", false)
 	get_viewport().get_camera_2d().lock_to_target(Vector2(-288, -96))
 	for trap in traps:
@@ -52,7 +52,7 @@ func on_timer_timeout():
 	else:
 		level_started = true
 		boss.start_fight(player)
-		GameMusic.play(GameMusic.Track.Boss)
+		GameMusic.play(GameMusic.Track.Boss, false)
 
 func on_boss_die():
 	treasure_chest.visible = true

@@ -1,0 +1,42 @@
+[gd_scene load_steps=8 format=3 uid="uid://dmhlgfn0e3g60"]
+
+[ext_resource type="Texture2D" uid="uid://2ihgicetkuav" path="res://World/GemDoor/1x1-particle.png" id="1_xewmu"]
+[ext_resource type="Texture2D" uid="uid://b4fqtx30fws4s" path="res://FX/EnemyBeam/beam-source.png" id="2_gp0v5"]
+
+[sub_resource type="Gradient" id="Gradient_hhr48"]
+colors = PackedColorArray(1, 0.87, 0.87, 1, 1, 0, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_qcl21"]
+gradient = SubResource("Gradient_hhr48")
+
+[sub_resource type="Curve" id="Curve_emxl3"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.245552), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_lr8wo"]
+curve = SubResource("Curve_emxl3")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_s7nfp"]
+emission_shape = 1
+emission_sphere_radius = 8.0
+particle_flag_disable_z = true
+direction = Vector3(1, 1, 0)
+spread = 180.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 30.0
+initial_velocity_max = 30.0
+orbit_velocity_min = -1.0
+orbit_velocity_max = 0.5
+scale_max = 2.0
+scale_curve = SubResource("CurveTexture_lr8wo")
+color_ramp = SubResource("GradientTexture1D_qcl21")
+
+[node name="EnemyBeamSource" type="Node2D"]
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+amount = 20
+process_material = SubResource("ParticleProcessMaterial_s7nfp")
+texture = ExtResource("1_xewmu")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_gp0v5")

@@ -2,7 +2,7 @@ extends Node
 
 enum Sound {FootstepStone, FootstepWater, SlowFootstep, OutsideRain, Jump, Slide, Expand, Shrink, PushCrate, SwordSwish, SpellFail, HeroHurt,
 EnemyHit, EnemyKill, BoxExplode, Warp, PowerUp, DoorOpen, DoorClose, Trigger, Collapse, Land, Fireball, Earthquake,
-BossTeleport, Thunder, Chop, MenuNav, MenuSelect}
+BossTeleport, Thunder, Chop, MenuNav, MenuSelect, ElectricCharge, Laser, FireballCreation, FireballExplosion}
 
 var sound_map = {}
 
@@ -37,6 +37,10 @@ func _ready():
 		Sound.Chop: $Chop,
 		Sound.MenuNav: $MenuNav,
 		Sound.MenuSelect: $MenuSelect,
+		Sound.ElectricCharge: $ElectricShock,
+		Sound.Laser: $Laser,
+		Sound.FireballCreation: $EnergyCreation,
+		Sound.FireballExplosion: $EnergyExplosion,
 	}
 
 func play(sound: Sound, alter_pitch: bool = false) -> void:

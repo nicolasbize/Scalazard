@@ -23,5 +23,6 @@ func on_small_box_enter(box):
 		small_box_anchor = box.global_position - platform_sprite.global_position
 
 func on_trigger_press():
-	moving_platform.start()
-	started = true
+	if not moving_platform.is_running:
+		moving_platform.start()
+		started = true

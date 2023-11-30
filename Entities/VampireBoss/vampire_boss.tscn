@@ -1,7 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://cl55aqe2483w6"]
+[gd_scene load_steps=18 format=3 uid="uid://cl55aqe2483w6"]
 
 [ext_resource type="Script" path="res://Entities/VampireBoss/vampire_boss.gd" id="1_3pd5d"]
 [ext_resource type="Texture2D" uid="uid://ce4qj1sblcyva" path="res://Entities/Dracula/dracula.png" id="1_ib4jf"]
+[ext_resource type="Texture2D" uid="uid://bnvajux8un85u" path="res://Entities/VampireBoss/laser.png" id="3_ptevn"]
+[ext_resource type="PackedScene" uid="uid://b5mhaodm6g8i5" path="res://Entities/HitBox/damage_dealer_area.tscn" id="4_ob2k3"]
+[ext_resource type="PackedScene" uid="uid://2nfy1ysxtck8" path="res://Entities/HitBox/damage_receiver_area.tscn" id="5_oi0xd"]
+[ext_resource type="PackedScene" uid="uid://dmhlgfn0e3g60" path="res://FX/EnemyBeam/enemy_beam_source.tscn" id="6_npted"]
 
 [sub_resource type="Animation" id="Animation_n5lat"]
 resource_name = "idle"
@@ -53,22 +57,6 @@ tracks/0/keys = {
 "values": [5]
 }
 
-[sub_resource type="Animation" id="Animation_8au5k"]
-resource_name = "cast"
-length = 0.5
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 1,
-"values": [10, 11, 12, 13, 14]
-}
-
 [sub_resource type="Animation" id="Animation_4dtjo"]
 resource_name = "hurt"
 length = 0.2
@@ -85,14 +73,118 @@ tracks/0/keys = {
 "values": [20, 21]
 }
 
+[sub_resource type="Animation" id="Animation_8au5k"]
+resource_name = "fireball"
+length = 0.7
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [10, 11, 12, 13, 14]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.7),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"on_finish_casting"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_7hrk3"]
+resource_name = "laser"
+length = 0.1
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [14]
+}
+
+[sub_resource type="Animation" id="Animation_wrnle"]
+resource_name = "vulnerable"
+length = 1.2
+loop_mode = 1
+step = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [25, 26, 27, 28]
+}
+
+[sub_resource type="Animation" id="Animation_smreb"]
+resource_name = "dying"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [20, 21, 20, 21, 20, 21]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.6),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"on_finish_dying"
+}]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_f6apd"]
 _data = {
 "RESET": SubResource("Animation_b8g86"),
-"cast": SubResource("Animation_8au5k"),
+"dying": SubResource("Animation_smreb"),
+"fireball": SubResource("Animation_8au5k"),
 "fly": SubResource("Animation_7th11"),
 "hurt": SubResource("Animation_4dtjo"),
-"idle": SubResource("Animation_n5lat")
+"idle": SubResource("Animation_n5lat"),
+"laser": SubResource("Animation_7hrk3"),
+"vulnerable": SubResource("Animation_wrnle")
 }
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k5mi3"]
+size = Vector2(16, 17)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bi530"]
+size = Vector2(30, 27)
 
 [node name="VampireBoss" type="Node2D"]
 script = ExtResource("1_3pd5d")
@@ -109,3 +201,44 @@ autoplay = "idle"
 libraries = {
 "": SubResource("AnimationLibrary_f6apd")
 }
+
+[node name="LaserRaycast" type="RayCast2D" parent="."]
+position = Vector2(0, -24)
+
+[node name="LaserDamageRaycast" type="RayCast2D" parent="."]
+position = Vector2(0, -24)
+collision_mask = 2
+
+[node name="LaserLine" type="Line2D" parent="."]
+z_index = 1
+position = Vector2(0, -24)
+points = PackedVector2Array(0, 0, 0, 0)
+texture = ExtResource("3_ptevn")
+texture_mode = 1
+
+[node name="DamageDealerArea" parent="." instance=ExtResource("4_ob2k3")]
+collision_layer = 128
+damage = 1
+
+[node name="CollisionShape2D" parent="DamageDealerArea" index="0"]
+position = Vector2(0, -27.5)
+shape = SubResource("RectangleShape2D_k5mi3")
+
+[node name="DamageReceiverArea" parent="." instance=ExtResource("5_oi0xd")]
+collision_layer = 256
+collision_mask = 4096
+
+[node name="CollisionShape2D" parent="DamageReceiverArea" index="0"]
+position = Vector2(0, -17.5)
+shape = SubResource("RectangleShape2D_bi530")
+
+[node name="GroundCheck" type="RayCast2D" parent="."]
+position = Vector2(0, -10)
+target_position = Vector2(0, 10)
+
+[node name="EnemyBeamSource" parent="." instance=ExtResource("6_npted")]
+visible = false
+position = Vector2(0, -24)
+
+[editable path="DamageDealerArea"]
+[editable path="DamageReceiverArea"]

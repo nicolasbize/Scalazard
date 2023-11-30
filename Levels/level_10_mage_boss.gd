@@ -110,7 +110,7 @@ func on_timer_timeout():
 		level_started = true
 		trap.start_firing()
 		mage_boss.global_position = spawns[2].global_position
-		GameMusic.play(GameMusic.Track.Boss)
+		GameMusic.play(GameMusic.Track.Boss, false)
 		
 func on_mage_hit():
 	life_boss -= 1

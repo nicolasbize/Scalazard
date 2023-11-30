@@ -1,3 +1,4 @@
+class_name Fireball
 extends Node2D
 
 @onready var wall_detection_area := $WallDetectionArea

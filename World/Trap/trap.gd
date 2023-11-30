@@ -21,6 +21,10 @@ func on_timer_timeout():
 	if firing:
 		launch_fire()
 
+func fire_once():
+	launch_fire()
+	firing = false
+
 func start_firing():
 	firing = true
 	if delay_secs == 0:

@@ -1,6 +1,8 @@
 class_name Player
 extends CharacterBody2D
 
+signal finish_teleport
+
 @onready var sprite := $Sprite2D
 @onready var animation_player := $AnimationPlayer
 @onready var box_detector := $BoxDetector
@@ -15,6 +17,7 @@ extends CharacterBody2D
 @onready var camera_target := $CameraTarget
 @onready var ground_raycast := $GroundRaycast
 @onready var upper_body_wall_detection_area := $UpperBodyWallDetectionArea
+@onready var teleport_animation_player := $TeleportAnimationPlayer
 
 @export var gravity := 850.0
 @export var max_fall_velocity := 400.0
@@ -292,6 +295,7 @@ func cast():
 			GameSounds.play(GameSounds.Sound.Expand)
 	else:
 		GameSounds.play(GameSounds.Sound.SpellFail)
+		
 func can_attack() -> bool:
 	if frozen or is_carrying:
 		return false
@@ -455,6 +459,12 @@ func on_finish_dying():
 
 func on_stop_action():
 	state = State.Idle
+
+func teleport():
+	teleport_animation_player.play("teleport")
+
+func on_finish_teleport():
+	emit_signal("finish_teleport")
 
 func can_float():
 	return GameState.current_gems[TreasureChest.Content.GreenGem]
