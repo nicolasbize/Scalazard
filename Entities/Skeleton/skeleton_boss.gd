@@ -11,7 +11,8 @@ const Explosion = preload("res://FX/Explode/explosion.tscn")
 @onready var attack_damage_dealer_area := $AttackDamageDealerArea
 @onready var damage_dealer_area := $DamageDealerArea
 
-@export var current_life := 3
+@export var max_life_boss := 5
+@export var current_life := 5
 @export var walk_speed := 70.0
 @export var acceleration := 600.0
 @export var friction := 200.0
@@ -19,6 +20,7 @@ const Explosion = preload("res://FX/Explode/explosion.tscn")
 @export var time_attack := 2000
 
 signal die
+signal hit
 
 var player = null
 var time_start_charge := -1
@@ -42,6 +44,18 @@ const anim_states = {
 }
 
 func _ready():
+	if GameState.difficulty == GameState.Difficulty.Easy:
+		max_life_boss = 3
+		current_life = 3
+		walk_speed = 70.0
+		time_charge = 1500
+		time_attack = 2000
+	elif GameState.difficulty == GameState.Difficulty.Hard:
+		max_life_boss = 8
+		current_life = 8
+		walk_speed = 90.0
+		time_charge = 800
+		time_attack = 1000
 	damage_receiver_area.connect("hit", on_enemy_hit.bind())
 	damage_dealer_area.connect("area_entered", on_player_too_close.bind())
 
@@ -100,6 +114,7 @@ func on_enemy_hit(dmg:int, direction_knockback:float) -> void:
 	if is_player_behind() and Time.get_ticks_msec() - time_since_last_hit > time_between_hits:
 		time_since_last_hit = Time.get_ticks_msec()
 		current_life -= dmg
+		emit_signal("hit", current_life + dmg, current_life)
 		if current_life > 0:
 			state = State.Hurt
 		else:

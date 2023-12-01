@@ -1,5 +1,9 @@
 extends Node2D
 
+signal boss_fight_start
+signal boss_fight_end
+signal boss_life_change
+
 @export var slowdown_duration := 2000
 
 @onready var dracula := $Dracula
@@ -37,9 +41,13 @@ func _ready():
 		cinematic_player_area.connect("body_entered", on_player_start_cinematic.bind())
 		dracula.connect("cinematic_finish", on_dracula_leave.bind())
 	vampire_boss.connect("die", on_boss_death.bind())
+	vampire_boss.connect("hit", on_boss_hit.bind())
 	player_detection_area.connect("body_entered", on_player_enter.bind())
 
-
+func on_boss_hit(old_health, new_health):
+	var enemy_health_tick = 100.0 / vampire_boss.max_life_boss
+	emit_signal("boss_life_change", enemy_health_tick * old_health, enemy_health_tick * new_health)
+	
 func on_player_start_cinematic(body):
 	player = body
 	cinematic_ticks = Time.get_ticks_msec()
@@ -65,7 +73,7 @@ func cinematic_next_step():
 			player_speech_label.text = "Your time is coming to an end!"
 		2:
 			dracula_speech_bubble.visible = true
-			dracula_speech_label.text = "We will surely enjoy this!"
+			dracula_speech_label.text = "Your sword cannot hurt me!"
 			player_speech_bubble.visible = false
 		3:
 			can_travel_next_step = false
@@ -95,17 +103,20 @@ func _process(delta):
 			vampire_boss.can_be_electrified = electric_lightning.visible
 		if completed_level and (Time.get_ticks_msec() - time_slow_down > slowdown_duration):
 			Engine.time_scale = 1
+			emit_signal("boss_fight_end")
 			if not ready_for_end:
 				ready_for_end = true
 				emit_signal("game_complete")
 
 func on_player_enter(body):
+	player_detection_area.set_deferred("monitoring", false)
 	get_viewport().get_camera_2d().lock_to_target(Vector2(0, -96))
 	vampire_boss.player = body
 	for trap in traps:
 		trap.start_firing()
 	door.close()
 	GameMusic.play_track(GameMusic.Track.Boss, false)
+	emit_signal("boss_fight_start")
 
 func on_boss_death():
 	for trap in traps:

@@ -23,6 +23,7 @@ func load_level(level:GameState.Level):
 	ui.start_transition()
 
 func repack_level():
+	ui.hide_enemy_bar()
 	if current_level_scene != null:
 		current_level_scene.queue_free()
 	current_level_scene = GameState.Levels[upcoming_level].instantiate()
@@ -46,6 +47,10 @@ func repack_level():
 		current_level_scene.connect("gotoboss", transition_to_final_boss.bind())
 	if upcoming_level == GameState.Level.LastFight:
 		current_level_scene.connect("game_complete", on_start_outro.bind())
+	if is_boss_level(upcoming_level):
+		current_level_scene.connect("boss_fight_start", on_boss_fight_start.bind())
+		current_level_scene.connect("boss_fight_end", on_boss_fight_end.bind())
+		current_level_scene.connect("boss_life_change", on_boss_life_change.bind())		
 	if is_special_level(upcoming_level):
 		GameMusic.stop()
 	else:
@@ -57,6 +62,9 @@ func repack_level():
 func is_special_level(level: GameState.Level) -> bool:
 	return [GameState.Level.Courtyard, GameState.Level.MageBoss, GameState.Level.SacrificeChamber, GameState.Level.SkeletonBoss, GameState.Level.HerosShadow, GameState.Level.LastFight].has(level)
 
+func is_boss_level(level: GameState.Level) -> bool:
+	return [GameState.Level.MageBoss, GameState.Level.SacrificeChamber, GameState.Level.SkeletonBoss, GameState.Level.HerosShadow, GameState.Level.LastFight].has(level)
+
 func transition_to_final_boss() -> void:
 	on_level_transition_request(GameState.Level.LastFight, Portal.DoorIndex.West)
 
@@ -65,6 +73,15 @@ func on_level_transition_request(destination_level: GameState.Level, destination
 		in_transition = true
 		upcoming_destination_address = destination_address
 		load_level(destination_level)
+
+func on_boss_fight_start() -> void:
+	ui.show_enemy_bar()
+	
+func on_boss_fight_end() -> void:
+	ui.hide_enemy_bar()
+	
+func on_boss_life_change(old_life:int , new_life: int) -> void:
+	ui.update_enemy_health(old_life, new_life)
 
 func on_player_life_change(current_life:int, max_life:int) -> void:
 	if current_life <= 0:

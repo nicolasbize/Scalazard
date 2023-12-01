@@ -44,7 +44,6 @@ size = Vector2(156, 46.5)
 
 [node name="Level-12-One-Cube-Race" type="Node2D" groups=["level"]]
 script = ExtResource("1_jjbny")
-wall_speed = 30.0
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = ExtResource("1_2vh0i")
@@ -179,25 +178,18 @@ position = Vector2(1336, 112)
 position = Vector2(1512, 112)
 door = NodePath("../FinalDoor")
 
-[node name="Trap1" parent="." instance=ExtResource("11_dshb6")]
-position = Vector2(1824, 88)
-scale = Vector2(-1, -1)
-frequency_secs = 3.0
-delay_secs = 2.0
-fireball_speed = 80.0
-
-[node name="Trap2" parent="." instance=ExtResource("11_dshb6")]
-position = Vector2(1824, 104)
-scale = Vector2(-1, -1)
-frequency_secs = 3.0
-delay_secs = 2.5
-fireball_speed = 80.0
-
 [node name="Trap3" parent="." instance=ExtResource("11_dshb6")]
 position = Vector2(1824, 72)
 scale = Vector2(-1, -1)
 frequency_secs = 3.0
 delay_secs = 1.5
+fireball_speed = 80.0
+
+[node name="Trap7" parent="." instance=ExtResource("11_dshb6")]
+position = Vector2(1824, 88)
+scale = Vector2(-1, -1)
+frequency_secs = 3.0
+delay_secs = 2.0
 fireball_speed = 80.0
 
 [node name="Trap4" parent="." instance=ExtResource("11_dshb6")]
@@ -248,7 +240,7 @@ liquid_type = 1
 position = Vector2(1, 0)
 
 [node name="CollisionShape2D" parent="WaterBody4/PlayerDetectionArea" index="0"]
-position = Vector2(31, 3)
+position = Vector2(38, 3)
 shape = SubResource("RectangleShape2D_r1lx6")
 
 [node name="GPUParticles2D" parent="WaterBody4" index="2"]

@@ -7,6 +7,8 @@ signal life_change(current_life:int, max_life:int)
 signal hit_received()
 signal system_message(text:String)
 
+enum Difficulty {Easy, Normal, Hard}
+
 enum Level {Prototype, Courtyard, Entrance, EastTower, SacrificeChamber, CenterCourt, DoubleTrigger, 
 SimpleCorridor, WaterCorridor, RaceCube, MageBoss, RaceAgainstFire,
 OneCubeRace, SkeletonBoss, FlyAway, RaceToTheTop, HerosShadow, LastFight}
@@ -31,17 +33,18 @@ var Levels = {
 	Level.LastFight: preload("res://Levels/level_17_last_fight.tscn"),
 }
 
-var debug := true
+var debug := false
 var skip_splash := debug or false
 var skip_intro := debug or false
 var web_instantiated := false
 # game data
-var current_level := Level.LastFight
+var current_level := Level.Courtyard
 var last_portal_location := Portal.DoorIndex.West
 var visited_dracula_entrance := debug or false
 var visited_dracula_center := debug or false
 var visited_dracula_ending := debug or false
 var opened_center_court_door := debug or false
+var difficulty := Difficulty.Normal
 var max_life := 6 if debug else 3
 var current_life := 6 if debug else 3
 var current_gems = [debug or false, debug or false, debug or false, debug or false] # green: float, blue: swim, purple: dodge, yellow: shield
@@ -66,6 +69,22 @@ func start_game():
 	var world = World.instantiate()
 	get_parent().add_child(world)
 
+func reset_game():
+	current_level = Level.Courtyard
+	last_portal_location = Portal.DoorIndex.West
+	visited_dracula_entrance = debug or false
+	visited_dracula_center = debug or false
+	visited_dracula_ending = debug or false
+	opened_center_court_door = debug or false
+	difficulty = Difficulty.Normal
+	max_life = 6 if debug else 3
+	current_life = 6 if debug else 3
+	current_gems = [debug or false, debug or false, debug or false, debug or false] # green: float, blue: swim, purple: dodge, yellow: shield
+	gems_inserted = [false, false, false, false]
+	level_2_heart_collected = false
+	level_3_heart_collected = false
+	level_14_heart_collected = false
+
 func continue_game():
 	load_game()
 
@@ -83,6 +102,7 @@ func save_game():
 		"visited_dracula_ending": visited_dracula_ending,
 		"opened_center_court_door": opened_center_court_door,
 		"max_life": max_life,
+		"difficulty": difficulty,
 		"current_life": current_life,
 		"current_gems": current_gems,
 		"gems_inserted": gems_inserted,
@@ -100,6 +120,7 @@ func load_game():
 	var content = file.get_as_text()
 	var game_data = str_to_var(content)
 	current_level = game_data["current_level"]
+	difficulty = game_data["difficulty"]
 	last_portal_location = game_data["last_portal_location"]
 	visited_dracula_entrance = game_data["visited_dracula_entrance"]
 	visited_dracula_center = game_data["visited_dracula_center"]
@@ -115,6 +136,16 @@ func load_game():
 	var world = World.instantiate()
 	world.upcoming_destination_address = last_portal_location
 	get_parent().add_child(world)
+
+func set_difficulty_level(level: Difficulty) -> void:
+	reset_game()
+	difficulty = level
+	if difficulty == Difficulty.Easy:
+		max_life = 5
+		current_life = 5
+	elif difficulty == Difficulty.Hard:
+		max_life = 2
+		current_life = 2
 
 func increase_volume_music():
 	if music_volume < 10:
@@ -166,12 +197,10 @@ func add_to_level(obj) -> void:
 	level.call_deferred("add_child", obj)
 
 func show_system_message(text:Array[String], callback:Callable) -> void:
-#	get_tree().paused = true
 	callback_after_pause = callback
 	emit_signal("system_message", text)
 
 func resume_play() -> void:
-#	get_tree().paused = false
 	if callback_after_pause != null:
 		callback_after_pause.call()
 		callback_after_pause = func():

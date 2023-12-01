@@ -35,6 +35,7 @@ gdscript/warnings/unused_parameter=0
 
 window/size/viewport_width=416
 window/size/viewport_height=256
+window/size/mode=3
 window/size/window_width_override=1664
 window/size/window_height_override=1024
 window/stretch/mode="viewport"
@@ -136,7 +137,8 @@ pause={
 2d_physics/layer_10="Water"
 2d_physics/layer_11="SoftCollision"
 2d_physics/layer_12="MovingPlatform"
-2d_physics/layer_13="ResizeBoxBoss"
+2d_physics/layer_13="ResizeBoxDmgSender"
+2d_physics/layer_14="ResizeBoxDmgReceiver"
 
 [rendering]
 

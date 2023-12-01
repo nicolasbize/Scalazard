@@ -39,7 +39,7 @@ collision_mask = 0
 polygon = PackedVector2Array(-17, 0, -11, -2, 11, -2, 18, 0)
 
 [node name="Sign" parent="." instance=ExtResource("2_dmeki")]
-text = "Each of these doors seem to have a socket"
+text = "Each of these doors seems to have a socket"
 
 [node name="Sprite2D" parent="Sign" index="0"]
 visible = false

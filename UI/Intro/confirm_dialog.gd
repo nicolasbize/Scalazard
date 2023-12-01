@@ -21,6 +21,9 @@ func _process(delta):
 		if confirm_override:
 			emit_signal("override_save")
 		queue_free()
+	if Input.is_action_just_pressed("ui_cancel"):
+		GameSounds.play(GameSounds.Sound.MenuSelect)
+		queue_free()
 	refresh_ui()
 
 func refresh_ui():

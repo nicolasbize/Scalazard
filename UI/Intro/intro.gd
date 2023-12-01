@@ -11,6 +11,7 @@ const OptionsScreen = preload("res://UI/Intro/options_screen.tscn")
 const ConfirmOverride = preload("res://UI/Intro/confirm_dialog.tscn")
 const PreGameIntro = preload("res://UI/Intro/pre_game_intro.tscn")
 const LoadingScreen = preload("res://UI/loading_screen.tscn")
+const DifficultyPicker = preload("res://UI/difficulty_picker.tscn")
 
 signal new_game
 
@@ -23,6 +24,7 @@ var in_menu := false
 var in_credits := false
 var current_menu_selected_index := 0
 var options_screen = null
+var difficulty_picker = null
 var confirmation_screen = null
 var intro_screen = null
 var continue_available := false
@@ -73,7 +75,7 @@ func _process(delta):
 	elif in_credits:
 		if Input.is_action_just_pressed("jump") or Input.is_action_just_pressed("ui_cancel") or Input.is_action_just_pressed("ui_accept"):
 			credits_animation_player.play("stop-credits")
-	elif in_menu and options_screen == null and confirmation_screen == null and intro_screen == null:
+	elif in_menu and options_screen == null and confirmation_screen == null and intro_screen == null and difficulty_picker == null:
 		if Input.is_action_just_pressed("ui_up"):
 			select_entry(-1)
 		elif Input.is_action_just_pressed("ui_down"):
@@ -126,6 +128,17 @@ func enter_selection() -> void:
 		get_tree().quit()
 
 func intro_new_game():
+	difficulty_picker = DifficultyPicker.instantiate()
+	difficulty_picker.connect("leave", show_intro_cinematic.bind())
+	difficulty_picker.connect("cancel", remove_difficulty_picker.bind())
+	add_child(difficulty_picker)
+
+func remove_difficulty_picker():
+	if difficulty_picker != null:
+		difficulty_picker.queue_free()
+
+func show_intro_cinematic():
+	remove_difficulty_picker()
 	intro_screen = PreGameIntro.instantiate()
 	intro_screen.connect("complete", start_new_game.bind())
 	add_child(intro_screen)

@@ -22,7 +22,10 @@ var player = null
 func _ready():
 	player_detection_area.connect("body_entered", on_body_enter.bind())
 	player_detection_area.connect("body_exited", on_body_exit.bind())
-
+	if GameState.difficulty == GameState.Difficulty.Easy:
+		ms_before_collapse = 1300
+	elif GameState.difficulty == GameState.Difficulty.Hard:
+		ms_before_collapse = 700
 
 func on_body_exit(body):
 	player = null

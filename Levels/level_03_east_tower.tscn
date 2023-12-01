@@ -116,7 +116,6 @@ fireball_speed = 90.0
 
 [node name="Trap3" parent="." instance=ExtResource("8_bug65")]
 position = Vector2(56, -555)
-frequency_secs = 2.0
 fireball_speed = 80.0
 
 [node name="Chandelier" parent="." instance=ExtResource("9_era5n")]

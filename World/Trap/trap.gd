@@ -14,6 +14,12 @@ const Fireball = preload("res://FX/Fireball/fireball.tscn")
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	timer.connect("timeout", on_timer_timeout.bind())
+	if GameState.difficulty == GameState.Difficulty.Easy:
+		frequency_secs *= 1.2
+		fireball_speed *= 0.8
+	elif GameState.difficulty == GameState.Difficulty.Hard:
+		frequency_secs *= .8
+		fireball_speed *= 1.2
 	if firing:
 		start_firing()
 

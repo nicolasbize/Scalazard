@@ -501,7 +501,7 @@ collision_mask = 5
 
 [node name="DamageDealerArea" parent="." instance=ExtResource("5_d3ori")]
 collision_layer = 4128
-collision_mask = 320
+collision_mask = 8512
 damage = 10
 
 [node name="CollisionShape2D" parent="DamageDealerArea" index="0"]

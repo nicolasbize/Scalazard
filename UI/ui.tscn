@@ -1,8 +1,10 @@
-[gd_scene load_steps=23 format=3 uid="uid://bghj8ckgg3qp8"]
+[gd_scene load_steps=25 format=3 uid="uid://bghj8ckgg3qp8"]
 
 [ext_resource type="Script" path="res://UI/ui.gd" id="1_hpx26"]
 [ext_resource type="PackedScene" uid="uid://bts8movh5pt4p" path="res://UI/full_heart.tscn" id="2_dn7ha"]
+[ext_resource type="Texture2D" uid="uid://bctnpflksio0p" path="res://UI/boss-health-border.png" id="4_vmgvw"]
 [ext_resource type="Texture2D" uid="uid://8gwd2d3y715d" path="res://UI/black-strip.png" id="5_wun5f"]
+[ext_resource type="Texture2D" uid="uid://bvro5mawie3x6" path="res://UI/boss-health.png" id="5_xf8t0"]
 [ext_resource type="Texture2D" uid="uid://ui05kbutkhds" path="res://UI/panel-borders.png" id="5_xu4p7"]
 [ext_resource type="FontFile" uid="uid://bumvrs8w2btcl" path="res://Assets/runescape_uf.ttf" id="6_54w6s"]
 [ext_resource type="FontFile" uid="uid://dwjsu8m55nl55" path="res://Assets/04B_03__.TTF" id="7_3s712"]
@@ -244,6 +246,21 @@ _data = {
 "out": SubResource("Animation_gvt8v")
 }
 
+[sub_resource type="Animation" id="Animation_2s0ky"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextureRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
 [sub_resource type="Animation" id="Animation_qntg6"]
 resource_name = "fade_to_black"
 length = 2.0
@@ -274,21 +291,6 @@ tracks/1/keys = {
 }]
 }
 
-[sub_resource type="Animation" id="Animation_2s0ky"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("TextureRect:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_64tud"]
 _data = {
 "RESET": SubResource("Animation_2s0ky"),
@@ -311,18 +313,64 @@ theme_override_constants/margin_top = 8
 [node name="VBoxContainer" type="VBoxContainer" parent="GameUI"]
 layout_mode = 2
 
-[node name="LifeContainer" type="HBoxContainer" parent="GameUI/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="GameUI/VBoxContainer"]
+layout_mode = 2
+
+[node name="LifeContainer" type="HBoxContainer" parent="GameUI/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(243, 0)
 layout_mode = 2
 theme_override_constants/separation = 3
 
-[node name="FullHeart" parent="GameUI/VBoxContainer/LifeContainer" instance=ExtResource("2_dn7ha")]
+[node name="FullHeart" parent="GameUI/VBoxContainer/HBoxContainer/LifeContainer" instance=ExtResource("2_dn7ha")]
 layout_mode = 2
 
-[node name="FullHeart2" parent="GameUI/VBoxContainer/LifeContainer" instance=ExtResource("2_dn7ha")]
+[node name="FullHeart2" parent="GameUI/VBoxContainer/HBoxContainer/LifeContainer" instance=ExtResource("2_dn7ha")]
 layout_mode = 2
 
-[node name="FullHeart3" parent="GameUI/VBoxContainer/LifeContainer" instance=ExtResource("2_dn7ha")]
+[node name="FullHeart3" parent="GameUI/VBoxContainer/HBoxContainer/LifeContainer" instance=ExtResource("2_dn7ha")]
 layout_mode = 2
+
+[node name="FullHeart4" parent="GameUI/VBoxContainer/HBoxContainer/LifeContainer" instance=ExtResource("2_dn7ha")]
+layout_mode = 2
+
+[node name="FullHeart5" parent="GameUI/VBoxContainer/HBoxContainer/LifeContainer" instance=ExtResource("2_dn7ha")]
+layout_mode = 2
+
+[node name="FullHeart6" parent="GameUI/VBoxContainer/HBoxContainer/LifeContainer" instance=ExtResource("2_dn7ha")]
+layout_mode = 2
+
+[node name="FullHeart7" parent="GameUI/VBoxContainer/HBoxContainer/LifeContainer" instance=ExtResource("2_dn7ha")]
+layout_mode = 2
+
+[node name="EnemyLifeContainer" type="Control" parent="GameUI/VBoxContainer/HBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(155, 0)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="GameUI/VBoxContainer/HBoxContainer/EnemyLifeContainer"]
+layout_mode = 0
+offset_right = 44.0
+offset_bottom = 19.0
+theme_override_colors/font_color = Color(0.709804, 0.709804, 0.709804, 1)
+theme_override_fonts/font = ExtResource("7_3s712")
+text = "ENEMY"
+
+[node name="TextureRect" type="TextureRect" parent="GameUI/VBoxContainer/HBoxContainer/EnemyLifeContainer"]
+layout_mode = 0
+offset_left = 52.0
+offset_right = 154.0
+offset_bottom = 12.0
+texture = ExtResource("4_vmgvw")
+stretch_mode = 2
+
+[node name="EnemyHealthBar" type="TextureRect" parent="GameUI/VBoxContainer/HBoxContainer/EnemyLifeContainer"]
+layout_mode = 0
+offset_left = 53.0
+offset_top = 1.0
+offset_right = 153.0
+offset_bottom = 12.0
+texture = ExtResource("5_xf8t0")
+stretch_mode = 1
 
 [node name="Container" type="Control" parent="GameUI/VBoxContainer"]
 custom_minimum_size = Vector2(0, 140)

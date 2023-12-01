@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
 signal die
+signal hit
 
 const HitSpark = preload("res://FX/HitSpark/hit_spark.tscn")
 const Thunder := preload("res://FX/Thunder/thunder.tscn")
@@ -11,6 +12,7 @@ const Thunder := preload("res://FX/Thunder/thunder.tscn")
 @onready var damage_receiver_area := $DamageReceiverArea
 @onready var damage_dealer_area := $DamageDealerArea
 
+@export var max_life_boss := 3
 @export var current_life := 3
 @export var walk_speed := 70.0
 @export var acceleration := 600.0
@@ -20,7 +22,7 @@ const Thunder := preload("res://FX/Thunder/thunder.tscn")
 var player = null
 var direction := 1.0
 var time_since_last_hit := -1
-var time_between_hits := 300
+var time_between_hits := 1500
 var time_start_attack = -1
 var ticks_since_last_thunder := -1
 var max_ticks_between_thunder := 4000
@@ -42,6 +44,12 @@ const anim_states = {
 
 func _ready():
 	damage_receiver_area.connect("hit", on_enemy_hit.bind())
+	if GameState.difficulty == GameState.Difficulty.Easy:
+		max_life_boss = 2
+		current_life = 2
+	elif GameState.difficulty == GameState.Difficulty.Hard:
+		max_life_boss = 3
+		current_life = 3
 
 func _physics_process(delta):
 	if player != null:
@@ -98,11 +106,14 @@ func on_enemy_hit(dmg:int, direction_knockback:float) -> void:
 	if Time.get_ticks_msec() - time_since_last_hit > time_between_hits:
 		time_since_last_hit = Time.get_ticks_msec()
 		current_life -= 1 if dmg > 5 else 0
-		if dmg > 5 and damage_receiver_area.has_overlapping_areas():
-			for area in damage_receiver_area.get_overlapping_areas():
-				var damage_origin = area.get_parent()
-				if damage_origin.is_in_group("boxresize"):
-					damage_origin.queue_free()
+		emit_signal("hit", current_life + 1, current_life)
+		if dmg > 5:
+			# delete closest boxresize
+			var boxresizes = get_tree().get_nodes_in_group("boxresize")
+			if boxresizes.size() > 1:
+				print("ohh no")
+			else:
+				boxresizes[0].queue_free()
 		if current_life > 0:
 			state = State.Hurt
 		else:

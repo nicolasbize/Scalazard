@@ -12,6 +12,10 @@ extends Node2D
 var is_vertical_trap_running := false
 
 func _ready():
+	if GameState.difficulty == GameState.Difficulty.Easy:
+		vertical_trap_speed = 12.0
+	elif GameState.difficulty == GameState.Difficulty.Hard:
+		vertical_trap_speed = 20.0
 	fire_trigger.connect("press", on_fire_trigger_press.bind())
 	stop_fire_trigger.connect("press", on_stop_fire_trigger_press.bind())
 	vertical_trap_trigger.connect("press", on_vertical_trap_press.bind())

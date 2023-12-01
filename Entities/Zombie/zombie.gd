@@ -52,6 +52,16 @@ func _ready():
 	player_detection_area.connect("body_exited", on_player_exit.bind())
 	damage_receiver_area.connect("hit", on_enemy_hit.bind())
 	death_timer.connect("timeout", on_death_timer_timeout.bind())
+	if GameState.difficulty == GameState.Difficulty.Easy:
+		speed_walk = 20.0
+		speed_run = 40.0
+		ms_between_hits = 2000
+		current_life = 1
+	elif GameState.difficulty == GameState.Difficulty.Hard:
+		speed_walk = 50.0
+		speed_run = 70.0
+		ms_between_hits = 1000
+		current_life = 3
 
 func on_player_enter(body):
 	if current_life > 0:

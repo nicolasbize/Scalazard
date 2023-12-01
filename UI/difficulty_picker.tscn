@@ -1,0 +1,112 @@
+[gd_scene load_steps=6 format=3 uid="uid://cykk2k83aw1ko"]
+
+[ext_resource type="Texture2D" uid="uid://lle8864nud2w" path="res://UI/menu-panel-border.png" id="1_cbxwe"]
+[ext_resource type="Script" path="res://UI/difficulty_picker.gd" id="1_trh87"]
+[ext_resource type="FontFile" uid="uid://bumvrs8w2btcl" path="res://Assets/runescape_uf.ttf" id="2_5bfe7"]
+[ext_resource type="Texture2D" uid="uid://bjlkaugfalxx6" path="res://UI/Intro/yellow-square.png" id="4_q0yc2"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_l6l63"]
+texture = ExtResource("1_cbxwe")
+texture_margin_left = 2.0
+texture_margin_top = 2.0
+texture_margin_right = 2.0
+texture_margin_bottom = 2.0
+
+[node name="DifficultyPicker" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_trh87")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 28
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 28
+
+[node name="Panel" type="Panel" parent="MarginContainer"]
+custom_minimum_size = Vector2(366, 200)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_l6l63")
+
+[node name="DifficultyLabel" type="Label" parent="MarginContainer/Panel"]
+layout_mode = 2
+offset_left = 13.0
+offset_top = 16.0
+offset_right = 216.0
+offset_bottom = 35.0
+theme_override_colors/font_color = Color(0.878431, 0.647059, 0.490196, 1)
+theme_override_fonts/font = ExtResource("2_5bfe7")
+text = "Please pick a level of difficulty:"
+
+[node name="EasyLabel" type="Label" parent="MarginContainer/Panel"]
+layout_mode = 2
+offset_left = 39.0
+offset_top = 48.0
+offset_right = 171.0
+offset_bottom = 67.0
+theme_override_colors/font_color = Color(0.878431, 0.647059, 0.490196, 1)
+theme_override_fonts/font = ExtResource("2_5bfe7")
+text = "Easy"
+
+[node name="DifficultyLabel3" type="Label" parent="MarginContainer/Panel"]
+layout_mode = 2
+offset_left = 39.0
+offset_top = 64.0
+offset_right = 338.0
+offset_bottom = 83.0
+theme_override_colors/font_color = Color(0.745098, 0.498039, 0.32549, 1)
+theme_override_fonts/font = ExtResource("2_5bfe7")
+text = "The fun without the thrills!"
+
+[node name="NormalLabel" type="Label" parent="MarginContainer/Panel"]
+layout_mode = 2
+offset_left = 39.0
+offset_top = 88.0
+offset_right = 171.0
+offset_bottom = 107.0
+theme_override_colors/font_color = Color(0.878431, 0.647059, 0.490196, 1)
+theme_override_fonts/font = ExtResource("2_5bfe7")
+text = "Normal"
+
+[node name="DifficultyLabel4" type="Label" parent="MarginContainer/Panel"]
+layout_mode = 2
+offset_left = 39.0
+offset_top = 104.0
+offset_right = 338.0
+offset_bottom = 123.0
+theme_override_colors/font_color = Color(0.745098, 0.498039, 0.32549, 1)
+theme_override_fonts/font = ExtResource("2_5bfe7")
+text = "The way it was meant to be played!"
+
+[node name="HardLabel" type="Label" parent="MarginContainer/Panel"]
+layout_mode = 2
+offset_left = 39.0
+offset_top = 128.0
+offset_right = 171.0
+offset_bottom = 147.0
+theme_override_colors/font_color = Color(0.878431, 0.647059, 0.490196, 1)
+theme_override_fonts/font = ExtResource("2_5bfe7")
+text = "Hard"
+
+[node name="DifficultyLabel5" type="Label" parent="MarginContainer/Panel"]
+layout_mode = 2
+offset_left = 39.0
+offset_top = 144.0
+offset_right = 338.0
+offset_bottom = 163.0
+theme_override_colors/font_color = Color(0.745098, 0.498039, 0.32549, 1)
+theme_override_fonts/font = ExtResource("2_5bfe7")
+text = "No pain, no gain!"
+
+[node name="SelectionIndicator" type="TextureRect" parent="."]
+offset_left = 49.0
+offset_top = 79.0
+offset_right = 57.0
+offset_bottom = 87.0
+texture = ExtResource("4_q0yc2")

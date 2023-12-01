@@ -28,6 +28,10 @@ var velocity := Vector2.ZERO
 func _ready():
 	damage_receiver_area.connect("hit", on_enemy_hit.bind())
 	player_detection_areas.connect("body_entered", on_player_enter.bind())
+	if GameState.difficulty == GameState.Difficulty.Easy:
+		fly_speed = 40.0
+	elif GameState.difficulty == GameState.Difficulty.Hard:
+		fly_speed = 70.0
 
 func on_player_enter(body):
 	player = body

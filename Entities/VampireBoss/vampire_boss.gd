@@ -4,6 +4,7 @@ extends Node2D
 @export var flight_speed := 60.0
 @export var angle_coverage_angle_deg := 110
 @export var speed_laser := 0.5
+@export var max_life_boss := 3
 @export var current_life := 3
 @export var ticks_vulnerable := 9000
 
@@ -18,6 +19,7 @@ extends Node2D
 @onready var enemy_beam_source := $EnemyBeamSource
 
 signal die
+signal hit
 
 const EnergyBall = preload("res://FX/EnergyBall/energy_ball.tscn")
 const HitSpark = preload("res://FX/HitSpark/hit_spark.tscn")
@@ -65,6 +67,14 @@ func _ready():
 	destination = global_position
 	destination = pick_new_destination()
 	origin_y = global_position.y
+	if GameState.difficulty == GameState.Difficulty.Easy:
+		max_life_boss = 2
+		current_life = 2
+		speed_laser = 0.3
+	elif GameState.difficulty == GameState.Difficulty.Hard:
+		max_life_boss = 5
+		current_life = 5
+		speed_laser = 0.7
 
 func _physics_process(delta):
 	damage_dealer_area.monitoring = current_life > 0
@@ -137,6 +147,7 @@ func on_enemy_hit(dmg:int, direction_knockback:float) -> void:
 	hit_spark.global_position = global_position + Vector2.UP * 16
 	if dmg > 5:
 		current_life -= 1
+		emit_signal("hit", current_life + 1, current_life)
 		if current_life == 0:
 			state = State.Dying
 		else:

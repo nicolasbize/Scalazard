@@ -107,5 +107,8 @@ address_in_level = 6
 destination_level = 6
 destination_address = 2
 
+[node name="EnemySpawnTimer" type="Timer" parent="."]
+one_shot = true
+
 [editable path="WaterBody2"]
 [editable path="WaterBody3"]

@@ -58,6 +58,10 @@ func _ready():
 	attack_area.connect("body_entered", on_player_hittable.bind())
 	damage_receiver_area.connect("hit", on_enemy_hit.bind())
 	death_timer.connect("timeout", on_death_timer_timeout.bind())
+	if GameState.difficulty == GameState.Difficulty.Easy:
+		current_life = 1
+	elif GameState.difficulty == GameState.Difficulty.Hard:
+		current_life = 3
 
 func on_enemy_hit(dmg:int, direction_knockback:float) -> void:
 	var knock = knockback_intensity

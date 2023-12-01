@@ -16,6 +16,10 @@ func _ready():
 	curve.add_point(line.points[1], Vector2.ZERO, Vector2.ZERO)
 	curve.add_point(Vector2.ZERO, Vector2.ZERO, Vector2.ZERO)
 	calculate_progress()
+	if GameState.difficulty == GameState.Difficulty.Easy:
+		speed_platform *= 1.2
+	elif GameState.difficulty == GameState.Difficulty.Hard:
+		speed_platform *= 0.8
 
 func start():
 	is_running = true

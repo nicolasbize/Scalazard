@@ -218,6 +218,7 @@ bus = &"SFX"
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="HeroHurt"]
 stream = ExtResource("19_lt6eh")
+volume_db = -10.0
 bus = &"SFX"
 
 [node name="Jump" parent="." instance=ExtResource("3_s1m8x")]

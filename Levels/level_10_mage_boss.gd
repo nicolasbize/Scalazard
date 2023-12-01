@@ -1,7 +1,11 @@
 extends Node2D
 
+signal boss_fight_start
+signal boss_fight_end
+signal boss_life_change
+
 @export var number_shakes := 4
-@export var max_ticks_between_thunder := 3000
+@export var max_ticks_between_thunder := 4000
 @export var slowdown_duration := 2000
 
 @onready var player_detection_area := $PlayerDetectionArea
@@ -23,6 +27,7 @@ var player = null
 var previous_spawn : Node2D = null
 var current_spawn_index := 0
 var nb_thunders := 1
+var max_life_boss := 3
 var life_boss := 3
 var ticks_since_last_thunder := Time.get_ticks_msec()
 var is_teleporting := false
@@ -32,6 +37,14 @@ const Thunder := preload("res://FX/Thunder/thunder.tscn")
 const HitSpark := preload("res://FX/HitSpark/hit_spark.tscn")
 
 func _ready():
+	if GameState.difficulty == GameState.Difficulty.Easy:
+		max_life_boss = 2
+		life_boss = 2
+		max_ticks_between_thunder = 6000
+	elif GameState.difficulty == GameState.Difficulty.Hard:
+		max_life_boss = 4
+		life_boss = 4
+		max_ticks_between_thunder = 2000
 	if GameState.current_gems[treasure_chest.content]:
 		treasure_chest.visible = true
 		treasure_chest.is_opened = true
@@ -53,6 +66,7 @@ func _process(delta):
 		mage_animation_player.play("cast")
 	if completed_level and (Time.get_ticks_msec() - time_slow_down > slowdown_duration):
 		Engine.time_scale = 1
+		emit_signal("boss_fight_end")
 
 func on_player_close(body):
 	mage_animation_player.play("teleport")
@@ -111,9 +125,14 @@ func on_timer_timeout():
 		trap.start_firing()
 		mage_boss.global_position = spawns[2].global_position
 		GameMusic.play_track(GameMusic.Track.Boss, false)
+		emit_signal("boss_fight_start")
 		
 func on_mage_hit():
 	life_boss -= 1
+	var enemy_health_tick = 100.0 / max_life_boss
+	var old_health = enemy_health_tick * (life_boss + 1)
+	var new_health = enemy_health_tick * (life_boss)
+	emit_signal("boss_life_change", old_health, new_health)
 	GameState.emit_signal("hit_received")
 	var hit_spark = HitSpark.instantiate()
 	GameState.add_to_level(hit_spark)

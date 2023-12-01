@@ -1,5 +1,9 @@
 extends Node2D
 
+signal boss_fight_start
+signal boss_fight_end
+signal boss_life_change
+
 @export var number_shakes := 4
 @export var slowdown_duration := 2000
 
@@ -26,13 +30,18 @@ func _ready():
 	else:
 		player_detection_area.connect("body_entered", on_player_enter.bind())
 		boss.connect("die", on_boss_die.bind())
+		boss.connect("hit", on_boss_hit.bind())
 	timer.connect("timeout", on_timer_timeout.bind())
 
+func on_boss_hit(old_health, new_health):
+	var enemy_health_tick = 100.0 / boss.max_life_boss
+	emit_signal("boss_life_change", enemy_health_tick * old_health, enemy_health_tick * new_health)
 
 func on_player_enter(body):
 	player = body
 	door.close()
 	GameMusic.play_track(GameMusic.Track.Boss, false)
+	emit_signal("boss_fight_start")
 	player_detection_area.set_deferred("monitoring", false)
 	get_viewport().get_camera_2d().lock_to_target(Vector2(-288, -96))
 	for trap in traps:
@@ -42,6 +51,7 @@ func on_player_enter(body):
 func _process(delta):
 	if completed_level and (Time.get_ticks_msec() - time_slow_down > slowdown_duration):
 		Engine.time_scale = 1
+		emit_signal("boss_fight_end")
 		
 func on_timer_timeout():
 	if timed_out_count < number_shakes:
