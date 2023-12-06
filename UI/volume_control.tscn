@@ -14,6 +14,7 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.878431, 0.647059, 0.490196, 1)
 theme_override_fonts/font = ExtResource("1_gepvc")
 text = "Music Volume"
+vertical_alignment = 1
 
 [node name="Control" type="Control" parent="."]
 custom_minimum_size = Vector2(20, 0)

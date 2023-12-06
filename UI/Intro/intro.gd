@@ -31,6 +31,7 @@ var continue_available := false
 var start_with_credits := false
 
 func _ready():
+	GameState.load_settings_from_file()
 	anim_index = 9 if GameState.skip_splash else 0
 	check_valid_save_game()
 	select_entry(0, true)

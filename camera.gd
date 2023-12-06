@@ -62,4 +62,5 @@ func calculate_target_destination() -> void:
 	target_destination = target
 	
 func screen_shake():
-	shake_strength = shake_intensity
+	if GameState.is_screen_shake_enabled:
+		shake_strength = shake_intensity

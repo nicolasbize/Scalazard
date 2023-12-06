@@ -1,9 +1,26 @@
-[gd_scene load_steps=8 format=3 uid="uid://cvkkrx584kb1n"]
+[gd_scene load_steps=10 format=3 uid="uid://cvkkrx584kb1n"]
 
 [ext_resource type="Texture2D" uid="uid://dmanqy5db0e6f" path="res://UI/Intro/black-background.png" id="1_qgsx1"]
 [ext_resource type="Script" path="res://UI/Intro/options_screen.gd" id="1_ux38b"]
 [ext_resource type="FontFile" uid="uid://bumvrs8w2btcl" path="res://Assets/runescape_uf.ttf" id="2_50l4f"]
 [ext_resource type="PackedScene" uid="uid://bn2naqxvcohry" path="res://UI/volume_control.tscn" id="4_eevnn"]
+[ext_resource type="PackedScene" uid="uid://pgjlhu5ix58g" path="res://UI/screen_shake_control.tscn" id="5_3map2"]
+[ext_resource type="Script" path="res://UI/screen_shake_control.gd" id="6_kttwg"]
+
+[sub_resource type="Animation" id="Animation_ytxy8"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextureRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_2xow1"]
 resource_name = "start"
@@ -20,21 +37,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_ytxy8"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("TextureRect:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_q4ttg"]
@@ -78,16 +80,6 @@ theme_override_colors/font_color = Color(0.878431, 0.647059, 0.490196, 1)
 theme_override_fonts/font = ExtResource("2_50l4f")
 theme_override_font_sizes/font_size = 32
 text = "Options"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Label2" type="Label" parent="TextureRect/MarginContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.878431, 0.647059, 0.490196, 1)
-theme_override_fonts/font = ExtResource("2_50l4f")
-theme_override_font_sizes/font_size = 16
-horizontal_alignment = 1
-vertical_alignment = 1
 
 [node name="MusicVolumeControl" parent="TextureRect/MarginContainer/VBoxContainer" instance=ExtResource("4_eevnn")]
 layout_mode = 2
@@ -97,6 +89,10 @@ layout_mode = 2
 
 [node name="Label" parent="TextureRect/MarginContainer/VBoxContainer/SoundVolumeControl" index="0"]
 text = "Sound Volume"
+
+[node name="ScreenShakeControl" parent="TextureRect/MarginContainer/VBoxContainer" instance=ExtResource("5_3map2")]
+layout_mode = 2
+script = ExtResource("6_kttwg")
 
 [node name="Control" type="Control" parent="TextureRect/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(20, 20)

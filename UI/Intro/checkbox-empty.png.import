@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://devqhwi4cdeo2"
-path="res://.godot/imported/Dungeon Tile Set.png-b12fa3bbb4f93c162cdbea1436680023.ctex"
+uid="uid://cqfs07wta83oq"
+path="res://.godot/imported/checkbox-empty.png-d6c5e4aaadd3b6e94e1173e4f8f6ee8b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://World/Dungeon Tile Set.png"
-dest_files=["res://.godot/imported/Dungeon Tile Set.png-b12fa3bbb4f93c162cdbea1436680023.ctex"]
+source_file="res://UI/Intro/checkbox-empty.png"
+dest_files=["res://.godot/imported/checkbox-empty.png-d6c5e4aaadd3b6e94e1173e4f8f6ee8b.ctex"]
 
 [params]
 

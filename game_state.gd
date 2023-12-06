@@ -33,7 +33,7 @@ var Levels = {
 	Level.LastFight: preload("res://Levels/level_17_last_fight.tscn"),
 }
 
-var debug := false
+var debug := true
 var skip_splash := debug or false
 var skip_intro := debug or false
 var web_instantiated := false
@@ -55,7 +55,7 @@ var level_14_heart_collected := false
 var music_volume := 8
 var sound_volume := 8
 
-var screen_shake := true
+var is_screen_shake_enabled := true
 var is_starting_game_from_load_file := false
 var callback_after_pause : Callable
 
@@ -63,6 +63,7 @@ const DEFAULT_COLOR = "e0a57d"
 const SELECTION_COLOR = "f2e4a2"
 const DISABLED_COLOR = "cccccc"
 const SAVE_FILE_LOCATION := "user://merlin.data"
+const SETTINGS_FILE_LOCATION := "user://merlin-settings.data"
 
 
 func start_game():
@@ -109,10 +110,17 @@ func save_game():
 		"level_2_heart_collected": level_2_heart_collected,
 		"level_3_heart_collected": level_3_heart_collected,
 		"level_14_heart_collected": level_14_heart_collected,
-		"music_volume": music_volume,
-		"sound_volume": sound_volume,
 	}
 	var file = FileAccess.open(GameState.SAVE_FILE_LOCATION, FileAccess.WRITE)
+	file.store_line(var_to_str(save_data))
+
+func save_settings_to_file():
+	var save_data = {
+		"sound_volume": sound_volume,
+		"music_volume": music_volume,
+		"is_screen_shake_enabled": visited_dracula_entrance,
+	}
+	var file = FileAccess.open(GameState.SETTINGS_FILE_LOCATION, FileAccess.WRITE)
 	file.store_line(var_to_str(save_data))
 
 func load_game():
@@ -136,6 +144,16 @@ func load_game():
 	var world = World.instantiate()
 	world.upcoming_destination_address = last_portal_location
 	get_parent().add_child(world)
+
+func load_settings_from_file():
+	var file = FileAccess.open(GameState.SETTINGS_FILE_LOCATION, FileAccess.READ)
+	if file == null:
+		return
+	var content = file.get_as_text()
+	var game_data = str_to_var(content)
+	sound_volume = game_data["sound_volume"]
+	music_volume = game_data["music_volume"]
+	is_screen_shake_enabled = game_data["is_screen_shake_enabled"]
 
 func set_difficulty_level(level: Difficulty) -> void:
 	reset_game()

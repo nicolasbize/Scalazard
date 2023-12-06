@@ -4,24 +4,27 @@ extends Control
 
 @onready var music_volume_control := $TextureRect/MarginContainer/VBoxContainer/MusicVolumeControl
 @onready var sound_volume_control := $TextureRect/MarginContainer/VBoxContainer/SoundVolumeControl
+@onready var screen_shake_control := $TextureRect/MarginContainer/VBoxContainer/ScreenShakeControl
 @onready var return_label := $TextureRect/MarginContainer/VBoxContainer/ReturnLabel
 @onready var quit_label := $TextureRect/MarginContainer/VBoxContainer/QuitLabel
 @onready var top_label := $TextureRect/MarginContainer/VBoxContainer/TopLabel
 
 var menu_selected := 0
-var nb_menu_items := 4 if in_game else 3
+var nb_menu_items := 5 if in_game else 4
 
 signal leave
 signal quit
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	GameState.load_settings_from_file()
 	refresh_ui()
-	nb_menu_items = 4 if in_game else 3
+	nb_menu_items = 5 if in_game else 4
 
 func refresh_ui():
 	music_volume_control.deselect()
 	sound_volume_control.deselect()
+	screen_shake_control.deselect()
 	return_label.add_theme_color_override("font_color", GameState.DEFAULT_COLOR)
 	quit_label.add_theme_color_override("font_color", GameState.DEFAULT_COLOR)
 	if menu_selected == 0:
@@ -29,11 +32,14 @@ func refresh_ui():
 	elif menu_selected == 1:
 		sound_volume_control.select()
 	elif menu_selected == 2:
+		screen_shake_control.select()
+	elif menu_selected == 3:
 		return_label.add_theme_color_override("font_color", GameState.SELECTION_COLOR)
 	else:
 		quit_label.add_theme_color_override("font_color", GameState.SELECTION_COLOR)
 	music_volume_control.set_value(GameState.music_volume)
 	sound_volume_control.set_value(GameState.sound_volume)
+	screen_shake_control.set_value(GameState.is_screen_shake_enabled)
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -53,12 +59,19 @@ func _process(delta):
 	elif Input.is_action_just_pressed("ui_left") and menu_selected < 2:
 		decrease_volume()
 	elif (Input.is_action_just_pressed("ui_accept") or Input.is_action_just_pressed("jump")) and menu_selected == 2:
-		GameSounds.play(GameSounds.Sound.MenuSelect)
-		emit_signal("leave")
+		toggle_screen_shake()
 	elif (Input.is_action_just_pressed("ui_accept") or Input.is_action_just_pressed("jump")) and menu_selected == 3:
 		GameSounds.play(GameSounds.Sound.MenuSelect)
+		GameState.save_settings_to_file()
+		emit_signal("leave")
+	elif (Input.is_action_just_pressed("ui_accept") or Input.is_action_just_pressed("jump")) and menu_selected == 4:
+		GameSounds.play(GameSounds.Sound.MenuSelect)
+		GameState.save_settings_to_file()
 		emit_signal("quit")
-	
+
+func toggle_screen_shake():
+	GameState.is_screen_shake_enabled = !GameState.is_screen_shake_enabled
+	refresh_ui()
 
 func increase_volume():
 	if menu_selected == 0:

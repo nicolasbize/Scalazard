@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://pgjlhu5ix58g"]
+
+[ext_resource type="FontFile" uid="uid://bumvrs8w2btcl" path="res://Assets/runescape_uf.ttf" id="1_tybr2"]
+[ext_resource type="Texture2D" uid="uid://cqfs07wta83oq" path="res://UI/Intro/checkbox-empty.png" id="2_jwnic"]
+
+[node name="ScreenShakeControl" type="HBoxContainer"]
+
+[node name="Label" type="Label" parent="."]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.878431, 0.647059, 0.490196, 1)
+theme_override_fonts/font = ExtResource("1_tybr2")
+text = "Screen Shake"
+vertical_alignment = 1
+
+[node name="Control" type="Control" parent="."]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+
+[node name="Checkbox" type="TextureRect" parent="."]
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("2_jwnic")
+stretch_mode = 2
