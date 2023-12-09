@@ -51,7 +51,7 @@ size = Vector2(64, 10.5)
 size = Vector2(64, 10.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_si3an"]
-size = Vector2(20, 56)
+size = Vector2(32, 64)
 
 [node name="Level-02-Entrance" type="Node2D" groups=["level"]]
 script = ExtResource("1_lq8s3")
@@ -242,7 +242,7 @@ collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CinematicPlayerDetectionArea"]
-position = Vector2(-16, -60)
+position = Vector2(-8, -56)
 shape = SubResource("RectangleShape2D_si3an")
 
 [node name="DraculaSpeechBubble" parent="." instance=ExtResource("14_366bo")]

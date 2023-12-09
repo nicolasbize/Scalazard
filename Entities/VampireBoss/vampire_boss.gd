@@ -2,7 +2,7 @@ extends Node2D
 
 @export var player : Player
 @export var flight_speed := 60.0
-@export var angle_coverage_angle_deg := 110
+@export var angle_coverage_angle_deg := 100
 @export var speed_laser := 0.5
 @export var max_life_boss := 3
 @export var current_life := 3
@@ -130,6 +130,11 @@ func _physics_process(delta):
 
 		if can_be_electrified and global_position.y == origin_y:
 			on_enemy_hit(1, 0)
+		
+		# stop laser if player is dead
+		if GameState.current_life == 0:
+			stop_laser()
+		
 		global_position += velocity
 		play_animation()
 
@@ -140,6 +145,7 @@ func notify_electric() -> void:
 func on_enemy_hit(dmg:int, direction_knockback:float) -> void:
 	if not can_get_hurt():
 		return
+	stop_laser()
 	time_last_hurt = Time.get_ticks_msec()
 	GameState.emit_signal("hit_received")
 	var hit_spark = HitSpark.instantiate()

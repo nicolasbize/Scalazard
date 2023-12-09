@@ -397,7 +397,7 @@ func splash():
 func on_player_hit(dmg:int, direction_knockback: float):
 	if state == State.Pickup:
 		return
-	if GameState.current_life > 0 and (dmg > 5 or (Time.get_ticks_msec() - time_since_last_hit) > min_time_between_hits):
+	if can_get_hit(dmg):
 		time_since_last_hit = Time.get_ticks_msec()
 		GameState.deal_hero_damage(dmg)
 		if GameState.current_life > 0:
@@ -408,6 +408,9 @@ func on_player_hit(dmg:int, direction_knockback: float):
 			damage_receiver_area.set_deferred("monitorable", false)
 			damage_dealer_area.set_deferred("monitoring", false)
 		create_wound_fx(direction_knockback)
+
+func can_get_hit(dmg):
+	return GameState.current_life > 0 and (dmg > 5 or (Time.get_ticks_msec() - time_since_last_hit) > min_time_between_hits)
 
 func create_wound_fx(direction_knockback: float):
 	knockback = Vector2(direction_knockback * knockback_intensity, 0)

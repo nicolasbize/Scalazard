@@ -822,7 +822,7 @@ offset_bottom = 690.0
 layout_mode = 2
 theme_override_colors/font_color = Color(0.94902, 0.894118, 0.635294, 1)
 theme_override_fonts/font = ExtResource("5_a8ya5")
-text = "Merlin
+text = "Merlin: Scale of the Magic
 
 "
 horizontal_alignment = 1

@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://cv60ovpgllfe5"]
+[gd_scene load_steps=21 format=3 uid="uid://cv60ovpgllfe5"]
 
 [ext_resource type="Script" path="res://Levels/level_05_center_court.gd" id="1_dag7s"]
 [ext_resource type="TileSet" uid="uid://ckdj8m24olhk1" path="res://Assets/tilemap.tres" id="1_exbwo"]
@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://48ldvq7nc3tr" path="res://Entities/Dracula/dracula.tscn" id="11_ibu37"]
 [ext_resource type="PackedScene" uid="uid://dapdl7vybm6je" path="res://UI/speech_bubble.tscn" id="12_pynj7"]
 [ext_resource type="PackedScene" uid="uid://yihlblm061l0" path="res://World/Chandelier/chandelier.tscn" id="13_nb7w8"]
+[ext_resource type="PackedScene" uid="uid://crfcy1ol7wgog" path="res://World/Sign/sign.tscn" id="14_6d0hw"]
 
 [sub_resource type="Shader" id="Shader_6b01h"]
 code = "shader_type canvas_item;
@@ -67,7 +68,7 @@ layer_2/modulate = Color(1, 1, 1, 1)
 layer_2/y_sort_enabled = false
 layer_2/y_sort_origin = 0
 layer_2/z_index = 0
-layer_2/tile_data = PackedInt32Array(-262123, 458752, 15, -196587, 458752, 16, -131051, 458752, 17, -327658, 524288, 14, -262122, 524288, 15, -196586, 524288, 16, -131050, 524288, 17, -262121, 589824, 15, -196585, 589824, 16, -131049, 589824, 17, -262126, 458752, 15, -196590, 458752, 16, -131054, 458752, 17, -327661, 524288, 14, -262125, 524288, 15, -196589, 524288, 16, -131053, 524288, 17, -262124, 589824, 15, -196588, 589824, 16, -131052, 589824, 17, -262119, 458752, 15, -196583, 458752, 16, -131047, 458752, 17, -327654, 524288, 14, -262118, 524288, 15, -196582, 524288, 16, -131046, 524288, 17, -262117, 589824, 15, -196581, 589824, 16, -131045, 589824, 17, -262116, 458752, 15, -196580, 458752, 16, -131044, 458752, 17, -327651, 524288, 14, -262115, 524288, 15, -196579, 524288, 16, -131043, 524288, 17, -262114, 589824, 15, -196578, 589824, 16, -131042, 589824, 17, 655396, 655360, 12, 917519, 458752, 10, -65491, 458752, 10, -851930, 458752, 10, 655395, 720896, 12, -720873, 458752, 12, 262164, 458752, 12, -655337, 458752, 13, -655335, 589824, 13, -720872, 524288, 12, -655336, 524288, 13, -720871, 589824, 12)
+layer_2/tile_data = PackedInt32Array(655396, 655360, 12, 917519, 458752, 10, -65491, 458752, 10, -851930, 458752, 10, 655395, 720896, 12, -720873, 458752, 12, 262164, 458752, 12, -655337, 458752, 13, -655335, 589824, 13, -720872, 524288, 12, -655336, 524288, 13, -720871, 589824, 12)
 
 [node name="Hero" parent="." instance=ExtResource("2_n88ay")]
 position = Vector2(40, 0)
@@ -154,18 +155,18 @@ shape = SubResource("RectangleShape2D_pfk56")
 position = Vector2(392, -16)
 
 [node name="GemDoorGreen" parent="." instance=ExtResource("10_lene8")]
-position = Vector2(288, -16)
+position = Vector2(312, -16)
 
 [node name="GemDoorBlue" parent="." instance=ExtResource("10_lene8")]
-position = Vector2(336, -16)
+position = Vector2(360, -16)
 gem_color = 1
 
 [node name="GemDoorPurple" parent="." instance=ExtResource("10_lene8")]
-position = Vector2(400, -16)
+position = Vector2(424, -16)
 gem_color = 2
 
 [node name="GemDoorYellow" parent="." instance=ExtResource("10_lene8")]
-position = Vector2(448, -16)
+position = Vector2(472, -16)
 gem_color = 3
 
 [node name="Dracula" parent="." instance=ExtResource("11_ibu37")]
@@ -244,6 +245,10 @@ default_color = Color(1, 0.968627, 0.619608, 1)
 
 [node name="PlatformTimer" type="Timer" parent="."]
 one_shot = true
+
+[node name="Sign" parent="." instance=ExtResource("14_6d0hw")]
+position = Vector2(448, 240)
+text = "Deep waters, beware!"
 
 [editable path="WaterBody"]
 [editable path="WaterBody2"]

@@ -282,6 +282,7 @@ shape = SubResource("RectangleShape2D_tiddi")
 
 [node name="DamageReceiverArea" parent="." instance=ExtResource("4_itt0m")]
 collision_layer = 256
+collision_mask = 0
 
 [node name="CollisionShape2D" parent="DamageReceiverArea" index="0"]
 position = Vector2(0, -13)

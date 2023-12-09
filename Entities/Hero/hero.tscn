@@ -258,7 +258,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.25),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [90, 91, 92, 93, 94, 95]
+"values": [90, 91, 92, 91, 92, 91]
 }
 tracks/1/type = "method"
 tracks/1/imported = false
@@ -899,7 +899,7 @@ target_position = Vector2(160, 0)
 
 [node name="DamageReceiverArea" parent="." instance=ExtResource("4_hm5gm")]
 position = Vector2(0, -12)
-collision_mask = 128
+collision_mask = 0
 
 [node name="CollisionShape2D" parent="DamageReceiverArea" index="0"]
 shape = SubResource("RectangleShape2D_fb7eb")

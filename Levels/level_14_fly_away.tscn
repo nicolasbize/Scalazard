@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://c050asgaadjxo"]
+[gd_scene load_steps=16 format=3 uid="uid://c050asgaadjxo"]
 
 [ext_resource type="TileSet" uid="uid://ckdj8m24olhk1" path="res://Assets/tilemap.tres" id="1_8k2t0"]
 [ext_resource type="Script" path="res://Levels/level_14_fly_away.gd" id="1_58kpq"]
@@ -6,7 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://crpye41vvqrt0" path="res://World/CollapsingPlatform/collapsing_platform.tscn" id="3_aya8q"]
 [ext_resource type="PackedScene" uid="uid://dwcrlgrxpc5qs" path="res://Entities/ResizableBox/big_box.tscn" id="4_w7a8h"]
 [ext_resource type="PackedScene" uid="uid://dma87nqv5u6l" path="res://Entities/Zombie/zombie.tscn" id="5_64vl5"]
-[ext_resource type="PackedScene" uid="uid://dphoko7nd83e6" path="res://World/ThornWall/thorn_wall.tscn" id="6_mwigm"]
 [ext_resource type="PackedScene" uid="uid://b345y5ybsmuar" path="res://Entities/Ghoul/ghoul.tscn" id="7_fq7fi"]
 [ext_resource type="PackedScene" uid="uid://duwpkeop6bhdk" path="res://World/Chest/treasure_chest.tscn" id="8_e6g6j"]
 [ext_resource type="PackedScene" uid="uid://doivhvt13lshc" path="res://World/FloorSpike/spikes.tscn" id="9_ikk5s"]
@@ -65,12 +64,6 @@ position = Vector2(-640, 0)
 
 [node name="Zombie2" parent="." instance=ExtResource("5_64vl5")]
 position = Vector2(-1008, -224)
-
-[node name="ThornWall" parent="." instance=ExtResource("6_mwigm")]
-position = Vector2(-565, 0)
-
-[node name="ThornWall2" parent="." instance=ExtResource("6_mwigm")]
-position = Vector2(-565, -30)
 
 [node name="Ghoul" parent="." instance=ExtResource("7_fq7fi")]
 position = Vector2(-624, -81)

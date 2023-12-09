@@ -3,7 +3,7 @@ extends Node2D
 
 @onready var fire_trigger := $FireTrigger
 @onready var stop_fire_trigger := $StopFireTrigger
-@onready var fire_traps := [$FireTrap1, $FireTrap2, $FireTrap3]
+@onready var fire_traps := [$FireTrap1, $FireTrap2]
 
 
 func _ready():

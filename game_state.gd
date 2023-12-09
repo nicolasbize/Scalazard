@@ -12,6 +12,7 @@ enum Difficulty {Easy, Normal, Hard}
 enum Level {Prototype, Courtyard, Entrance, EastTower, SacrificeChamber, CenterCourt, DoubleTrigger, 
 SimpleCorridor, WaterCorridor, RaceCube, MageBoss, RaceAgainstFire,
 OneCubeRace, SkeletonBoss, FlyAway, RaceToTheTop, HerosShadow, LastFight}
+
 var Levels = {
 	Level.Prototype: preload("res://Levels/level-prototype.tscn"),
 	Level.Courtyard: preload("res://Levels/level_01_courtyard.tscn"),
@@ -37,8 +38,9 @@ var debug := true
 var skip_splash := debug or false
 var skip_intro := debug or false
 var web_instantiated := false
+var heart_drop_rate := 0.2
 # game data
-var current_level := Level.SkeletonBoss
+var current_level := Level.CenterCourt
 var last_portal_location := Portal.DoorIndex.West
 var visited_dracula_entrance := debug or false
 var visited_dracula_center := debug or false
@@ -47,7 +49,7 @@ var opened_center_court_door := debug or false
 var difficulty := Difficulty.Normal
 var max_life := 6 if debug else 3
 var current_life := 6 if debug else 3
-var current_gems = [false, debug or false, debug or false, debug or false] # green: float, blue: swim, purple: dodge, yellow: shield
+var current_gems = [debug or false, debug or false, debug or false, debug or false] # green: float, blue: swim, purple: dodge, yellow: shield
 var gems_inserted = [false, false, false, false]
 var level_2_heart_collected := false
 var level_3_heart_collected := false
@@ -211,6 +213,14 @@ func gain_treasure(treasure:TreasureChest.Content) -> void:
 func new_life() -> void:
 	current_life = max_life
 	emit_signal("life_change", current_life, max_life)
+
+func can_increase_life() -> bool:
+	return current_life < max_life
+
+func increase_life() -> void:
+	if can_increase_life():
+		current_life += 1
+		emit_signal("life_change", current_life, max_life)
 
 func add_to_level(obj) -> void:
 	var level = get_tree().get_first_node_in_group("level")

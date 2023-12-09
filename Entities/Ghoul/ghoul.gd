@@ -40,6 +40,7 @@ var knockback := Vector2.ZERO
 var knockback_start := Time.get_ticks_msec()
 
 const HitSpark = preload("res://FX/HitSpark/hit_spark.tscn")
+const Pickup = preload("res://World/Pickup/pickup.tscn")
 
 var anim_states := {
 	State.Idle: "idle",
@@ -163,6 +164,10 @@ func on_finish_dying():
 	state = State.Dead
 	velocity.x = 0
 	death_timer.start(3)
+	if randf() < GameState.heart_drop_rate:
+		var pickup := Pickup.instantiate()
+		GameState.add_to_level(pickup)
+		pickup.global_position = global_position + Vector2.UP * 16
 
 func on_finish_hurt():
 	if is_on_floor():

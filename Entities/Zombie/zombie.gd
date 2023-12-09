@@ -25,6 +25,7 @@ extends RigidBody2D
 @export var duration_idle := 2000
 
 const HitSpark = preload("res://FX/HitSpark/hit_spark.tscn")
+const Pickup = preload("res://World/Pickup/pickup.tscn")
 
 var direction := 1.0
 var velocity := Vector2.ZERO
@@ -110,11 +111,7 @@ func _physics_process(delta):
 	damage_dealer_area.monitoring = current_life > 0
 	if can_act():
 		if is_player_a_target():
-			if is_player_within_reach():
-				if (Time.get_ticks_msec() - ticks_since_last_hit) > ms_between_hits:
-					state = State.Attacking
-					ticks_since_last_hit = Time.get_ticks_msec()
-			elif state == State.Walking:
+			if state == State.Walking:
 				if can_keep_walking():
 					if (Time.get_ticks_msec() - ticks_since_last_hit) > ms_between_hits:
 						direction = sign(player.global_position.x - global_position.x)
@@ -183,6 +180,10 @@ func on_finish_dying():
 	state = State.Dead
 	velocity.x = 0
 	death_timer.start(3)
+	if randf() < GameState.heart_drop_rate:
+		var pickup := Pickup.instantiate()
+		GameState.add_to_level(pickup)
+		pickup.global_position = global_position + Vector2.UP * 16
 
 func on_death_timer_timeout():
 	state = State.Disappearing

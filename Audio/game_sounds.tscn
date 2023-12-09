@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://b668xqw87n4y8"]
+[gd_scene load_steps=44 format=3 uid="uid://b668xqw87n4y8"]
 
 [ext_resource type="Script" path="res://Audio/game_sounds.gd" id="1_2ij3w"]
 [ext_resource type="PackedScene" uid="uid://d24jch2ldp18e" path="res://Audio/sound_pool.tscn" id="2_7k85b"]
@@ -25,6 +25,7 @@
 [ext_resource type="AudioStream" uid="uid://tfony87s2135" path="res://Assets/SFX/impact-02.wav" id="19_yllyp"]
 [ext_resource type="AudioStream" uid="uid://cfxcwhd8hwrvp" path="res://Assets/SFX/warp.wav" id="24_86b68"]
 [ext_resource type="AudioStream" uid="uid://bblhcy24uqe8y" path="res://Assets/SFX/powerup.wav" id="25_jrkjk"]
+[ext_resource type="AudioStream" uid="uid://c5nt34ofbjnbk" path="res://Assets/SFX/1up.wav" id="26_4bvsm"]
 [ext_resource type="AudioStream" uid="uid://denn8dbfo5mgc" path="res://Assets/SFX/door-open.wav" id="26_20fcg"]
 [ext_resource type="AudioStream" uid="uid://dguhpkysiaijb" path="res://Assets/SFX/door-close.wav" id="27_27m20"]
 [ext_resource type="AudioStream" uid="uid://d2bgj4ew2muc3" path="res://Assets/SFX/switch-01.wav" id="28_gthcv"]
@@ -241,6 +242,13 @@ nb_backup_duplicates = 1
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="PowerUp"]
 stream = ExtResource("25_jrkjk")
+bus = &"SFX"
+
+[node name="LifeUp" parent="." instance=ExtResource("3_s1m8x")]
+nb_backup_duplicates = 1
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="LifeUp"]
+stream = ExtResource("26_4bvsm")
 bus = &"SFX"
 
 [node name="DoorOpen" parent="." instance=ExtResource("3_s1m8x")]

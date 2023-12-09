@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://t124s61bqqgh"
-path="res://.godot/imported/ghoul.png-bd7fcad08ef1c6c6ae7167ea20aad755.ctex"
+uid="uid://dgio3unohdr7v"
+path="res://.godot/imported/small-heart.png-6bad05f8a382ee1ee13cca7589c2f3fd.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Entities/Bat/ghoul.png"
-dest_files=["res://.godot/imported/ghoul.png-bd7fcad08ef1c6c6ae7167ea20aad755.ctex"]
+source_file="res://World/Pickup/small-heart.png"
+dest_files=["res://.godot/imported/small-heart.png-6bad05f8a382ee1ee13cca7589c2f3fd.ctex"]
 
 [params]
 

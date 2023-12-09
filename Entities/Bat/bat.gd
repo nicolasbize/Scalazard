@@ -9,6 +9,7 @@ extends Node2D
 @onready var animation_player := $AnimationPlayer
 
 const HitSpark = preload("res://FX/HitSpark/hit_spark.tscn")
+const Pickup = preload("res://World/Pickup/pickup.tscn")
 
 enum State {Idle, StartFlying, Fly, Dying}
 
@@ -58,6 +59,10 @@ func on_enemy_hit(dmg:int, direction_knockback:float) -> void:
 	hit_spark.scale.x = direction_knockback
 	GameState.emit_signal("hit_received")
 	GameSounds.play(GameSounds.Sound.EnemyHit, true)
+	if randf() < GameState.heart_drop_rate:
+		var pickup := Pickup.instantiate()
+		GameState.add_to_level(pickup)
+		pickup.global_position = global_position + Vector2.DOWN * 16
 	
 func on_end_start_fly():
 	state = State.Fly

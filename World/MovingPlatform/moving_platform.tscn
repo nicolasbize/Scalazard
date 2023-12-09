@@ -6,7 +6,7 @@
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_oon8g"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_51f8l"]
-size = Vector2(50, 6)
+size = Vector2(52, 6)
 
 [node name="MovingPlatform" type="Path2D"]
 script = ExtResource("1_mlsbi")
@@ -34,6 +34,7 @@ offset = Vector2(-25, -3)
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatableBody2D"]
+position = Vector2(-1, 0)
 shape = SubResource("RectangleShape2D_51f8l")
 one_way_collision = true
 metadata/_edit_lock_ = true
