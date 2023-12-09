@@ -7,7 +7,7 @@
 size = Vector2(48, 6)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j4syc"]
-size = Vector2(38, 20)
+size = Vector2(48, 9)
 
 [node name="CollapsingPlatform" type="Node2D"]
 script = ExtResource("1_sd4pi")
@@ -32,5 +32,5 @@ collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetectionArea"]
-position = Vector2(0, -26)
+position = Vector2(0, -20.5)
 shape = SubResource("RectangleShape2D_j4syc")

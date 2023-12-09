@@ -104,6 +104,8 @@ func _process(delta):
 		if completed_level and (Time.get_ticks_msec() - time_slow_down > slowdown_duration):
 			Engine.time_scale = 1
 			emit_signal("boss_fight_end")
+			for fireball in get_tree().get_nodes_in_group("projectile"):
+				fireball.queue_free()
 			if not ready_for_end:
 				ready_for_end = true
 				emit_signal("game_complete")

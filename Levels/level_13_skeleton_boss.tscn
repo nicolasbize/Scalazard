@@ -71,14 +71,14 @@ position = Vector2(688, 112)
 
 [node name="Trap" parent="." instance=ExtResource("7_em38m")]
 position = Vector2(336, 16)
-frequency_secs = 2.0
-delay_secs = 2.0
+frequency_secs = 3.0
+delay_secs = 1.5
 firing = false
 
 [node name="Trap2" parent="." instance=ExtResource("7_em38m")]
 position = Vector2(720, 64)
 scale = Vector2(-1, 1)
-frequency_secs = 2.0
+frequency_secs = 3.0
 firing = false
 
 [node name="Portal" parent="." instance=ExtResource("8_euy41")]

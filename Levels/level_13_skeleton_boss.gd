@@ -35,6 +35,8 @@ func _process(delta):
 	if completed_level and (Time.get_ticks_msec() - time_slow_down > slowdown_duration):
 		Engine.time_scale = 1
 		emit_signal("boss_fight_end")
+		for fireball in get_tree().get_nodes_in_group("projectile"):
+			fireball.queue_free()
 
 func on_boss_hit(old_health, new_health):
 	var enemy_health_tick = 100.0 / boss.max_life_boss

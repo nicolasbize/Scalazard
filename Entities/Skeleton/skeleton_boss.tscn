@@ -238,7 +238,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.2),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [21, 22]
+"values": [21, 28]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -450,7 +450,7 @@ texture = ExtResource("2_7nliv")
 centered = false
 offset = Vector2(-80, -80)
 hframes = 7
-vframes = 4
+vframes = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -36)

@@ -4,13 +4,14 @@ signal boss_fight_start
 signal boss_fight_end
 signal boss_life_change
 
-@export var time_between_enemies := 1.5
+@export var time_between_enemies := 2.5
 @export var number_enemies := 5
 @export var number_shakes := 3
 @export var slowdown_duration := 2000
 
 @onready var player_detection_area := $PlayerDetectionArea
-@onready var door := $PrisonBars
+@onready var left_door := $LeftDoor
+@onready var right_door := $RightDoor
 @onready var timer := $Timer
 @onready var enemy_spawn_timer := $EnemySpawnTimer
 @onready var enemy_spawns := [$EnemySpawn, $EnemySpawn2, $EnemySpawn3]
@@ -34,6 +35,7 @@ func _ready():
 	if GameState.current_gems[treasure_chest.content]:
 		treasure_chest.visible = true
 		treasure_chest.is_opened = true
+		right_door.set_opened()
 	else:
 		player_detection_area.connect("body_entered", on_player_enter.bind())
 	timer.connect("timeout", on_timer_timeout.bind())
@@ -44,7 +46,7 @@ func _process(delta):
 	if not completed_level and is_enemy_defeated():
 		completed_level = true
 		treasure_chest.visible = true
-		door.open()
+		right_door.open()
 		get_viewport().get_camera_2d().unlock()
 	if completed_level and (Time.get_ticks_msec() - time_slow_down > slowdown_duration):
 		Engine.time_scale = 1
@@ -94,7 +96,7 @@ func on_ghoul_die():
 		Engine.time_scale = 0.1
 
 func on_player_enter(player):
-	door.close()
+	left_door.close()
 	player_detection_area.set_deferred("monitoring", false)
 	get_viewport().get_camera_2d().lock_to_target(Vector2(704, -64))
 	timer.start(3)

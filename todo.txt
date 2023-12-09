@@ -1,0 +1,35 @@
+1.10. Post-Jam Version
+
+(added) D-Pad Gamepad support
+(added) Better hint after first miniboss
+(added) Ability to remove camera shake in settings
+(added) Settings now saved between plays
+(added) Warp back from boss 1 to Center Court
+(fixed) Tighter controls, less slippery
+(fixed) In first mini boss, enemies appeared too quickly in succession
+(fixed) Race the Cube level platforms should be easier
+
+ONGOING:
+(fix) Remove fireballs once bosses have been defeated
+
+TODO:
+(fix) Controls not obvious
+(fix) Box going through the wall
+(fix) Final boss laser sound
+(fix) Zombie behavior when getting hit
+(fix) Hover + Attack goes back to Idle
+(fix) Ghoul can see too far down
+(fix) Minotaur fight
+(fix) Show bindings for controller instead of keyboard if using 
+(fix) Jump down from platforms
+(fix) Prevent death from self expand power
+(fix) Remove Quit button on web version
+(fix) Door doesn't close / open quickly in succession (ex. double trigger)
+(fix) Have center court explain how many crystals are still missing
+(add) Show "Deep Waters, Beware!"
+(add) Custom key-bindings
+(add) In tutorial, hint that the box can kill enemies
+(add) Double trigger, hint that boxes can be triggered by boxes
+(add) Heart pickups drop
+(add) Breakable environment to give hearts back
+(add) Mage boss should should thunder under the player rather than on the floor

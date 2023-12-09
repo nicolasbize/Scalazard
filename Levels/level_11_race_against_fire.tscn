@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://cbwq3b8flw0fv"]
+[gd_scene load_steps=15 format=3 uid="uid://cbwq3b8flw0fv"]
 
 [ext_resource type="Script" path="res://Levels/level_11_race_against_fire.gd" id="1_4m4o2"]
 [ext_resource type="TileSet" uid="uid://ckdj8m24olhk1" path="res://Assets/tilemap.tres" id="2_ugudp"]
@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://dma87nqv5u6l" path="res://Entities/Zombie/zombie.tscn" id="11_qa541"]
 [ext_resource type="PackedScene" uid="uid://bfem6jove134i" path="res://Entities/Bat/bat.tscn" id="12_0iya5"]
 [ext_resource type="PackedScene" uid="uid://hkwu5mgomxyh" path="res://World/Door/portal.tscn" id="13_56d4v"]
+[ext_resource type="PackedScene" uid="uid://crfcy1ol7wgog" path="res://World/Sign/sign.tscn" id="14_fmb7u"]
 
 [node name="Level-11-Race-Against-Fire" type="Node2D" groups=["level"]]
 script = ExtResource("1_4m4o2")
@@ -142,6 +143,7 @@ position = Vector2(672, 80)
 [node name="MovingPlatform" parent="." instance=ExtResource("8_k0gue")]
 position = Vector2(888, -80)
 speed_platform = 8000
+progress_start = 0.1
 is_running = false
 one_shot = true
 
@@ -158,19 +160,13 @@ position = Vector2(296, 0)
 position = Vector2(848, -48)
 
 [node name="Zombie2" parent="." instance=ExtResource("11_qa541")]
-position = Vector2(1672, -336)
+position = Vector2(1736, -352)
 
 [node name="Bat2" parent="." instance=ExtResource("12_0iya5")]
 position = Vector2(760, -16)
 
-[node name="Bat3" parent="." instance=ExtResource("12_0iya5")]
-position = Vector2(1272, -416)
-
 [node name="Bat4" parent="." instance=ExtResource("12_0iya5")]
 position = Vector2(1472, -416)
-
-[node name="Bat5" parent="." instance=ExtResource("12_0iya5")]
-position = Vector2(1568, -416)
 
 [node name="Portal" parent="." instance=ExtResource("13_56d4v")]
 position = Vector2(16, 0)
@@ -184,5 +180,9 @@ position = Vector2(1840, -352)
 address_in_level = 2
 destination_level = 12
 destination_address = 6
+
+[node name="Sign" parent="." instance=ExtResource("14_fmb7u")]
+position = Vector2(856, 32)
+text = "Keep pressed to service elevator"
 
 [editable path="MovingPlatform"]

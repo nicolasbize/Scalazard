@@ -21,11 +21,11 @@ signal finish_teleport
 
 @export var gravity := 850.0
 @export var max_fall_velocity := 400.0
-@export var acceleration := 500.0
+@export var acceleration := 700.0
 @export var max_velocity := 120.0
 @export var max_velocity_carrying := 90.0
 @export var max_velocity_in_water := 60.0
-@export var friction := 800.0
+@export var friction := 1200.0
 @export var air_friction := 20.0
 @export var jump_force := 290.0
 @export var knockback_duration := 100.0
@@ -123,7 +123,7 @@ func can_slide() -> bool:
 	return can_dodge() and is_on_floor() and not is_carrying and [State.Running, State.Idle].has(state)
 
 func move(delta):
-	carried_box.visible = is_carrying
+	carried_box.visible = is_carrying and animation_player.current_animation != "carry" and animation_player.current_animation != "carry_idle"
 	if is_on_floor():
 		last_time_on_floor = Time.get_ticks_msec()
 	apply_gravity(delta)
@@ -239,7 +239,7 @@ func slide_check():
 		time_start_slide = Time.get_ticks_msec()
 		var slide_effect := SlideEffect.instantiate()
 		GameState.add_to_level(slide_effect)
-		slide_effect.scale.x = -sign(velocity.x)
+		slide_effect.scale.x = sign(velocity.x)
 		slide_effect.global_position = global_position + Vector2.RIGHT * sign(velocity.x) * -16
 
 func get_item(item: TreasureChest.Content):
@@ -265,7 +265,7 @@ func on_gain_gem(item):
 	elif item == TreasureChest.Content.GreenGem:
 		GameState.show_system_message(["You found the green crystal!", "Your body feels lighter!", "Hold jump to float!"], on_system_message_callback.bind())
 	elif item == TreasureChest.Content.BlueGem:
-		GameState.show_system_message(["You found the blue crystal!", "Your lungs feel powerful!"], on_system_message_callback.bind())
+		GameState.show_system_message(["You found the blue crystal!", "Your lungs feel powerful!", "You can breathe underwater!"], on_system_message_callback.bind())
 	elif item == TreasureChest.Content.PurpleGem:
 		GameState.show_system_message(["You found the purple crystal!", "Your feel more agile!", "Press X to slide!"], on_system_message_callback.bind())
 	elif item == TreasureChest.Content.YellowGem:
@@ -460,7 +460,10 @@ func on_finish_dying():
 	state = State.Dead
 
 func on_stop_action():
-	state = State.Idle
+	if is_floating:
+		state = State.Jumping
+	else:
+		state = State.Idle
 
 func teleport():
 	teleport_animation_player.play("teleport")

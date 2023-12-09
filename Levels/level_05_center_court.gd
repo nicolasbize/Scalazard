@@ -45,6 +45,7 @@ func _ready():
 	else:
 		cinematic_player_area.connect("body_entered", on_player_enter_cinematic.bind())
 		dracula.connect("cinematic_finish", on_dracula_leave.bind())
+	
 
 func on_player_open_top_right():
 	GameState.opened_center_court_door = true

@@ -34,7 +34,7 @@ orbit_velocity_max = 0.0
 scale_curve = SubResource("CurveTexture_c28w2")
 color_ramp = SubResource("GradientTexture1D_7hbax")
 
-[node name="Fireball" type="Node2D"]
+[node name="Fireball" type="Node2D" groups=["projectile"]]
 z_index = -1
 script = ExtResource("1_7eol3")
 

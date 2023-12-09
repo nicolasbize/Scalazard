@@ -38,7 +38,7 @@ var skip_splash := debug or false
 var skip_intro := debug or false
 var web_instantiated := false
 # game data
-var current_level := Level.Courtyard
+var current_level := Level.SkeletonBoss
 var last_portal_location := Portal.DoorIndex.West
 var visited_dracula_entrance := debug or false
 var visited_dracula_center := debug or false
@@ -47,7 +47,7 @@ var opened_center_court_door := debug or false
 var difficulty := Difficulty.Normal
 var max_life := 6 if debug else 3
 var current_life := 6 if debug else 3
-var current_gems = [debug or false, debug or false, debug or false, debug or false] # green: float, blue: swim, purple: dodge, yellow: shield
+var current_gems = [false, debug or false, debug or false, debug or false] # green: float, blue: swim, purple: dodge, yellow: shield
 var gems_inserted = [false, false, false, false]
 var level_2_heart_collected := false
 var level_3_heart_collected := false
@@ -153,6 +153,8 @@ func load_settings_from_file():
 	var game_data = str_to_var(content)
 	sound_volume = game_data["sound_volume"]
 	music_volume = game_data["music_volume"]
+	AudioServer.set_bus_volume_db(1, linear_to_db(music_volume / 10.0))
+	AudioServer.set_bus_volume_db(2, linear_to_db(sound_volume / 10.0))	
 	is_screen_shake_enabled = game_data["is_screen_shake_enabled"]
 
 func set_difficulty_level(level: Difficulty) -> void:

@@ -8,6 +8,8 @@ signal hit
 @onready var animation_player := $AnimationPlayer
 @onready var bigbox_damage_area := $BigBoxDamageArea
 
+#TODO: most code from the level should actually live here, the boss can just become
+#      aware of its surroundings and teleport as needed.
 
 func _ready():
 	bigbox_damage_area.connect("area_entered", on_damage_receive.bind())

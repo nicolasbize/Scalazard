@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://World/Chest/treasure_chest.gd" id="1_oq0vb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hgn8d"]
-size = Vector2(10, 7)
+size = Vector2(16, 11)
 
 [node name="TreasureChest" type="Node2D"]
 script = ExtResource("1_oq0vb")
@@ -12,11 +12,11 @@ script = ExtResource("1_oq0vb")
 [node name="ChestSprite" type="Sprite2D" parent="."]
 texture = ExtResource("1_c1fqh")
 centered = false
-offset = Vector2(0, -16)
+offset = Vector2(-16, -32)
 hframes = 2
 
 [node name="PlayerDetectionArea" type="Area2D" parent="."]
-position = Vector2(8, -6)
+position = Vector2(0, -6)
 collision_layer = 0
 collision_mask = 2
 
