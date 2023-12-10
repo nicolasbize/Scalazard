@@ -83,7 +83,7 @@ script = ExtResource("1_u12a3")
 
 [node name="WallSprite" type="Sprite2D" parent="."]
 light_mask = 0
-z_index = 100
+z_index = 220
 texture = ExtResource("2_qaean")
 centered = false
 offset = Vector2(16, -32)

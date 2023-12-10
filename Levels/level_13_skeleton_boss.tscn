@@ -55,16 +55,16 @@ z_index = 10
 position = Vector2(528, 112)
 
 [node name="CollapsingPlatform" parent="." instance=ExtResource("5_lwah1")]
-position = Vector2(664, 88)
+position = Vector2(664, 72)
 
 [node name="CollapsingPlatform2" parent="." instance=ExtResource("5_lwah1")]
-position = Vector2(584, 56)
+position = Vector2(584, 40)
 
 [node name="CollapsingPlatform3" parent="." instance=ExtResource("5_lwah1")]
-position = Vector2(472, 56)
+position = Vector2(472, 40)
 
 [node name="CollapsingPlatform4" parent="." instance=ExtResource("5_lwah1")]
-position = Vector2(392, 88)
+position = Vector2(392, 72)
 
 [node name="SkeletonBoss" parent="." instance=ExtResource("6_es41m")]
 position = Vector2(688, 112)

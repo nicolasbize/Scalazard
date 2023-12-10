@@ -213,7 +213,7 @@ scale = Vector2(1e-05, 1e-05)
 texture = ExtResource("2_lfmuo")
 
 [node name="GemSprite" type="Sprite2D" parent="."]
-z_index = 210
+z_index = 220
 scale = Vector2(1e-05, 1e-05)
 texture = ExtResource("1_nlleg")
 hframes = 5

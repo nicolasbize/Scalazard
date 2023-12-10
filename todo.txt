@@ -6,6 +6,8 @@
 (added) Settings now saved between plays
 (added) Warp back from boss 1 to Center Court
 (added) Enemies now have a 20% change to drop a heart
+(added) Upgrade graphics
+(added) Breakable environment to give hearts back
 (fixed) Tighter controls, less slippery
 (fixed) In first mini boss, enemies appeared too quickly in succession
 (fixed) Race the Cube level platforms should be easier
@@ -14,6 +16,7 @@
 (fixed) Zombie behavior when getting hit
 (fixed) Ghoul can see too far down
 (fixed) Hover + Attack goes back to Idle
+(fixed) Remove Quit button on web version
 
 ONGOING:
 
@@ -27,13 +30,8 @@ TODO:
 (fix) Show bindings for controller instead of keyboard if using 
 (fix) Jump down from platforms
 (fix) Prevent death from self expand power
-(fix) Remove Quit button on web version
 (fix) Door doesn't close / open quickly in succession (ex. double trigger)
 (fix) Liquid shapes don't respect bounds
 (add) Custom key-bindings
-(add) In tutorial, hint that the box can kill enemies
-(add) Double trigger, hint that boxes can be triggered by boxes
-(add) Breakable environment to give hearts back
 (add) Mage boss should should thunder under the player rather than on the floor
-(add) Upgrade graphics
 (add) Show level names when entering

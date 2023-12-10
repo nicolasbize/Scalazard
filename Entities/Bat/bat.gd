@@ -59,7 +59,7 @@ func on_enemy_hit(dmg:int, direction_knockback:float) -> void:
 	hit_spark.scale.x = direction_knockback
 	GameState.emit_signal("hit_received")
 	GameSounds.play(GameSounds.Sound.EnemyHit, true)
-	if randf() < GameState.heart_drop_rate:
+	if randf() < GameState.heart_drop_rate and GameState.can_increase_life():
 		var pickup := Pickup.instantiate()
 		GameState.add_to_level(pickup)
 		pickup.global_position = global_position + Vector2.DOWN * 16

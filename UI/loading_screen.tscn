@@ -17,6 +17,12 @@ script = ExtResource("1_26ku6")
 [node name="Platform" parent="." instance=ExtResource("2_63pvr")]
 position = Vector2(144, 72)
 
+[node name="Label" parent="Platform/Sign/TextureRect" index="0"]
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 118.0
+offset_bottom = 38.0
+
 [node name="GPUParticles2D" parent="Platform" index="4"]
 emitting = true
 

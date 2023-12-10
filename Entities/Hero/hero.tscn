@@ -832,7 +832,7 @@ _data = {
 }
 
 [node name="Hero" type="CharacterBody2D"]
-z_index = 5
+z_index = 202
 collision_layer = 2
 collision_mask = 2053
 floor_stop_on_slope = false

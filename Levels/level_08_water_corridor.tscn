@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://g3d0qe8c7mn8"]
+[gd_scene load_steps=18 format=3 uid="uid://g3d0qe8c7mn8"]
 
 [ext_resource type="Script" path="res://Levels/level_08_water_corridor.gd" id="1_qasy3"]
 [ext_resource type="TileSet" uid="uid://ckdj8m24olhk1" path="res://Assets/tilemap.tres" id="1_xsvh6"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://bnbch1un7bdok" path="res://World/TriggerButton/trigger_button.tscn" id="9_0xlpf"]
 [ext_resource type="PackedScene" uid="uid://b345y5ybsmuar" path="res://Entities/Ghoul/ghoul.tscn" id="11_ptr24"]
 [ext_resource type="PackedScene" uid="uid://hkwu5mgomxyh" path="res://World/Door/portal.tscn" id="12_4jv5h"]
+[ext_resource type="PackedScene" uid="uid://7hl2tvtxsy4x" path="res://World/Pot/pot.tscn" id="12_4naqw"]
 
 [sub_resource type="Shader" id="Shader_jma2s"]
 code = "shader_type canvas_item;
@@ -62,7 +63,7 @@ layer_2/modulate = Color(1, 1, 1, 1)
 layer_2/y_sort_enabled = false
 layer_2/y_sort_origin = 0
 layer_2/z_index = 0
-layer_2/tile_data = PackedInt32Array(-262075, 720896, 12, -851892, 327680, 13)
+layer_2/tile_data = PackedInt32Array(-851892, 327680, 13)
 
 [node name="Hero" parent="." instance=ExtResource("2_3krc1")]
 
@@ -119,12 +120,14 @@ position = Vector2(32, 0)
 
 [node name="Trap" parent="." instance=ExtResource("4_y7gfm")]
 position = Vector2(336, 32)
+frequency_secs = 2.0
 delay_secs = 0.5
 fireball_speed = 140.0
 firing = false
 
 [node name="Trap2" parent="." instance=ExtResource("4_y7gfm")]
 position = Vector2(336, 48)
+frequency_secs = 2.0
 delay_secs = 0.5
 fireball_speed = 140.0
 firing = false
@@ -180,6 +183,9 @@ position = Vector2(1264, -192)
 address_in_level = 2
 destination_level = 9
 destination_address = 5
+
+[node name="Pot" parent="." instance=ExtResource("12_4naqw")]
+position = Vector2(1112, -48)
 
 [editable path="WaterBody2"]
 [editable path="WaterBody3"]

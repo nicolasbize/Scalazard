@@ -3,7 +3,8 @@ extends Node2D
 @export var text : String
 
 @onready var area := $Area2D
-@onready var label := $Label
+@onready var text_background := $TextureRect
+@onready var label := $TextureRect/Label
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -14,8 +15,8 @@ func on_player_enter(player):
 	display_text()
 	
 func on_player_exit(player):
-	label.visible = false
+	text_background.visible = false
 
 func display_text():
 	label.text = text
-	label.visible = true
+	text_background.visible = true

@@ -1,6 +1,6 @@
 extends Node2D
 
-@export var cooldown_before_pickup := 1000
+@export var cooldown_before_pickup := 500
 
 @onready var area := $Area2D
 

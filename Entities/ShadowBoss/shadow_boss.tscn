@@ -90,7 +90,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [140]
+"values": [30]
 }
 tracks/1/type = "method"
 tracks/1/imported = false
@@ -121,13 +121,12 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [101]
+"values": [105]
 }
 
 [sub_resource type="Animation" id="Animation_inubh"]
 resource_name = "dying"
-length = 0.4
-step = 0.2
+length = 0.6
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -135,10 +134,10 @@ tracks/0/path = NodePath("Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [100, 101]
+"values": [100, 101, 102, 103, 104, 105]
 }
 tracks/1/type = "method"
 tracks/1/imported = false
@@ -147,7 +146,7 @@ tracks/1/path = NodePath(".")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0.4),
+"times": PackedFloat32Array(0.6),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
@@ -157,8 +156,7 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id="Animation_fajye"]
 resource_name = "hurt"
-length = 0.3
-step = 0.05
+length = 0.4
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -166,10 +164,10 @@ tracks/0/path = NodePath("Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
-"values": [90, 91, 92, 93, 94]
+"values": [90, 91, 90, 91]
 }
 tracks/1/type = "method"
 tracks/1/imported = false
@@ -178,7 +176,7 @@ tracks/1/path = NodePath(".")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0.3),
+"times": PackedFloat32Array(0.4),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
@@ -279,15 +277,16 @@ size = Vector2(11, 19)
 size = Vector2(24, 10.375)
 
 [node name="ShadowBoss" type="CharacterBody2D"]
+z_index = 9
 collision_layer = 16
 script = ExtResource("1_ckmx7")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_nfame")
 centered = false
-offset = Vector2(-24, -32)
+offset = Vector2(-32, -64)
 hframes = 10
-vframes = 16
+vframes = 11
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -4)

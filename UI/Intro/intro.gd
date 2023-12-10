@@ -4,14 +4,16 @@ extends CanvasLayer
 
 @onready var animation_player := $IntroAnimationPlayer
 @onready var credits_animation_player := $CreditsAnimationPlayer
-@onready var menu_options := [$MainMenu/VBoxContainer/NewGameLabel, $MainMenu/VBoxContainer/ContinueLabel, $MainMenu/VBoxContainer/OptionsLabel, $MainMenu/VBoxContainer/CreditsLabel, $MainMenu/VBoxContainer/QuitLabel]
 @onready var selection_indicator := $MainMenu/SelectionIndicator
+@onready var quit_label := $MainMenu/VBoxContainer/QuitLabel
 
 const OptionsScreen = preload("res://UI/Intro/options_screen.tscn")
 const ConfirmOverride = preload("res://UI/Intro/confirm_dialog.tscn")
 const PreGameIntro = preload("res://UI/Intro/pre_game_intro.tscn")
 const LoadingScreen = preload("res://UI/loading_screen.tscn")
 const DifficultyPicker = preload("res://UI/difficulty_picker.tscn")
+
+var menu_options = []
 
 signal new_game
 
@@ -36,6 +38,11 @@ func _ready():
 	check_valid_save_game()
 	select_entry(0, true)
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+	menu_options = [$MainMenu/VBoxContainer/NewGameLabel, $MainMenu/VBoxContainer/ContinueLabel, $MainMenu/VBoxContainer/OptionsLabel, $MainMenu/VBoxContainer/CreditsLabel]
+	if not GameState.web_instantiated:
+		menu_options.append(quit_label)
+	else:
+		quit_label.visible = false
 	if start_with_credits:
 		in_credits = true
 		credits_animation_player.play("credit-roll")

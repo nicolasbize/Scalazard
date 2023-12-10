@@ -85,7 +85,7 @@ text = "you can throw things mid air"
 
 [node name="Sign9" parent="." instance=ExtResource("6_kgitc")]
 position = Vector2(864, -240)
-text = "expanding objects close by is dangerous"
+text = "You can kill yourself or enemies by scaling a box where one stands"
 
 [node name="ThornWall" parent="." instance=ExtResource("7_uo0t5")]
 position = Vector2(-104, -32)

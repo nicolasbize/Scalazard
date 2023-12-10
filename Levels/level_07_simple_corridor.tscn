@@ -48,7 +48,7 @@ position = Vector2(688, 56)
 position = Vector2(816, 56)
 
 [node name="CollapsingPlatform" parent="." instance=ExtResource("4_c4o4q")]
-position = Vector2(1088, 80)
+position = Vector2(1088, 64)
 
 [node name="Trap" parent="." instance=ExtResource("5_kuhr2")]
 position = Vector2(1328, 88)

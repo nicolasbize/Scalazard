@@ -308,10 +308,10 @@ position = Vector2(280, 120)
 position = Vector2(640, 128)
 
 [node name="CollapsingPlatform" parent="." instance=ExtResource("6_7bh4s")]
-position = Vector2(424, 152)
+position = Vector2(424, 136)
 
 [node name="CollapsingPlatform2" parent="." instance=ExtResource("6_7bh4s")]
-position = Vector2(536, 136)
+position = Vector2(536, 120)
 
 [node name="TriggerButton" parent="." instance=ExtResource("7_e32f6")]
 position = Vector2(896, 0)

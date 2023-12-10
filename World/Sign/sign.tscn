@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://crfcy1ol7wgog"]
+[gd_scene load_steps=9 format=3 uid="uid://crfcy1ol7wgog"]
 
 [ext_resource type="Texture2D" uid="uid://65jd2mktkbqo" path="res://World/Sign/post.png" id="1_656ua"]
 [ext_resource type="Script" path="res://World/Sign/sign.gd" id="1_w6ejd"]
+[ext_resource type="Texture2D" uid="uid://2ihgicetkuav" path="res://World/GemDoor/1x1-particle.png" id="3_dmc3v"]
 [ext_resource type="FontFile" uid="uid://dwjsu8m55nl55" path="res://Assets/04B_03__.TTF" id="4_x8pbh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kpybf"]
@@ -41,13 +42,22 @@ libraries = {
 "": SubResource("AnimationLibrary_fxn7h")
 }
 
-[node name="Label" type="Label" parent="."]
+[node name="TextureRect" type="TextureRect" parent="."]
 visible = false
+self_modulate = Color(0.113725, 0.113725, 0.113725, 1)
+z_index = 201
+offset_left = -60.0
+offset_top = -64.0
+offset_right = 60.0
+offset_bottom = -24.0
+texture = ExtResource("3_dmc3v")
+
+[node name="Label" type="Label" parent="TextureRect"]
 z_index = 1000
-offset_left = -53.0
-offset_top = -55.0
-offset_right = 53.0
-offset_bottom = -34.0
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 119.0
+offset_bottom = 39.0
 theme_override_fonts/font = ExtResource("4_x8pbh")
 theme_override_font_sizes/font_size = 8
 text = "text"

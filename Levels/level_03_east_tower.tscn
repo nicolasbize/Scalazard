@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://cxjmc6qf2clyn"]
+[gd_scene load_steps=14 format=3 uid="uid://cxjmc6qf2clyn"]
 
 [ext_resource type="Script" path="res://Levels/level_03_east_tower.gd" id="1_sw5dg"]
 [ext_resource type="TileSet" uid="uid://ckdj8m24olhk1" path="res://Assets/tilemap.tres" id="1_wv6jd"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://yihlblm061l0" path="res://World/Chandelier/chandelier.tscn" id="9_era5n"]
 [ext_resource type="PackedScene" uid="uid://doivhvt13lshc" path="res://World/FloorSpike/spikes.tscn" id="10_joq72"]
 [ext_resource type="PackedScene" uid="uid://duwpkeop6bhdk" path="res://World/Chest/treasure_chest.tscn" id="11_nm7gj"]
+[ext_resource type="PackedScene" uid="uid://7hl2tvtxsy4x" path="res://World/Pot/pot.tscn" id="13_lx7km"]
 
 [node name="Level-03-East-Tower" type="Node2D" groups=["level"]]
 script = ExtResource("1_sw5dg")
@@ -142,3 +143,6 @@ position = Vector2(128, -192)
 [node name="TreasureChest" parent="." instance=ExtResource("11_nm7gj")]
 position = Vector2(208, -784)
 content = 4
+
+[node name="Pot" parent="." instance=ExtResource("13_lx7km")]
+position = Vector2(10, -784)

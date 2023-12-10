@@ -5,7 +5,6 @@ extends Node2D
 @onready var stop_fire_trigger := $StopFireTrigger
 @onready var fire_traps := [$FireTrap1, $FireTrap2]
 
-
 func _ready():
 	fire_trigger.connect("press", on_fire_trigger_press.bind())
 	stop_fire_trigger.connect("press", on_stop_trigger_press.bind())

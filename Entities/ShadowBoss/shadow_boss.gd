@@ -52,11 +52,11 @@ func _ready():
 		current_life = 3
 
 func _physics_process(delta):
-	if player != null:
+	if player != null and GameState.current_life > 0:
 		if can_move():
 			if abs(player.global_position.y - global_position.y) < 20:
 				direction = -1 if global_position.x > player.global_position.x else 1
-				sprite.scale.x = direction * 2
+				sprite.scale.x = direction
 				damage_receiver_area.scale.x = direction
 				damage_dealer_area.scale.x = direction
 				player_in_reach_area.scale.x = direction

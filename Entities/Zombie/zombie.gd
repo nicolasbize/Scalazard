@@ -180,7 +180,7 @@ func on_finish_dying():
 	state = State.Dead
 	velocity.x = 0
 	death_timer.start(3)
-	if randf() < GameState.heart_drop_rate:
+	if randf() < GameState.heart_drop_rate and GameState.can_increase_life():
 		var pickup := Pickup.instantiate()
 		GameState.add_to_level(pickup)
 		pickup.global_position = global_position + Vector2.UP * 16
